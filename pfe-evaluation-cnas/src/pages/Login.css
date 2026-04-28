@@ -1,0 +1,177 @@
+.simple-login {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #0b1f3a;
+  background-image: url("../assets/cnas_login1.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.simple-login::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 31, 58, 0.55);
+  pointer-events: none;
+}
+
+.simple-login::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.10), transparent 18%),
+              radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.06), transparent 20%);
+  pointer-events: none;
+}
+
+.simple-login__panel {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 26px 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+.simple-login__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.06));
+  pointer-events: none;
+}
+
+.simple-login__panel > * {
+  position: relative;
+}
+
+
+.simple-login__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.simple-login__logo {
+  width: 72px;
+  height: auto;
+}
+
+.simple-login__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0e3a78;
+  background: rgba(15, 61, 145, 0.10);
+}
+
+.simple-login__title {
+  margin: 8px 0 4px;
+  font-size: 1.85rem;
+  line-height: 1.1;
+  color: #0f172a;
+}
+
+.simple-login__subtitle {
+  margin: 0;
+  color: #234061;
+  line-height: 1.55;
+  max-width: 100%;
+  font-size: 0.94rem;
+}
+
+
+.simple-login__form {
+  display: grid;
+  gap: 14px;
+}
+
+.simple-login__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.simple-login__input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.simple-login__input::placeholder {
+  color: #94a3b8;
+}
+
+.simple-login__input:focus {
+  outline: none;
+  border-color: rgba(15, 61, 145, 0.45);
+  box-shadow: 0 0 0 3px rgba(15, 61, 145, 0.10);
+}
+
+.simple-login__error {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.simple-login__submit {
+  margin-top: 2px;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0f3d91 0%, #1d8bf0 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.simple-login__submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(15, 61, 145, 0.20);
+}
+
+.simple-login__submit:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .simple-login__panel {
+    padding: 24px 22px;
+  }
+
+  .simple-login__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
