@@ -18,6 +18,7 @@ export default function Reports() {
   const [format, setFormat] = useState<Report["format"]>("summary");
   const [campaignId, setCampaignId] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [busyReportId, setBusyReportId] = useState<string | null>(null);
 
   const load = async () => {
     try {
@@ -68,6 +69,21 @@ export default function Reports() {
     }
   };
 
+  const removeReport = async (report: Report) => {
+    const confirmed = window.confirm(`Supprimer le rapport "${report.title}" ?`);
+    if (!confirmed) return;
+    setError(null);
+    setBusyReportId(report.id);
+    try {
+      await reportAPI.remove(report.id);
+      await load();
+    } catch (err: any) {
+      setError(err?.response?.data?.detail ?? err?.message ?? "Suppression impossible.");
+    } finally {
+      setBusyReportId(null);
+    }
+  };
+
   return (
     <div style={styles.page}>
       <div style={styles.hero}>
@@ -115,7 +131,16 @@ export default function Reports() {
                 <Metric label="En attente" value={String(report.summary.pending ?? 0)} />
               </div>
               <div style={styles.meta}>Fichier : {report.fileName || "-"}</div>
-              <button style={styles.secondaryBtn} onClick={() => void downloadReport(report)}>Telecharger</button>
+              <div style={styles.cardActions}>
+                <button style={styles.secondaryBtn} onClick={() => void downloadReport(report)}>Telecharger</button>
+                <button
+                  style={busyReportId === report.id ? styles.disabledDangerBtn : styles.dangerBtn}
+                  onClick={() => void removeReport(report)}
+                  disabled={busyReportId === report.id}
+                >
+                  {busyReportId === report.id ? "Suppression..." : "Supprimer"}
+                </button>
+              </div>
             </div>
           ))}
           {reports.length === 0 ? <div style={styles.empty}>Aucun rapport genere.</div> : null}
@@ -141,8 +166,11 @@ const styles: Record<string, React.CSSProperties> = {
   input: { padding: 12, borderRadius: 10, border: "1px solid rgba(148,163,184,.4)", fontFamily: "inherit" },
   primaryBtn: { padding: "10px 14px", borderRadius: 10, border: "none", background: "#0f3d91", color: "white", fontWeight: 800, cursor: "pointer" },
   secondaryBtn: { marginTop: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(148,163,184,.4)", background: "white", color: "#0f172a", fontWeight: 800, cursor: "pointer" },
+  dangerBtn: { marginTop: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(220,38,38,.25)", background: "white", color: "#b91c1c", fontWeight: 800, cursor: "pointer" },
+  disabledDangerBtn: { marginTop: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(148,163,184,.25)", background: "#e2e8f0", color: "#64748b", fontWeight: 800, cursor: "not-allowed" },
   reportGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 14 },
   reportCard: { padding: 16, borderRadius: 14, border: "1px solid rgba(148,163,184,.25)", background: "#f8fafc" },
+  cardActions: { display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" },
   reportTop: { display: "flex", justifyContent: "space-between", gap: 12 },
   meta: { marginTop: 8, color: "#64748b", fontSize: 13 },
   metrics: { display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginTop: 12 },

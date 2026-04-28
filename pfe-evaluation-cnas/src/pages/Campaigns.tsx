@@ -6,6 +6,14 @@ import { campaignAssignmentAPI, evaluationCampaignAPI, type CampaignAssignment, 
 import type { Agent } from "../types/entities";
 
 const statusLabel = { draft: "Brouillon", open: "Ouverte", closed: "Cloturee" };
+const evaluationStatusLabel = {
+  draft: "Brouillon",
+  in_progress: "En cours",
+  submitted: "Soumise",
+  manager_validated: "Validee manager",
+  hr_validated: "Validee RH",
+  rejected: "Rejetee",
+};
 
 export default function Campaigns() {
   const navigate = useNavigate();
@@ -49,6 +57,7 @@ export default function Campaigns() {
 
   const selectedCampaign = campaigns.find((item) => String(item.id) === selectedId);
   const canManageCampaigns = ["superadmin", "admin", "hr"].includes(user?.role ?? "");
+  const isManagerView = user?.role === "manager";
   const canOpenCampaign = canManageCampaigns && !!selectedCampaign && selectedCampaign.status !== "open";
   const canCloseCampaign = canManageCampaigns && !!selectedCampaign && selectedCampaign.status !== "closed";
   const selectedAssignments = useMemo(
@@ -184,7 +193,9 @@ export default function Campaigns() {
       {notice ? <div style={styles.notice}>{notice}</div> : null}
       {!canManageCampaigns ? (
         <div style={styles.info}>
-          Cette page est visible en lecture seule pour votre role. La creation, la suppression, l'ouverture, la cloture et l'affectation des campagnes sont reservees a la DRH et a l'administration.
+          {isManagerView
+            ? "Cette page vous montre les campagnes contenant des employes de votre equipe. Vous ne pouvez pas les administrer ici, mais vous pouvez ouvrir les fiches d'evaluation deja affectees."
+            : "Cette page est visible en lecture seule pour votre role. La creation, la suppression, l'ouverture, la cloture et l'affectation des campagnes sont reservees a la DRH et a l'administration."}
         </div>
       ) : null}
 
@@ -318,7 +329,7 @@ export default function Campaigns() {
         <div style={styles.tableWrap}>
           <table style={styles.table}>
             <thead>
-              <tr><th style={styles.th}>Employe</th><th style={styles.th}>Responsable</th><th style={styles.th}>Statut</th><th style={styles.th}>Evaluation</th><th style={styles.th}>Actions</th></tr>
+              <tr><th style={styles.th}>Employe</th><th style={styles.th}>Responsable</th><th style={styles.th}>Affectation</th><th style={styles.th}>Evaluation</th><th style={styles.th}>Actions</th></tr>
             </thead>
             <tbody>
               {selectedAssignments.map((item) => (
@@ -326,10 +337,23 @@ export default function Campaigns() {
                   <td style={styles.td}>{item.employeeName}</td>
                   <td style={styles.td}>{item.managerName || "-"}</td>
                   <td style={styles.td}>{item.status}</td>
-                  <td style={styles.td}>{item.evaluationId || "-"}</td>
+                  <td style={styles.td}>
+                    {item.evaluationId ? (
+                      <div style={styles.evalMeta}>
+                        <strong>{item.evaluationDisplayScore ?? item.evaluationFinalScore ?? 0}/100</strong>
+                        <span>{item.evaluationStatus ? evaluationStatusLabel[item.evaluationStatus] : "-"}</span>
+                      </div>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                   <td style={styles.td}>
                     <div style={styles.actions}>
-                      {item.evaluationId ? <button style={styles.smallBtn} onClick={() => navigate(`/evaluations/${item.evaluationId}`)}>Voir</button> : null}
+                      {item.evaluationId ? (
+                        <button style={styles.smallBtn} onClick={() => navigate(`/evaluations/${item.evaluationId}`)}>
+                          {isManagerView ? "Evaluer" : "Voir"}
+                        </button>
+                      ) : null}
                       {item.status !== "cancelled" ? (
                         <button
                           style={canManageCampaigns ? styles.smallBtn : styles.disabledMiniBtn}
@@ -388,6 +412,7 @@ const styles: Record<string, React.CSSProperties> = {
   inlineActions: { display: "flex", gap: 10, alignItems: "center" },
   textBtn: { border: "none", background: "transparent", color: "#0f3d91", fontWeight: 800, cursor: "pointer", padding: 0 },
   empty: { color: "#64748b" },
+  evalMeta: { display: "grid", gap: 4 },
 };
 
 function readApiError(err: any, fallback: string) {

@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from apps.accounts.models import User
-from apps.evaluations.models import Evaluation, EvaluationCampaign, EvaluationCriterion, EvaluationFormVersion, SelfEvaluation
+from apps.evaluations.models import ComplianceRequest, Evaluation, EvaluationCampaign, EvaluationCriterion, EvaluationFormVersion, Notification, SelfEvaluation
 from apps.organization.models import Agency, Agent, EvaluationProfile, JobFamily, JobPosition, Service, Structure
 
 
@@ -178,6 +178,125 @@ class CoreWorkflowAPITests(APITestCase):
         self.assertEqual(submit_response.status_code, status.HTTP_200_OK)
         self.assertEqual(submit_response.data["data"]["status"], Evaluation.Status.SUBMITTED)
 
+    def test_manager_validation_persists_latest_form_changes(self):
+        campaign = EvaluationCampaign.objects.create(
+            name="Campagne Validation",
+            period_type="yearly",
+            start_date=date(2026, 1, 1),
+            end_date=date(2026, 12, 31),
+            status=EvaluationCampaign.Status.OPEN,
+        )
+        evaluation = Evaluation.objects.create(
+            agent=self.employee,
+            campaign=campaign,
+            evaluator=self.manager_user,
+            evaluator_name=self.manager_user.full_name,
+            period="2026",
+            status=Evaluation.Status.SUBMITTED,
+            comments="Ancien commentaire",
+        )
+        evaluation.criteria_scores.create(criterion=self.criterion, score=2, comment="Ancienne note")
+
+        self.client.force_authenticate(self.manager_user)
+        response = self.client.post(
+            f"/api/evaluations/{evaluation.id}/validate",
+            {
+                "approved": True,
+                "feedback": "Validation finale",
+                "period": "2026-S2",
+                "comments": "Nouveau commentaire manager",
+                "criteriaScores": [
+                    {"criterionId": self.criterion.id, "score": 5, "comment": "Note mise a jour"}
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["data"]["status"], Evaluation.Status.MANAGER_VALIDATED)
+        self.assertEqual(response.data["data"]["period"], "2026-S2")
+        self.assertIn("Nouveau commentaire manager", response.data["data"]["comments"])
+        self.assertEqual(response.data["data"]["criteriaScores"][0]["score"], "5.00")
+        evaluation.refresh_from_db()
+        self.assertEqual(evaluation.period, "2026-S2")
+        self.assertEqual(str(evaluation.criteria_scores.get(criterion=self.criterion).score), "5.00")
+
+    def test_campaign_assignments_expose_latest_evaluation_state(self):
+        campaign = EvaluationCampaign.objects.create(
+            name="Campagne Suivi",
+            period_type="yearly",
+            start_date=date(2026, 1, 1),
+            end_date=date(2026, 12, 31),
+            status=EvaluationCampaign.Status.OPEN,
+        )
+        evaluation = Evaluation.objects.create(
+            agent=self.employee,
+            campaign=campaign,
+            evaluator=self.manager_user,
+            evaluator_name=self.manager_user.full_name,
+            period="2026",
+            status=Evaluation.Status.DRAFT,
+            final_score=68,
+        )
+        self.client.force_authenticate(self.hr)
+        assign_response = self.client.post(
+            f"/api/evaluation-campaigns/{campaign.id}/assign",
+            {"agentIds": [str(self.employee.id)]},
+            format="json",
+        )
+        self.assertEqual(assign_response.status_code, status.HTTP_200_OK)
+
+        self.client.force_authenticate(self.manager_user)
+        validate_response = self.client.post(
+            f"/api/evaluations/{evaluation.id}/validate",
+            {
+                "approved": True,
+                "feedback": "Validation manager",
+                "comments": "Version finale manager",
+                "criteriaScores": [
+                    {"criterionId": self.criterion.id, "score": 4, "comment": "Mis a jour"}
+                ],
+            },
+            format="json",
+        )
+        self.assertEqual(validate_response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        submit_response = self.client.post(
+            f"/api/evaluations/{evaluation.id}/submit",
+            {
+                "comments": "Soumise apres mise a jour",
+                "criteriaScores": [
+                    {"criterionId": self.criterion.id, "score": 4, "comment": "Mis a jour"}
+                ],
+            },
+            format="json",
+        )
+        self.assertEqual(submit_response.status_code, status.HTTP_200_OK)
+
+        validate_response = self.client.post(
+            f"/api/evaluations/{evaluation.id}/validate",
+            {
+                "approved": True,
+                "feedback": "Validation manager",
+                "comments": "Version finale manager",
+                "criteriaScores": [
+                    {"criterionId": self.criterion.id, "score": 5, "comment": "Final"}
+                ],
+            },
+            format="json",
+        )
+        self.assertEqual(validate_response.status_code, status.HTTP_200_OK)
+
+        self.client.force_authenticate(self.hr)
+        assignment_response = self.client.get("/api/campaign-assignments", {"campaignId": str(campaign.id)})
+        self.assertEqual(assignment_response.status_code, status.HTTP_200_OK)
+        row = assignment_response.data["data"][0]
+        evaluation.refresh_from_db()
+        self.assertEqual(row["evaluationStatus"], Evaluation.Status.MANAGER_VALIDATED)
+        self.assertEqual(row["status"], "in_progress")
+        self.assertEqual(row["evaluationFinalScore"], evaluation.final_score)
+        self.assertEqual(row["evaluationDisplayScore"], 100)
+
     def test_employee_can_create_and_submit_self_evaluation(self):
         self.client.force_authenticate(self.employee_user)
         create_response = self.client.post(
@@ -206,6 +325,105 @@ class CoreWorkflowAPITests(APITestCase):
         submit_response = self.client.post(f"/api/self-evaluations/{self_eval_id}/submit", {}, format="json")
         self.assertEqual(submit_response.status_code, status.HTTP_200_OK)
         self.assertEqual(submit_response.data["data"]["status"], SelfEvaluation.Status.SUBMITTED)
+
+    def test_manager_can_reject_self_evaluation_and_employee_can_edit_again(self):
+        self.client.force_authenticate(self.employee_user)
+        create_response = self.client.post(
+            "/api/self-evaluations",
+            {
+                "period": "2026",
+                "overallComment": "Premiere version.",
+                "answers": [
+                    {
+                        "questionKey": "q1",
+                        "sectionKey": "skills",
+                        "sectionTitle": "Competences",
+                        "questionText": "Auto-positionnement",
+                        "answerType": "rating",
+                        "score": 3,
+                        "comment": "Version initiale.",
+                        "isRequired": True,
+                    }
+                ],
+            },
+            format="json",
+        )
+        self.assertEqual(create_response.status_code, status.HTTP_201_CREATED)
+        self_eval_id = create_response.data["data"]["id"]
+
+        submit_response = self.client.post(
+            f"/api/self-evaluations/{self_eval_id}/submit",
+            {"overallComment": "Version soumise."},
+            format="json",
+        )
+        self.assertEqual(submit_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(submit_response.data["data"]["status"], SelfEvaluation.Status.SUBMITTED)
+
+        self.client.force_authenticate(self.manager_user)
+        reject_response = self.client.post(
+            f"/api/self-evaluations/{self_eval_id}/review",
+            {"approved": False, "feedback": "A completer avant validation."},
+            format="json",
+        )
+        self.assertEqual(reject_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(reject_response.data["data"]["status"], SelfEvaluation.Status.REJECTED)
+
+        self.client.force_authenticate(self.employee_user)
+        draft_response = self.client.post(
+            f"/api/self-evaluations/{self_eval_id}/draft",
+            {
+                "overallComment": "Version corrigee apres rejet.",
+                "answers": [
+                    {
+                        "questionKey": "q1",
+                        "sectionKey": "skills",
+                        "sectionTitle": "Competences",
+                        "questionText": "Auto-positionnement",
+                        "answerType": "rating",
+                        "score": 4,
+                        "comment": "Version corrigee.",
+                        "isRequired": True,
+                    }
+                ],
+            },
+            format="json",
+        )
+        self.assertEqual(draft_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(draft_response.data["data"]["status"], SelfEvaluation.Status.DRAFT)
+        self.assertEqual(draft_response.data["data"]["overallComment"], "Version corrigee apres rejet.")
+
+    def test_employee_sees_compliance_request_created_by_hr_for_that_employee(self):
+        self.client.force_authenticate(self.hr)
+        create_response = self.client.post(
+            "/api/compliance-requests",
+            {
+                "requestType": "contestation",
+                "employeeId": str(self.employee.id),
+                "subject": "Contestation creee par la RH",
+                "reason": "Creation depuis le profil RH pour l'employe.",
+            },
+            format="json",
+        )
+        self.assertEqual(create_response.status_code, status.HTTP_201_CREATED)
+        request_id = create_response.data["data"]["id"]
+
+        request_obj = ComplianceRequest.objects.get(id=request_id)
+        self.assertEqual(request_obj.requester, self.hr)
+        self.assertEqual(request_obj.employee, self.employee)
+
+        self.client.force_authenticate(self.employee_user)
+        list_response = self.client.get("/api/compliance-requests")
+        self.assertEqual(list_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(list_response.data["data"]), 1)
+        self.assertEqual(str(list_response.data["data"][0]["id"]), str(request_id))
+        self.assertEqual(list_response.data["data"][0]["employeeId"], str(self.employee.id))
+        self.assertTrue(
+            Notification.objects.filter(
+                recipient=self.employee_user,
+                title="Nouvelle demande de conformite",
+                link="/compliance",
+            ).exists()
+        )
 
     def test_active_form_version_is_not_modified_and_can_spawn_draft(self):
         self.client.force_authenticate(self.hr)

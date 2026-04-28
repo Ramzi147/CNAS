@@ -167,7 +167,7 @@ export default function AppRoutes() {
       <Route
         path="/campaigns"
         element={
-          <ProtectedRoute allow={["superadmin", "admin", "hr"]}>
+          <ProtectedRoute allow={["superadmin", "admin", "hr", "manager"]}>
             <Shell>
               <Campaigns />
             </Shell>

@@ -31,4 +31,5 @@ export const reportAPI = {
     filters?: Record<string, unknown>;
   }) => api.post<{ success: boolean; data: Report }>("/reports", payload),
   download: (id: string) => api.get<Blob>(`/reports/${id}/download`, { responseType: "blob" }),
+  remove: (id: string) => api.delete<{ success: boolean; data: Report }>(`/reports/${id}`),
 };

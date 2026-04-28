@@ -119,6 +119,7 @@ class CampaignAssignmentSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        evaluation = instance.evaluation
         data["campaignId"] = str(instance.campaign_id)
         data["campaignName"] = instance.campaign.name
         data["employeeId"] = str(instance.employee_id)
@@ -127,6 +128,11 @@ class CampaignAssignmentSerializer(serializers.ModelSerializer):
         data["managerId"] = str(instance.manager_id) if instance.manager_id else None
         data["managerName"] = instance.manager.full_name if instance.manager_id else ""
         data["evaluationId"] = str(instance.evaluation_id) if instance.evaluation_id else None
+        data["evaluationStatus"] = evaluation.status if evaluation else None
+        data["evaluationDisplayScore"] = self._display_score(evaluation) if evaluation else None
+        data["evaluationFinalScore"] = evaluation.final_score if evaluation else None
+        data["evaluationUpdatedAt"] = evaluation.updated_at if evaluation else None
+        data["evaluationComments"] = evaluation.comments if evaluation else ""
         data["dueDate"] = data.pop("due_date")
         data["assignedById"] = str(instance.assigned_by_id) if instance.assigned_by_id else None
         data.pop("campaign", None)
@@ -135,6 +141,24 @@ class CampaignAssignmentSerializer(serializers.ModelSerializer):
         data.pop("evaluation", None)
         data.pop("assigned_by", None)
         return data
+
+    def _display_score(self, evaluation):
+        if not evaluation:
+            return None
+        criteria_scores = list(evaluation.criteria_scores.select_related("criterion").all())
+        valid = [item for item in criteria_scores if item.criterion and (item.criterion.weight or 0) > 0]
+        if not valid:
+            return evaluation.final_score
+        weighted = 0
+        weights = 0
+        for item in valid:
+            criterion = item.criterion
+            max_score = float(criterion.max_score or 100)
+            normalized = (float(item.score or 0) / max_score) * 100 if max_score > 0 else float(item.score or 0)
+            weight = float(criterion.weight or 0)
+            weighted += normalized * weight
+            weights += weight
+        return round(weighted / weights) if weights else evaluation.final_score
 
     def to_internal_value(self, data):
         mutable = dict(data)
@@ -307,6 +331,8 @@ class EvaluationSerializer(serializers.ModelSerializer):
             kept_ids.add(score_obj.criterion_id)
 
         EvaluationScore.objects.filter(evaluation=evaluation).exclude(criterion_id__in=kept_ids).delete()
+        if hasattr(evaluation, "_prefetched_objects_cache"):
+            evaluation._prefetched_objects_cache.pop("criteria_scores", None)
         evaluation.save()
 
     def create(self, validated_data):

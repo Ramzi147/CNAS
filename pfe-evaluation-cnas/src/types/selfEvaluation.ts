@@ -1,4 +1,4 @@
-export type SelfEvaluationStatus = "draft" | "submitted" | "reviewed" | "integrated";
+export type SelfEvaluationStatus = "draft" | "submitted" | "reviewed" | "rejected" | "integrated";
 
 export type SelfEvaluationAnswerType = "rating" | "select" | "yes_no" | "text";
 

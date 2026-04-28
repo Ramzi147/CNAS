@@ -29,7 +29,8 @@ type FormState = {
 const statusLabels: Record<SelfEvaluationStatus, string> = {
   draft: "Brouillon",
   submitted: "Soumise",
-  reviewed: "Revue",
+  reviewed: "Validee manager",
+  rejected: "Rejetee",
   integrated: "Integree au processus",
 };
 
@@ -188,12 +189,12 @@ export default function SelfEvaluations() {
     }
   }, [selected, questionnaire]);
 
-  const activeDraft = useMemo(() => items.find((item) => item.status === "draft") ?? null, [items]);
-  const canEditSelected = isEmployee && (!selected || selected.status === "draft");
+  const activeDraft = useMemo(() => items.find((item) => item.status === "draft" || item.status === "rejected") ?? null, [items]);
+  const canEditSelected = isEmployee && (!selected || selected.status === "draft" || selected.status === "rejected");
   const isReadOnlyQuestionnaire = !canEditSelected;
   const readOnlyReason = !isEmployee
     ? "Mode consultation: seuls les employes peuvent saisir ou modifier une auto-evaluation."
-    : selected && selected.status !== "draft"
+    : selected && selected.status !== "draft" && selected.status !== "rejected"
       ? "Cette auto-evaluation est deja soumise ou traitee. Elle reste consultable, mais elle n'est plus modifiable."
       : "";
   const filteredEmployees = useMemo(() => {
@@ -261,13 +262,28 @@ export default function SelfEvaluations() {
   async function markReviewed(item: SelfEvaluation) {
     setSaving(true);
     try {
-      const saved = await selfEvaluationAPI.review(item.id);
+      const saved = await selfEvaluationAPI.review(item.id, true);
       setItems((current) => upsert(current, saved));
       setSelectedId(saved.id);
       await refresh(saved.id);
-      setNotice("Auto-evaluation marquee comme revue.");
+      setNotice("Auto-evaluation validee par le manager.");
     } catch {
       setNotice("Action non autorisee ou statut incompatible.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function reject(item: SelfEvaluation) {
+    setSaving(true);
+    try {
+      const saved = await selfEvaluationAPI.review(item.id, false);
+      setItems((current) => upsert(current, saved));
+      setSelectedId(saved.id);
+      await refresh(saved.id);
+      setNotice("Auto-evaluation rejetee et renvoyee a l'employe.");
+    } catch {
+      setNotice("Rejet impossible pour cette auto-evaluation.");
     } finally {
       setSaving(false);
     }
@@ -467,9 +483,14 @@ export default function SelfEvaluations() {
               </button>
             ) : null}
             {canReview && selected && selected.status === "submitted" ? (
-              <button className="quick-action self-eval-link-button" type="button" disabled={saving} onClick={() => markReviewed(selected)}>
-                Marquer comme revue
-              </button>
+              <div className="self-eval-actions">
+                <button className="quick-action self-eval-link-button" type="button" disabled={saving} onClick={() => markReviewed(selected)}>
+                  Valider l'auto-evaluation
+                </button>
+                <button className="quick-action self-eval-small-button self-eval-danger" type="button" disabled={saving} onClick={() => reject(selected)}>
+                  Rejeter
+                </button>
+              </div>
             ) : null}
             {isHr && selected && (selected.status === "submitted" || selected.status === "reviewed") ? (
               <button className="quick-action self-eval-link-button" type="button" disabled={saving} onClick={() => integrate(selected)}>

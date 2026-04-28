@@ -169,7 +169,7 @@ export default function EvaluationDetail() {
     setSaving(true);
     setError(null);
     try {
-      const row = await evaluationAPI.validate(evaluation.id, approved, feedback);
+      const row = await evaluationAPI.validate(evaluation.id, approved, feedback, payload());
       setEvaluation(row);
       await load();
     } catch (err: any) {

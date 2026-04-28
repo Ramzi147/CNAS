@@ -3611,8 +3611,8 @@ button.clickable-surface {
 }
 
 .self-eval-small-button {
-  width: auto !important;
-  min-width: 170px;
+  width: 100% !important;
+  min-width: 0;
 }
 
 .self-eval-primary {
@@ -3621,11 +3621,27 @@ button.clickable-surface {
   border-color: #1d4ed8 !important;
 }
 
+.self-eval-danger {
+  background: rgba(254, 242, 242, 0.96) !important;
+  color: #b91c1c !important;
+  border-color: rgba(220, 38, 38, 0.25) !important;
+}
+
+.self-eval-danger:hover {
+  background: rgba(254, 226, 226, 0.98) !important;
+  color: #991b1b !important;
+  border-color: rgba(220, 38, 38, 0.35) !important;
+}
+
 .self-eval-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: stretch;
+}
+
+.self-eval-actions > .quick-action {
+  flex: 1 1 220px;
 }
 
 .self-eval-readonly-banner {

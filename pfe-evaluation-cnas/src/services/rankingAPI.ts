@@ -42,6 +42,11 @@ export type CampaignAssignment = {
   managerId?: string | null;
   managerName: string;
   evaluationId?: string | null;
+  evaluationDisplayScore?: number | null;
+  evaluationStatus?: "draft" | "in_progress" | "submitted" | "manager_validated" | "hr_validated" | "rejected" | null;
+  evaluationFinalScore?: number | null;
+  evaluationUpdatedAt?: string | null;
+  evaluationComments?: string;
   status: "planned" | "assigned" | "in_progress" | "completed" | "cancelled";
   dueDate?: string | null;
   createdAt: string;

@@ -95,6 +95,10 @@ export default function SidebarClean({
     links.push({ to: "/audit-log", label: "Audit log", icon: <Plagiarism /> });
   }
 
+  if (role === "manager") {
+    links.push({ to: "/campaigns", label: "Campagnes", icon: <CalendarMonth /> });
+  }
+
   if (role === "superadmin" || role === "admin" || role === "hr" || role === "manager") {
     links.push({ to: "/daily-followup", label: "Suivi quotidien", icon: <CalendarMonth /> });
     if (role === "manager") {

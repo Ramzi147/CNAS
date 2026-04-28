@@ -307,6 +307,7 @@ class SelfEvaluation(models.Model):
         DRAFT = "draft", "Draft"
         SUBMITTED = "submitted", "Submitted"
         REVIEWED = "reviewed", "Reviewed"
+        REJECTED = "rejected", "Rejected"
         INTEGRATED = "integrated", "Integrated into evaluation process"
 
     evaluation = models.OneToOneField(

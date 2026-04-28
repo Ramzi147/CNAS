@@ -315,6 +315,28 @@ def write_audit_event(request, action, entity, entity_id="", reason="", metadata
     )
 
 
+def sync_assignment_from_evaluation(evaluation):
+    assignment = getattr(evaluation, "assignment", None)
+    if not assignment:
+        return
+
+    if evaluation.status == Evaluation.Status.HR_VALIDATED:
+        assignment_status = CampaignAssignment.Status.COMPLETED
+    elif evaluation.status in {
+        Evaluation.Status.IN_PROGRESS,
+        Evaluation.Status.SUBMITTED,
+        Evaluation.Status.MANAGER_VALIDATED,
+        Evaluation.Status.REJECTED,
+    }:
+        assignment_status = CampaignAssignment.Status.IN_PROGRESS
+    else:
+        assignment_status = CampaignAssignment.Status.ASSIGNED
+
+    assignment.manager = evaluation.agent.manager
+    assignment.status = assignment_status
+    assignment.save(update_fields=["manager", "status", "updated_at"])
+
+
 class EvaluationViewSet(viewsets.ModelViewSet):
     queryset = Evaluation.objects.select_related("agent", "agent__job_family", "evaluator").all()
     serializer_class = EvaluationSerializer
@@ -420,6 +442,7 @@ class EvaluationViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("La creation d'evaluation est reservee au management et a la DRH.")
 
         serializer.save(evaluator=user, evaluator_name=user.full_name)
+        sync_assignment_from_evaluation(serializer.instance)
 
     def perform_update(self, serializer):
         current_status = serializer.instance.status
@@ -437,6 +460,7 @@ class EvaluationViewSet(viewsets.ModelViewSet):
                 raise PermissionDenied("Vous ne pouvez modifier que les evaluations de votre equipe.")
 
         serializer.save(evaluator=user, evaluator_name=user.full_name)
+        sync_assignment_from_evaluation(serializer.instance)
 
     def list(self, request, *args, **kwargs):
         serializer = self.get_serializer(self.get_queryset(), many=True)
@@ -530,9 +554,17 @@ class EvaluationViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["post"], url_path="validate")
     def validate_workflow(self, request, pk=None):
         instance = self.get_object()
-        approved = bool(request.data.get("approved", True))
-        feedback = request.data.get("feedback", "")
+        payload = dict(request.data)
+        approved = bool(payload.pop("approved", True))
+        feedback = payload.pop("feedback", "")
         role = getattr(request.user, "role", None)
+
+        if payload:
+            serializer = self.get_serializer(instance, data=payload, partial=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            instance = serializer.instance
+
         if approved and role == "manager":
             next_status = Evaluation.Status.MANAGER_VALIDATED
             validation_label = "Validation manager"
@@ -549,6 +581,8 @@ class EvaluationViewSet(viewsets.ModelViewSet):
         instance.evaluator = request.user
         instance.evaluator_name = request.user.full_name
         instance.save()
+        sync_assignment_from_evaluation(instance)
+        instance.refresh_from_db()
         if next_status == Evaluation.Status.HR_VALIDATED:
             recalculate_ranking_snapshots(instance.campaign)
         serializer = self.get_serializer(instance)
@@ -982,7 +1016,7 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
             raise PermissionDenied("Seul l'employe peut saisir son auto-evaluation.")
         if instance and instance.employee_id != agent_profile.id:
             raise PermissionDenied("Vous ne pouvez modifier que votre propre auto-evaluation.")
-        if instance and instance.status != SelfEvaluation.Status.DRAFT:
+        if instance and instance.status not in {SelfEvaluation.Status.DRAFT, SelfEvaluation.Status.REJECTED}:
             raise ValidationError({"status": "Une auto-evaluation soumise n'est plus modifiable par l'employe."})
         return agent_profile
 
@@ -1101,25 +1135,26 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
     def review(self, request, pk=None):
         instance = self.get_object()
         role = getattr(request.user, "role", None)
+        approved = bool(request.data.get("approved", True))
         if role not in {"superadmin", "admin", "hr", "manager"}:
             raise PermissionDenied("Vous n'avez pas le droit de revoir cette auto-evaluation.")
         if role == "manager":
             manager_agent = self._current_agent()
             if not manager_agent or instance.employee.manager_id != manager_agent.id:
                 raise PermissionDenied("Vous ne pouvez revoir que les auto-evaluations de votre equipe.")
-        if instance.status not in {SelfEvaluation.Status.SUBMITTED, SelfEvaluation.Status.REVIEWED}:
+        if instance.status not in {SelfEvaluation.Status.SUBMITTED, SelfEvaluation.Status.REVIEWED, SelfEvaluation.Status.REJECTED}:
             raise ValidationError({"status": "Seule une auto-evaluation soumise peut etre marquee comme revue."})
-        instance.status = SelfEvaluation.Status.REVIEWED
+        instance.status = SelfEvaluation.Status.REVIEWED if approved else SelfEvaluation.Status.REJECTED
         instance.reviewed_by = request.user
         instance.reviewed_at = timezone.now()
         instance.save()
         serializer = self.get_serializer(instance)
         write_audit_event(
             request,
-            action="revue",
+            action="revue" if approved else "rejet",
             entity="self_evaluation",
             entity_id=serializer.data.get("id"),
-            reason=request.data.get("feedback", "Auto-evaluation consultee et revue"),
+            reason=request.data.get("feedback", "Auto-evaluation consultee et revue" if approved else "Auto-evaluation rejetee par le management"),
             metadata={"status": serializer.data.get("status"), "employeeId": serializer.data.get("employeeId")},
         )
         return Response({"success": True, "data": serializer.data})
@@ -1318,7 +1353,11 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
             manager_agent = Agent.objects.filter(user=user).first()
             queryset = queryset.filter(assigned_manager=manager_agent) if manager_agent else queryset.none()
         else:
-            queryset = queryset.filter(requester=user)
+            employee_agent = Agent.objects.filter(user=user).first()
+            if employee_agent:
+                queryset = queryset.filter(Q(requester=user) | Q(employee=employee_agent))
+            else:
+                queryset = queryset.filter(requester=user)
 
         request_type = self.request.query_params.get("requestType")
         status_filter = self.request.query_params.get("status")
@@ -1347,6 +1386,14 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
             employee=employee,
             assigned_manager=assigned_manager,
         )
+        if instance.employee and instance.employee.user and instance.employee.user_id != user.id:
+            Notification.objects.create(
+                recipient=instance.employee.user,
+                title="Nouvelle demande de conformite",
+                message=f"Une demande {instance.request_type} a ete enregistree pour vous : {instance.subject}",
+                level=Notification.Level.INFO,
+                link="/compliance",
+            )
         if instance.request_type == ComplianceRequest.RequestType.CONTESTATION and assigned_manager and assigned_manager.user:
             Notification.objects.create(
                 recipient=assigned_manager.user,

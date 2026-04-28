@@ -258,8 +258,21 @@ export const evaluationAPI = {
     return mapEvaluation(res.data.data);
   },
 
-  async validate(id: string, approved: boolean, feedback?: string): Promise<Evaluation> {
+  async validate(
+    id: string,
+    approved: boolean,
+    feedback?: string,
+    payload?: Partial<{
+      agentId: string;
+      campaignId?: string;
+      period: string;
+      score: number;
+      comments?: string;
+      criteriaScores?: EvaluationCriterionScore[];
+    }>
+  ): Promise<Evaluation> {
     const res = await api.post<{ success: boolean; data: EvaluationRow }>(`/evaluations/${id}/validate`, {
+      ...toBackendPayload(payload ?? {}),
       approved,
       feedback: feedback ?? "",
     });

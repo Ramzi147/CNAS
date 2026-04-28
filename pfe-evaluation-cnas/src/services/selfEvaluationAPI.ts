@@ -117,8 +117,11 @@ export const selfEvaluationAPI = {
     return normalizeSelfEvaluation(res.data.data);
   },
 
-  async review(id: string, feedback?: string): Promise<SelfEvaluation> {
-    const res = await api.post<{ success: boolean; data: SelfEvaluationRow }>(`/self-evaluations/${id}/review`, { feedback: feedback ?? "" });
+  async review(id: string, approved = true, feedback?: string): Promise<SelfEvaluation> {
+    const res = await api.post<{ success: boolean; data: SelfEvaluationRow }>(`/self-evaluations/${id}/review`, {
+      approved,
+      feedback: feedback ?? "",
+    });
     return normalizeSelfEvaluation(res.data.data);
   },
 
