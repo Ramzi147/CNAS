@@ -1,196 +1,218 @@
-# 🚀 PFE CNAS - Système d'Évaluation et Performance
+# PFE CNAS - Systeme d'evaluation des performances
 
-Plateforme web complète pour la gestion des évaluations et de la performance à la CNAS (Caisse Nationale des Assurances Sociales).
+Plateforme web de gestion des evaluations RH pour la CNAS.  
+Le projet est compose d'un frontend React/TypeScript et d'un backend Django REST avec authentification JWT et base PostgreSQL.
 
-## 📋 Architecture
+## Architecture
 
-```
+```text
 PFE/
-├── pfe-evaluation-cnas/    (Frontend React + TypeScript)
-├── backend/                (API Express.js + Node.js)
-├── README.md               (Ce fichier)
+├── backend_django/         Backend Django + Django REST Framework
+├── pfe-evaluation-cnas/    Frontend React + TypeScript + Vite
+├── docs/                   Documentation projet
+├── memoire/                Memoire et figures
+└── README.md
 ```
 
-## 🎯 Fonctionnalités Implémentées
+## Fonctionnalites principales
 
-### Frontend ✅
-- **Authentification** - Login avec JWT, gestion des rôles (Admin, RH, Manager, Employé)
-- **Dashboards** - Vue d'ensemble par rôle avec KPIs
-- **Profil Utilisateur** - Affichage et édition du profil
-- **Évaluations** - Tableau complet avec filtres, recherche, création/modification
-- **Organisation Hiérarchique** - Navigation Agence → Structure → Service → Agent
-- **Routes Protégées** - Contrôle d'accès basé sur les rôles (RBAC)
+- Authentification JWT et gestion des roles
+- Dashboards selon le profil utilisateur
+- Gestion des utilisateurs et des acces
+- Organisation CNAS : agences, structures, services, agents
+- Campagnes d'evaluation
+- Evaluations manageriales
+- Auto-evaluations
+- Suivi quotidien et assiduite
+- Rapports, rankings, audit et conformite
 
-### Backend ✅
-- **API REST** - Express.js avec endpoints CRUD
-- **Authentification JWT** - Gestion des tokens et sessions
-- **Base de Données In-Memory** - Données de test (évolutif vers PostgreSQL)
-- **CORS** - Permettre les requêtes du frontend
-- **Middleware** - Vérification du token et des permissions
+## Stack technique
 
-## 🔐 Comptes de Test
+### Frontend
 
-| Email | Mot de passe | Rôle |
-|-------|-------------|------|
-| admin@cnas.dz | admin123 | Admin |
-| rh@cnas.dz | rh123 | RH |
-| manager@cnas.dz | manager123 | Manager |
-| employee@cnas.dz | employee123 | Employé |
+- React 19
+- TypeScript
+- Vite
+- Axios
+- React Router
+- Material UI
+- Recharts
 
-## 🚀 Démarrage Rapide
+### Backend
 
-### 1. Démarrer le Backend
+- Django 6
+- Django REST Framework
+- SimpleJWT
+- PostgreSQL
+- django-cors-headers
 
-```bash
-cd backend
-npm install
-npm start
+## Pre-requis
+
+- Python 3.12+ recommande
+- Node.js 20+ ou 22+
+- PostgreSQL
+- npm
+
+## Demarrage rapide
+
+## 1. Backend Django
+
+Depuis `backend_django/` :
+
+```powershell
+cd backend_django
+Copy-Item .env.example .env
+py -m pip install -r requirements.txt
+py manage.py migrate
+py manage.py seed_realistic
+py manage.py runserver
 ```
 
-Le serveur démarre sur `http://localhost:5000/api`
+Le backend demarre en general sur :
 
-### 2. Démarrer le Frontend
+```text
+http://localhost:8000/
+```
 
-```bash
+API :
+
+```text
+http://localhost:8000/api/
+```
+
+## 2. Frontend React
+
+Depuis `pfe-evaluation-cnas/` :
+
+```powershell
 cd pfe-evaluation-cnas
 npm install
+```
+
+Creer un fichier `.env.local` avec :
+
+```env
+VITE_API_URL=http://localhost:8000/api
+```
+
+Puis lancer :
+
+```powershell
 npm run dev
 ```
 
-L'app démarre sur `http://localhost:5173`
+Le frontend demarre en general sur :
 
-### ✅ Vérifier la connexion
-
-Visitez `http://localhost:5000/api/health` pour vérifier que le backend est actif.
-
-## 📁 Structure du Frontend
-
-```
-src/
-├── pages/
-│   ├── Login.tsx              (Authentification)
-│   ├── Dashboard.tsx          (Accueil)
-│   ├── Profile.tsx            (Profil utilisateur)
-│   ├── Evaluations.tsx        (Gestion des évaluations)
-│   ├── Organization.tsx       (Hiérarchie organisationnelle)
-│   ├── AdminDashboard.tsx     (Admin)
-│   ├── HRDashboard.tsx        (RH)
-│   ├── ManagerDashboard.tsx   (Manager)
-│   └── EmployeeDashboard.tsx  (Employé)
-├── services/
-│   ├── api.ts                 (Client Axios)
-│   ├── authService.ts         (Authentification)
-│   ├── evaluationService.ts   (Évaluations)
-│   └── entityAPI.ts           (API pour Agences, Structures, etc.)
-├── context/
-│   └── AuthContext.tsx        (Gestion d'état d'auth)
-├── routes/
-│   ├── AppRoutes.tsx          (Routage principal)
-│   └── ProtectedRoute.tsx     (Routes protégées)
-└── types/
-    ├── evaluation.ts
-    ├── user.ts
-    └── entities.ts            (Types pour Agences, Structures, Services, Agents)
+```text
+http://localhost:5173/
 ```
 
-## 📡 Structure du Backend
+## Configuration de la base de donnees
 
-```
-backend/
-├── server.js          (Serveur principal)
-├── auth.js            (JWT & permissions)
-├── db.js              (Base de données in-memory)
-├── seed.js            (Données de test)
-├── routes/
-│   ├── auth.js        (Login, refresh)
-│   ├── users.js       (Utilisateurs)
-│   ├── agencies.js    (Agences)
-│   ├── structures.js  (Structures)
-│   ├── services.js    (Services)
-│   ├── agents.js      (Agents)
-│   └── evaluations.js (Évaluations)
-├── .env               (Variables d'environnement)
-└── package.json
+Le fichier d'exemple est :
+
+[`backend_django/.env.example`](</c:/wamp64/www/PFE/backend_django/.env.example>)
+
+Variables principales :
+
+```env
+USE_SQLITE=False
+DB_NAME=pfe_cnas
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=5432
 ```
 
-## 🔌 Endpoints API
+Avant `migrate`, il faut creer la base PostgreSQL correspondante, par exemple :
 
-### Authentification
-- `POST /api/auth/login` - Connexion
-- `POST /api/auth/refresh` - Renouveler le token
+```sql
+CREATE DATABASE pfe_cnas;
+```
 
-### Utilisateurs
-- `GET /api/users` - Lister tous les utilisateurs
-- `GET /api/users/:id` - Obtenir un utilisateur
-- `PUT /api/users/:id` - Modifier un utilisateur
+Si besoin, tu peux adapter `.env` a ta propre configuration PostgreSQL.
 
-### Agences
-- `GET /api/agencies` - Lister
-- `POST /api/agencies` - Créer
-- `PUT /api/agencies/:id` - Modifier
-- `DELETE /api/agencies/:id` - Supprimer
+## Comptes de demonstration
 
-### Structures, Services, Agents
-- Mêmes endpoints: `/api/structures`, `/api/services`, `/api/agents`
+Apres execution de :
 
-### Évaluations
-- `GET /api/evaluations` - Lister
-- `POST /api/evaluations` - Créer
-- `PUT /api/evaluations/:id` - Modifier
-- `DELETE /api/evaluations/:id` - Supprimer
+```powershell
+py manage.py seed_realistic
+```
 
-## 🎨 Stack Technologique
+Tu peux utiliser par exemple :
 
-### Frontend
-- React 19
-- TypeScript
-- Vite (bundler)
-- Material-UI (composants)
-- React Router 7
-- Axios (HTTP client)
-- JWT-Decode (décodage tokens)
+- `superadmin@cnas.dz` / `Password123!`
+- `rh.alger@cnas.dz` / `Password123!`
+- `manager.it@cnas.dz` / `Password123!`
+- `employee.amine@cnas.dz` / `Password123!`
 
-### Backend
-- Node.js 22
-- Express.js 4
-- jsonwebtoken (JWT)
-- bcryptjs (hashage mots de passe)
-- CORS (requêtes cross-origin)
-- dotenv (variables d'environnement)
+## Structure utile du backend
 
-## 🔄 Évolutions Futures
+```text
+backend_django/
+├── manage.py
+├── requirements.txt
+├── cnas_backend/
+│   ├── settings.py
+│   └── urls.py
+└── apps/
+    ├── accounts/
+    ├── organization/
+    └── evaluations/
+```
 
-1. **Base de données réelle**
-   - PostgreSQL + Sequelize/Prisma
-   - Migrations automatiques
+Les elements importants :
 
-2. **Authentification avancée**
-   - OAuth 2.0 / SAML
-   - Double authentification (2FA)
+- `apps/accounts/` : utilisateurs, roles, authentification
+- `apps/organization/` : agences, structures, services, agents, profils
+- `apps/evaluations/` : campagnes, evaluations, scores, audit, rapports
 
-3. **Dashboard avancé**
-   - Graphiques et statistiques
-   - Exports PDF/Excel
-   - Notifications en temps réel
+## Structure utile du frontend
 
-4. **Gestion des permissions**
-   - Fine-grained RBAC
-   - Audit trail complet
+```text
+pfe-evaluation-cnas/
+├── src/pages/
+├── src/components/
+├── src/services/
+├── src/routes/
+├── src/context/
+└── src/types/
+```
 
-5. **Mobile**
-   - Application React Native
-   - Synchronisation offline
+## Donnees et migrations
 
-## 📝 Notes
+La structure de la base est definie par :
 
-- Les données sont stockées en mémoire (se réinitialisent au redémarrage)
-- Pour la production, remplacer par une vraie base de données
-- Variables d'environnement à configurer dans `.env`
+- les fichiers `models.py`
+- les migrations dans `apps/*/migrations/`
 
-## 👨‍💼 Support
+Les donnees de demonstration sont injectees par :
 
-Pour les questions ou bugs: [Contact]
+[`backend_django/apps/organization/management/commands/seed_realistic.py`](</c:/wamp64/www/PFE/backend_django/apps/organization/management/commands/seed_realistic.py>)
+
+## Important pour le partage GitHub
+
+- Les fichiers `.env` ne doivent pas etre pushes
+- Les dossiers `__pycache__/`, `node_modules/` et `dist/` sont ignores
+- Le frontend `pfe-evaluation-cnas/` est maintenant integre comme dossier normal du depot principal
+
+## Commandes Git utiles
+
+Pour partager une modification :
+
+```powershell
+git add .
+git commit -m "Update project"
+git push
+```
+
+## Notes
+
+- Le backend utilise PostgreSQL par defaut
+- Le frontend doit pointer vers la bonne URL API via `VITE_API_URL`
+- Si le binome clone le projet, il doit recreer son `.env`, installer les dependances, creer la base et lancer les migrations
 
 ---
 
-**Version 1.0 - Mars 2026** ✨
+Version projet academique CNAS.
