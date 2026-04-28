@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { agentAPI } from "../services/entityAPI";
 import { campaignAssignmentAPI, evaluationCampaignAPI, type CampaignAssignment, type EvaluationCampaign } from "../services/rankingAPI";
 import type { Agent } from "../types/entities";
@@ -8,6 +9,7 @@ const statusLabel = { draft: "Brouillon", open: "Ouverte", closed: "Cloturee" };
 
 export default function Campaigns() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [campaigns, setCampaigns] = useState<EvaluationCampaign[]>([]);
   const [assignments, setAssignments] = useState<CampaignAssignment[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -46,13 +48,17 @@ export default function Campaigns() {
   }, []);
 
   const selectedCampaign = campaigns.find((item) => String(item.id) === selectedId);
+  const canManageCampaigns = ["superadmin", "admin", "hr"].includes(user?.role ?? "");
+  const canOpenCampaign = canManageCampaigns && !!selectedCampaign && selectedCampaign.status !== "open";
+  const canCloseCampaign = canManageCampaigns && !!selectedCampaign && selectedCampaign.status !== "closed";
   const selectedAssignments = useMemo(
     () => assignments.filter((item) => String(item.campaignId) === selectedId),
     [assignments, selectedId]
   );
+  const selectedAgentCount = selectedAgents.length;
 
   const changeStatus = async (action: "open" | "close") => {
-    if (!selectedCampaign) return;
+    if (!selectedCampaign || !canManageCampaigns) return;
     setError(null);
     setNotice(null);
     setBusyAction(action);
@@ -80,6 +86,10 @@ export default function Campaigns() {
   };
 
   const saveCampaign = async () => {
+    if (!canManageCampaigns) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     setError(null);
     setNotice(null);
     setBusyAction("save-campaign");
@@ -102,7 +112,7 @@ export default function Campaigns() {
   };
 
   const assign = async () => {
-    if (!selectedCampaign || selectedAgents.length === 0) return;
+    if (!selectedCampaign || selectedAgents.length === 0 || !canManageCampaigns) return;
     setError(null);
     setNotice(null);
     setBusyAction("assign");
@@ -119,6 +129,10 @@ export default function Campaigns() {
   };
 
   const cancelAssignment = async (assignment: CampaignAssignment) => {
+    if (!canManageCampaigns) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     setError(null);
     setNotice(null);
     setBusyAction(`cancel-assignment-${assignment.id}`);
@@ -134,6 +148,10 @@ export default function Campaigns() {
   };
 
   const removeCampaign = async (campaign: EvaluationCampaign) => {
+    if (!canManageCampaigns) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     const confirmed = window.confirm(`Supprimer la campagne "${campaign.name}" ? Les affectations associees seront supprimees.`);
     if (!confirmed) return;
     setError(null);
@@ -164,6 +182,11 @@ export default function Campaigns() {
 
       {error ? <div style={styles.error}>{error}</div> : null}
       {notice ? <div style={styles.notice}>{notice}</div> : null}
+      {!canManageCampaigns ? (
+        <div style={styles.info}>
+          Cette page est visible en lecture seule pour votre role. La creation, la suppression, l'ouverture, la cloture et l'affectation des campagnes sont reservees a la DRH et a l'administration.
+        </div>
+      ) : null}
 
       <div style={styles.grid}>
         <section style={styles.card}>
@@ -181,7 +204,12 @@ export default function Campaigns() {
             <textarea style={{ ...styles.input, gridColumn: "1 / -1" }} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           </div>
           <div style={styles.actions}>
-            <button style={busyAction === "save-campaign" ? styles.disabledBtn : styles.primaryBtn} onClick={() => void saveCampaign()} disabled={busyAction === "save-campaign"}>
+            <button
+              style={busyAction === "save-campaign" || !canManageCampaigns ? styles.disabledBtn : styles.primaryBtn}
+              onClick={() => void saveCampaign()}
+              disabled={busyAction === "save-campaign" || !canManageCampaigns}
+              title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : undefined}
+            >
               {busyAction === "save-campaign" ? "Enregistrement..." : editingCampaign ? "Enregistrer" : "Creer la campagne"}
             </button>
             {editingCampaign ? <button style={styles.smallBtn} onClick={() => setEditingCampaign(null)}>Annuler</button> : null}
@@ -196,11 +224,19 @@ export default function Campaigns() {
                 <strong>{campaign.name}</strong>
                 <span>{statusLabel[campaign.status]} | {campaign.assignmentsCount ?? 0} affectations</span>
                 <span style={styles.rowActions} onClick={(event) => event.stopPropagation()}>
-                  <button style={styles.smallBtn} onClick={() => openEditCampaign(campaign)}>Modifier</button>
                   <button
-                    style={styles.dangerBtn}
+                    style={canManageCampaigns ? styles.smallBtn : styles.disabledMiniBtn}
+                    onClick={() => openEditCampaign(campaign)}
+                    disabled={!canManageCampaigns}
+                    title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : undefined}
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    style={canManageCampaigns ? styles.dangerBtn : styles.disabledMiniBtn}
                     onClick={() => void removeCampaign(campaign)}
-                    disabled={busyAction === `delete-campaign-${campaign.id}`}
+                    disabled={busyAction === `delete-campaign-${campaign.id}` || !canManageCampaigns}
+                    title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : undefined}
                   >
                     Supprimer
                   </button>
@@ -218,22 +254,45 @@ export default function Campaigns() {
             <div style={styles.toolbar}>
               <strong>{selectedCampaign.name}</strong>
               <div style={styles.actions}>
-                <button style={styles.smallBtn} onClick={() => void changeStatus("open")} disabled={busyAction === "open"}>Ouvrir</button>
-                <button style={styles.smallBtn} onClick={() => void changeStatus("close")} disabled={busyAction === "close"}>Cloturer</button>
                 <button
-                  style={busyAction === "assign" || selectedAgents.length === 0 ? styles.disabledBtn : styles.primaryBtn}
+                  style={canOpenCampaign && busyAction !== "open" ? styles.smallBtn : styles.disabledMiniBtn}
+                  onClick={() => void changeStatus("open")}
+                  disabled={busyAction === "open" || !canOpenCampaign}
+                  title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : selectedCampaign.status === "open" ? "La campagne est deja ouverte." : undefined}
+                >
+                  Ouvrir
+                </button>
+                <button
+                  style={canCloseCampaign && busyAction !== "close" ? styles.smallBtn : styles.disabledMiniBtn}
+                  onClick={() => void changeStatus("close")}
+                  disabled={busyAction === "close" || !canCloseCampaign}
+                  title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : selectedCampaign.status === "closed" ? "La campagne est deja cloturee." : undefined}
+                >
+                  Cloturer
+                </button>
+                <button
+                  style={busyAction === "assign" || selectedAgents.length === 0 || !canManageCampaigns ? styles.disabledBtn : styles.primaryBtn}
                   onClick={() => void assign()}
-                  disabled={busyAction === "assign" || selectedAgents.length === 0}
+                  disabled={busyAction === "assign" || selectedAgents.length === 0 || !canManageCampaigns}
+                  title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : selectedAgents.length === 0 ? "Selectionnez au moins un employe." : undefined}
                 >
                   {busyAction === "assign" ? "Affectation..." : `Affecter la selection${selectedAgents.length ? ` (${selectedAgents.length})` : ""}`}
                 </button>
               </div>
+            </div>
+            <div style={styles.inlineHelp}>
+              <span>{selectedAgentCount} employe(s) selectionne(s)</span>
+              <span style={styles.inlineActions}>
+                <button style={styles.textBtn} onClick={() => setSelectedAgents(agents.map((agent) => String(agent.id)))} disabled={!canManageCampaigns || agents.length === 0}>Tout selectionner</button>
+                <button style={styles.textBtn} onClick={() => setSelectedAgents([])} disabled={selectedAgentCount === 0}>Vider</button>
+              </span>
             </div>
             <div style={styles.agentGrid}>
               {agents.map((agent) => (
                 <label key={agent.id} style={styles.agentCard}>
                   <input
                     type="checkbox"
+                    disabled={!canManageCampaigns}
                     checked={selectedAgents.includes(String(agent.id))}
                     onChange={(e) =>
                       setSelectedAgents((current) =>
@@ -271,7 +330,16 @@ export default function Campaigns() {
                   <td style={styles.td}>
                     <div style={styles.actions}>
                       {item.evaluationId ? <button style={styles.smallBtn} onClick={() => navigate(`/evaluations/${item.evaluationId}`)}>Voir</button> : null}
-                      {item.status !== "cancelled" ? <button style={styles.smallBtn} onClick={() => void cancelAssignment(item)} disabled={busyAction === `cancel-assignment-${item.id}`}>Annuler</button> : null}
+                      {item.status !== "cancelled" ? (
+                        <button
+                          style={canManageCampaigns ? styles.smallBtn : styles.disabledMiniBtn}
+                          onClick={() => void cancelAssignment(item)}
+                          disabled={busyAction === `cancel-assignment-${item.id}` || !canManageCampaigns}
+                          title={!canManageCampaigns ? "Action reservee a la DRH et a l'administration." : undefined}
+                        >
+                          Annuler
+                        </button>
+                      ) : null}
                     </div>
                   </td>
                 </tr>
@@ -300,6 +368,7 @@ const styles: Record<string, React.CSSProperties> = {
   smallBtn: { padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(148,163,184,.4)", background: "white", fontWeight: 800, cursor: "pointer" },
   dangerBtn: { padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(220,38,38,.25)", background: "white", color: "#b91c1c", fontWeight: 800, cursor: "pointer" },
   disabledBtn: { padding: "10px 14px", borderRadius: 10, border: "none", background: "#94a3b8", color: "white", fontWeight: 800, cursor: "not-allowed" },
+  disabledMiniBtn: { padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(148,163,184,.3)", background: "#e2e8f0", color: "#64748b", fontWeight: 800, cursor: "not-allowed" },
   stack: { display: "grid", gap: 10 },
   rowButton: { display: "grid", gap: 4, padding: 14, borderRadius: 12, border: "1px solid rgba(148,163,184,.25)", background: "#f8fafc", textAlign: "left", cursor: "pointer" },
   active: { borderColor: "#0f3d91", background: "rgba(15,61,145,.06)" },
@@ -314,6 +383,10 @@ const styles: Record<string, React.CSSProperties> = {
   td: { padding: 10, borderBottom: "1px solid rgba(15,23,42,.06)" },
   error: { padding: 12, borderRadius: 10, background: "rgba(220,38,38,.08)", color: "#b91c1c" },
   notice: { padding: 12, borderRadius: 10, background: "rgba(34,197,94,.12)", color: "#15803d", fontWeight: 800 },
+  info: { padding: 12, borderRadius: 10, background: "rgba(15,61,145,.08)", color: "#1d4ed8", fontWeight: 700 },
+  inlineHelp: { display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 10, color: "#64748b", fontWeight: 700, flexWrap: "wrap" },
+  inlineActions: { display: "flex", gap: 10, alignItems: "center" },
+  textBtn: { border: "none", background: "transparent", color: "#0f3d91", fontWeight: 800, cursor: "pointer", padding: 0 },
   empty: { color: "#64748b" },
 };
 

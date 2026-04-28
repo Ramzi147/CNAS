@@ -590,8 +590,9 @@ class BaseSuccessModelViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
+        data = serializer.data
         self.perform_destroy(instance)
-        return Response({"success": True, "data": serializer.data})
+        return Response({"success": True, "data": data})
 
 
 class EvaluationCampaignViewSet(BaseSuccessModelViewSet):

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { useAuth } from "../context/AuthContext";
 import { complianceAPI, type EvaluationFormVersion } from "../services/complianceAPI";
 import { evaluationProfileAPI } from "../services/entityAPI";
 import type { EvaluationProfile } from "../types/entities";
@@ -36,6 +37,7 @@ const categoryLabel: Record<string, string> = {
 const categoryOptions = ["quantitative", "qualitative", "attendance", "self", "managerial"];
 
 export default function FormVersions() {
+  const { user } = useAuth();
   const [versions, setVersions] = useState<EvaluationFormVersion[]>([]);
   const [profiles, setProfiles] = useState<EvaluationProfile[]>([]);
   const [profileId, setProfileId] = useState("");
@@ -44,6 +46,7 @@ export default function FormVersions() {
   const [editor, setEditor] = useState<EditorState | null>(null);
   const [editorError, setEditorError] = useState<string | null>(null);
   const [savingEditor, setSavingEditor] = useState(false);
+  const canManageFormVersions = ["superadmin", "admin", "hr"].includes(user?.role ?? "");
 
   const load = async () => {
     try {
@@ -74,6 +77,10 @@ export default function FormVersions() {
   };
 
   const openCreate = () => {
+    if (!canManageFormVersions) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     if (!selectedProfile) return;
     setEditorError(null);
     const nextVersion = nextVersionForProfile(selectedProfile.id);
@@ -87,6 +94,10 @@ export default function FormVersions() {
   };
 
   const openEdit = (version: EvaluationFormVersion) => {
+    if (!canManageFormVersions) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     setEditorError(null);
     const nextVersion = nextVersionForProfile(version.profileId);
     setEditor({
@@ -100,6 +111,10 @@ export default function FormVersions() {
   };
 
   const openDuplicate = (version: EvaluationFormVersion) => {
+    if (!canManageFormVersions) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     setEditorError(null);
     const nextVersion = nextVersionForProfile(version.profileId);
     setEditor({
@@ -113,6 +128,10 @@ export default function FormVersions() {
   };
 
   const activate = async (version: EvaluationFormVersion) => {
+    if (!canManageFormVersions) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     const criteria = extractCriteria(version.schema);
     const totalWeight = getTotalWeight(criteria);
     if (!isTotalBalanced(criteria)) {
@@ -130,6 +149,10 @@ export default function FormVersions() {
   };
 
   const archive = async (version: EvaluationFormVersion, label = "Version archivee avec succes.") => {
+    if (!canManageFormVersions) {
+      setError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     try {
       await complianceAPI.archiveFormVersion(version.id);
       setNotice(label);
@@ -165,6 +188,10 @@ export default function FormVersions() {
   };
 
   const saveEditor = async () => {
+    if (!canManageFormVersions) {
+      setEditorError("Action reservee a l'administration et a la DRH.");
+      return;
+    }
     if (!editor) return;
     setSavingEditor(true);
     setEditorError(null);
@@ -237,13 +264,25 @@ export default function FormVersions() {
 
       {error ? <div style={styles.error}>{error}</div> : null}
       {notice ? <div style={styles.notice}>{notice}</div> : null}
+      {!canManageFormVersions ? (
+        <div style={styles.infoBox}>
+          Cette page est disponible en lecture seule pour votre role. La creation, la modification, l'activation et l'archivage des formulaires sont reserves a la DRH et a l'administration.
+        </div>
+      ) : null}
 
       <section style={styles.card}>
         <div style={styles.toolbar}>
           <select style={styles.input} value={profileId} onChange={(e) => setProfileId(e.target.value)}>
             {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
           </select>
-          <button style={styles.primaryBtn} onClick={openCreate}>Creer une version</button>
+          <button
+            style={canManageFormVersions ? styles.primaryBtn : styles.disabledBtn}
+            onClick={openCreate}
+            disabled={!canManageFormVersions}
+            title={!canManageFormVersions ? "Action reservee a la DRH et a l'administration." : undefined}
+          >
+            Creer une version
+          </button>
         </div>
       </section>
 
@@ -252,6 +291,7 @@ export default function FormVersions() {
           <VersionCard
             key={version.id}
             version={version}
+            canManage={canManageFormVersions}
             onEdit={openEdit}
             onDuplicate={openDuplicate}
             onActivate={activate}
@@ -285,12 +325,14 @@ export default function FormVersions() {
 
 function VersionCard({
   version,
+  canManage,
   onEdit,
   onDuplicate,
   onActivate,
   onArchive,
 }: {
   version: EvaluationFormVersion;
+  canManage: boolean;
   onEdit: (version: EvaluationFormVersion) => void;
   onDuplicate: (version: EvaluationFormVersion) => void;
   onActivate: (version: EvaluationFormVersion) => void;
@@ -331,24 +373,24 @@ function VersionCard({
       <CriteriaPreview criteria={criteria} />
 
       <div style={styles.actions}>
-        <button style={styles.secondaryBtn} onClick={() => onEdit(version)}>
+        <button style={canManage ? styles.secondaryBtn : styles.disabledBtn} onClick={() => onEdit(version)} disabled={!canManage}>
           {version.status === "active" ? "Modifier via nouvelle version" : "Modifier"}
         </button>
-        <button style={styles.secondaryBtn} onClick={() => onDuplicate(version)}>Dupliquer</button>
+        <button style={canManage ? styles.secondaryBtn : styles.disabledBtn} onClick={() => onDuplicate(version)} disabled={!canManage}>Dupliquer</button>
         {version.status === "active" ? (
-          <button style={styles.warningBtn} onClick={() => onArchive(version, "Version desactivee et archivee.")}>Desactiver</button>
+          <button style={canManage ? styles.warningBtn : styles.disabledBtn} onClick={() => onArchive(version, "Version desactivee et archivee.")} disabled={!canManage}>Desactiver</button>
         ) : (
           <button
-            style={canActivate ? styles.primaryBtn : styles.disabledBtn}
-            disabled={!canActivate}
-            title={!isBalanced ? "Le poids total doit etre egal a 100%." : undefined}
+            style={canActivate && canManage ? styles.primaryBtn : styles.disabledBtn}
+            disabled={!canActivate || !canManage}
+            title={!canManage ? "Action reservee a la DRH et a l'administration." : !isBalanced ? "Le poids total doit etre egal a 100%." : undefined}
             onClick={() => void onActivate(version)}
           >
             Activer
           </button>
         )}
         {version.status !== "archived" ? (
-          <button style={styles.warningBtn} onClick={() => onArchive(version)}>Archiver</button>
+          <button style={canManage ? styles.warningBtn : styles.disabledBtn} onClick={() => onArchive(version)} disabled={!canManage}>Archiver</button>
         ) : null}
       </div>
     </div>

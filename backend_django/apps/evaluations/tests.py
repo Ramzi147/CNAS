@@ -116,6 +116,36 @@ class CoreWorkflowAPITests(APITestCase):
         self.assertEqual(len(assign_response.data["data"]), 1)
         self.assertTrue(Evaluation.objects.filter(campaign_id=campaign_id, agent=self.employee).exists())
 
+    def test_hr_can_delete_campaign_after_assignment(self):
+        self.client.force_authenticate(self.hr)
+        campaign = EvaluationCampaign.objects.create(
+            name="Campagne Suppression",
+            period_type="yearly",
+            start_date=date(2026, 1, 1),
+            end_date=date(2026, 12, 31),
+            status=EvaluationCampaign.Status.DRAFT,
+        )
+        Evaluation.objects.create(
+            agent=self.employee,
+            campaign=campaign,
+            evaluator=self.hr,
+            evaluator_name=self.hr.full_name,
+            period="2026",
+            status=Evaluation.Status.DRAFT,
+        )
+
+        assign_response = self.client.post(
+            f"/api/evaluation-campaigns/{campaign.id}/assign",
+            {"agentIds": [str(self.employee.id)]},
+            format="json",
+        )
+        self.assertEqual(assign_response.status_code, status.HTTP_200_OK)
+
+        delete_response = self.client.delete(f"/api/evaluation-campaigns/{campaign.id}")
+        self.assertEqual(delete_response.status_code, status.HTTP_200_OK)
+        self.assertFalse(EvaluationCampaign.objects.filter(id=campaign.id).exists())
+        self.assertEqual(Evaluation.objects.filter(agent=self.employee, period="2026", campaign__isnull=False).count(), 0)
+
     def test_manager_can_submit_evaluation_for_own_team(self):
         campaign = EvaluationCampaign.objects.create(
             name="Campagne Eval",
@@ -225,3 +255,39 @@ class CoreWorkflowAPITests(APITestCase):
                 status=EvaluationFormVersion.Status.DRAFT,
             ).exists()
         )
+
+    def test_hr_can_update_draft_form_version(self):
+        self.client.force_authenticate(self.hr)
+        draft_version = EvaluationFormVersion.objects.create(
+            profile=self.profile,
+            version=1,
+            status=EvaluationFormVersion.Status.DRAFT,
+            title="Formulaire brouillon",
+            description="Version brouillon",
+            schema={
+                "criteria": [
+                    {"id": 1, "name": "Respect des delais", "weight": 100, "category": "quantitative"}
+                ]
+            },
+            created_by=self.hr,
+        )
+
+        patch_response = self.client.patch(
+            f"/api/evaluation-form-versions/{draft_version.id}",
+            {
+                "title": "Formulaire brouillon modifie",
+                "description": "Version brouillon mise a jour",
+                "schema": {
+                    "criteria": [
+                        {"id": 1, "name": "Respect des delais", "weight": 60, "category": "quantitative"},
+                        {"id": 2, "name": "Communication", "weight": 40, "category": "qualitative"},
+                    ]
+                },
+            },
+            format="json",
+        )
+
+        self.assertEqual(patch_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(patch_response.data["data"]["title"], "Formulaire brouillon modifie")
+        draft_version.refresh_from_db()
+        self.assertEqual(draft_version.description, "Version brouillon mise a jour")
