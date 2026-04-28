@@ -1,0 +1,100 @@
+\begin{thebibliography}{10}
+
+\bibitem{aguinis2023}
+Herman Aguinis.
+\newblock Performance management around the world: principles and adaptation,
+  2023.
+\newblock Review.
+
+\bibitem{arribas2024}
+D.~Arribas-Aguila et~al.
+\newblock A systematic review of evidence-based general competency models:
+  development of a general competencies taxonomy.
+\newblock {\em Journal of Work and Organizational Psychology}, 2024.
+
+\bibitem{campbell2015}
+John~P. Campbell and Brenton~M. Wiernik.
+\newblock The modeling and assessment of work performance.
+\newblock {\em Annual Review of Organizational Psychology and Organizational
+  Behavior}, 2:47--74, 2015.
+
+\bibitem{cnas_presentation}
+{CNAS}.
+\newblock Présentation de la cnas, 2026.
+\newblock Site officiel de la CNAS.
+
+\bibitem{django2025}
+{Django Software Foundation}.
+\newblock Django documentation, 2025.
+\newblock https://www.djangoproject.com.
+
+\bibitem{fowler2020uml}
+Martin Fowler.
+\newblock {\em UML Distilled: A Brief Guide to the Standard Object Modeling
+  Language}.
+\newblock Addison-Wesley, 2020.
+
+\bibitem{giamos2024}
+D.~Giamos.
+\newblock Continuous performance feedback: effects of feedback content and
+  feedback sources.
+\newblock {\em Journal article}, 2024.
+
+\bibitem{loi1807}
+{JORADP}.
+\newblock Loi n\textsuperscript{o} 18-07 relative à la protection des
+  personnes physiques dans le traitement des données à caractère personnel,
+  2018.
+\newblock Journal officiel de la République algérienne.
+
+\bibitem{loi2511}
+{JORADP}.
+\newblock Loi n\textsuperscript{o} 25-11 modifiant et complétant la loi 18-07
+  relative à la protection des personnes physiques dans le traitement des
+  données à caractère personnel, 2025.
+\newblock Journal officiel de la République algérienne.
+
+\bibitem{kadak2023}
+T.~Kadak and E.~K. Laitinen.
+\newblock How different are performance management systems? empirical typology
+  of pms.
+\newblock {\em Journal of Business Economics and Management}, 2023.
+
+\bibitem{lameque2023}
+I.~do C.~L. Lameque et~al.
+\newblock Purposes of performance appraisal: a systematic review and agenda for
+  future research.
+\newblock {\em International Journal of Professional Business Review}, 2023.
+
+\bibitem{lyu2023}
+B.~Lyu.
+\newblock The influence of performance appraisal justice on work engagement,
+  organizational identification and job performance.
+\newblock {\em SAGE Open}, 2023.
+
+\bibitem{react2025}
+{Meta}.
+\newblock React documentation, 2025.
+\newblock https://react.dev.
+
+\bibitem{typescript2025}
+{Microsoft}.
+\newblock Typescript documentation, 2025.
+\newblock https://www.typescriptlang.org.
+
+\bibitem{postgresql2025}
+{PostgreSQL Global Development Group}.
+\newblock Postgresql documentation, 2025.
+\newblock https://www.postgresql.org.
+
+\bibitem{python2025}
+{Python Software Foundation}.
+\newblock Python documentation, 2025.
+\newblock https://www.python.org.
+
+\bibitem{sommerville2020software}
+Ian Sommerville.
+\newblock {\em Software Engineering}.
+\newblock Pearson, 2020.
+
+\end{thebibliography}

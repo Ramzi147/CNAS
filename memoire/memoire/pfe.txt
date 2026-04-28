@@ -1,0 +1,1578 @@
+﻿
+
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage{arabtex}
+\usepackage{utf8}
+\setcode{utf8}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{rotating}
+\usepackage{appendix}
+\usepackage{fancyhdr}
+\usepackage{lmodern}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[Glenn]{fncychap}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{tocloft}
+\usepackage{filecontents}
+\usepackage{pdflscape}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+
+\begin{filecontents*}{Bibliographie.bib}
+@article{micacchi2024,
+  author  = {Micacchi, L. and others},
+  title   = {Performance appraisal justice and employees' work engagement in the public sector: making the most of performance appraisal design},
+  journal = {Public Administration},
+  year    = {2024}
+}
+
+@article{arribas2024,
+  author  = {Arribas-Aguila, D. and others},
+  title   = {A systematic review of evidence-based general competency models: development of a general competencies taxonomy},
+  journal = {Journal of Work and Organizational Psychology},
+  year    = {2024}
+}
+
+@article{kadak2023,
+  author  = {Kadak, T. and Laitinen, E. K.},
+  title   = {How different are performance management systems? Empirical typology of PMS},
+  journal = {Journal of Business Economics and Management},
+  year    = {2023}
+}
+
+@article{lameque2023,
+  author  = {Lameque, I. do C. L. and others},
+  title   = {Purposes of Performance Appraisal: a systematic review and agenda for future research},
+  journal = {International Journal of Professional Business Review},
+  year    = {2023}
+}
+
+@article{lyu2023,
+  author  = {Lyu, B.},
+  title   = {The influence of performance appraisal justice on work engagement, organizational identification and job performance},
+  journal = {SAGE Open},
+  year    = {2023}
+}
+
+@article{karim2024,
+  author  = {Karim, D. N. and others},
+  title   = {Linking performance appraisal fairness and performance feedback to extra-role customer service behavior},
+  journal = {Journal article},
+  year    = {2024}
+}
+
+@article{muhammad2025,
+  author  = {Muhammad, M.},
+  title   = {Mediating effect of appraisal fairness between appraisal satisfaction and employee performance},
+  journal = {Journal article},
+  year    = {2025}
+}
+
+@article{giamos2024,
+  author  = {Giamos, D.},
+  title   = {Continuous performance feedback: effects of feedback content and feedback sources},
+  journal = {Journal article},
+  year    = {2024}
+}
+
+@article{yusoff2025,
+  author  = {Yusoff, A.},
+  title   = {The good, the bad and the ineffective: an appraisal of performance appraisals},
+  journal = {Journal of Cognitive Sciences and Human Development},
+  year    = {2025}
+}
+
+@article{tavares2025,
+  author  = {Tavares, M. C.},
+  title   = {Rethinking performance evaluation: strategic alignment in the service sector},
+  journal = {Administrative Sciences},
+  year    = {2025}
+}
+
+@article{emam2024,
+  author  = {Emam, S. M. and others},
+  title   = {Leadership development program using 360-degree feedback},
+  journal = {PMC indexed article},
+  year    = {2024}
+}
+
+@article{nisar2025,
+  author  = {Nisar, S. and others},
+  title   = {Qualitative exploratory study on multisource (360°) feedback acceptability},
+  journal = {BMJ Open},
+  year    = {2025}
+}
+
+@misc{cosmin2024,
+  author = {{COSMIN}},
+  title  = {Manual and criteria for good measurement properties},
+  year   = {2024},
+  note   = {Psychometric reference framework}
+}
+
+@misc{aguinis2023,
+  author = {Aguinis, Herman},
+  title  = {Performance management around the world: principles and adaptation},
+  year   = {2023},
+  note   = {Review}
+}
+
+@misc{iso30414_2025,
+  author = {{ISO}},
+  title  = {ISO 30414:2025 Human resource management -- Guidelines for internal and external human capital reporting},
+  year   = {2025}
+}
+
+@misc{oecd2025,
+  author = {{OECD}},
+  title  = {Framework of comparable HR indicators in public administration},
+  year   = {2025}
+}
+
+@misc{loi1807,
+  author = {{JORADP}},
+  title  = {Law No.\textsuperscript{o} 18-07 on the protection of individuals in the processing of personal data},
+  year   = {2018},
+  note   = {Official gazette of the Algerian Republic}
+}
+
+@misc{loi2511,
+  author = {{JORADP}},
+  title  = {Law No.\textsuperscript{o} 25-11 amending and supplementing Law 18-07 on the protection of individuals in the processing of personal data},
+  year   = {2025},
+  note   = {Official gazette of the Algerian Republic}
+}
+
+@misc{cnas_presentation,
+  author = {{CNAS}},
+  title  = {CNAS Presentation},
+  year   = {2026},
+  note   = {CNAS official website}
+}
+
+@misc{asvs,
+  author = {{OWASP}},
+  title  = {Application Security Verification Standard (ASVS)},
+  year   = {2024},
+  note   = {Application security verification framework}
+}
+
+@book{fowler2020uml,
+  author    = {Fowler, Martin},
+  title     = {UML Distilled: A Brief Guide to the Standard Object Modeling Language},
+  publisher = {Addison-Wesley},
+  year      = {2020}
+}
+
+@book{sommerville2020software,
+  author    = {Sommerville, Ian},
+  title     = {Software Engineering},
+  publisher = {Pearson},
+  year      = {2020}
+}
+
+@misc{react2025,
+  author = {{Meta}},
+  title  = {React Documentation},
+  year   = {2025},
+  note   = {https://react.dev}
+}
+
+@misc{typescript2025,
+  author = {{Microsoft}},
+  title  = {TypeScript Documentation},
+  year   = {2025},
+  note   = {https://www.typescriptlang.org}
+}
+
+@misc{python2025,
+  author = {{Python Software Foundation}},
+  title  = {Python Documentation},
+  year   = {2025},
+  note   = {https://www.python.org}
+}
+
+@misc{django2025,
+  author = {{Django Software Foundation}},
+  title  = {Django Documentation},
+  year   = {2025},
+  note   = {https://www.djangoproject.com}
+}
+
+@misc{postgresql2025,
+  author = {{PostgreSQL Global Development Group}},
+  title  = {PostgreSQL Documentation},
+  year   = {2025},
+  note   = {https://www.postgresql.org}
+}
+
+@article{campbell2015,
+  author  = {Campbell, John P. and Wiernik, Brenton M.},
+  title   = {The Modeling and Assessment of Work Performance},
+  journal = {Annual Review of Organizational Psychology and Organizational Behavior},
+  volume  = {2},
+  pages   = {47--74},
+  year    = {2015}
+}
+\end{filecontents*}
+
+\graphicspath{{figures/}}
+
+\let\OriginalIncludeGraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{%
+  \IfFileExists{#2}{%
+    \OriginalIncludeGraphics[#1]{#2}%
+  }{%
+    \IfFileExists{figures/#2}{%
+      \OriginalIncludeGraphics[#1]{figures/#2}%
+    }{%
+      \fbox{\parbox[c][3cm][c]{0.8\linewidth}{\centering Missing image: \detokenize{#2}}}%
+    }%
+  }%
+}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\onehalfspacing
+\setcounter{tocdepth}{2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{}
+\setlength{\headheight}{15.5pt}
+
+\setlength{\textfloatsep}{10pt}
+\setlength{\floatsep}{10pt}
+\setlength{\intextsep}{10pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+
+\definecolor{cnasblue}{RGB}{31,78,121}
+\definecolor{cnasblueLight}{RGB}{232,241,250}
+\definecolor{cnasgreen}{RGB}{67,118,108}
+\definecolor{cnasgreenLight}{RGB}{234,244,241}
+\definecolor{cnasgold}{RGB}{167,124,43}
+\definecolor{cnasgoldLight}{RGB}{250,244,232}
+\definecolor{cnasgray}{RGB}{86,98,112}
+\definecolor{cnasgrayLight}{RGB}{246,248,250}
+\definecolor{cnasline}{RGB}{89,103,122}
+
+
+\setlength{\cftbeforechapskip}{0.3em}
+\setlength{\cftbeforesecskip}{0.1em}
+
+\makeatletter
+\newcommand{\memoireSpecialTitle}[1]{%
+  \clearpage%
+  \chapter*{#1}%
+  \thispagestyle{plain}%
+  \phantomsection%
+  \@mkboth{#1}{#1}%
+}
+\newcommand{\memoireTableOfContents}{%
+  \memoireSpecialTitle{TABLE OF CONTENTS}%
+  \@starttoc{toc}%
+}
+\newcommand{\memoireListOfFigures}{%
+  \memoireSpecialTitle{LIST OF FIGURES}%
+  \@starttoc{lof}%
+}
+\newcommand{\memoireListOfTables}{%
+  \memoireSpecialTitle{LIST OF TABLES}%
+  \@starttoc{lot}%
+}
+\makeatother
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+DEMOCRATIC PEOPLE'S REPUBLIC OF ALGERIA\\
+Ministry of Higher Education and Scientific Research\\
+\textbf{University of Algiers 1 -- Ben Youcef Benkhedda}\\
+\textbf{Faculty of Sciences \textbackslash{} Department of Computer Science}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+\begin{tabular}{m{0.45\textwidth} m{0.45\textwidth}}
+\centering \includegraphics[width=0.28\textwidth]{ua1.png} &
+\centering \includegraphics[width=0.28\textwidth]{knas.png}
+\end{tabular}
+\end{center}
+
+\vspace{0.8cm}
+
+\begin{center}
+{\large \textbf{Thesis Submitted for the Bachelor's Degree in Computer Science}}\\[0.9cm]
+{\large \textbf{Specialization: Information Systems and Software Engineering (ISIL)}}\\[0.8cm]
+\end{center}
+
+\begin{center}
+{\large \textbf{Theme:}}
+\end{center}
+
+\begin{center}
+\fbox{%
+\begin{minipage}[c]{0.95\linewidth}
+\centering
+\vspace{0.35cm}
+{\Large \textbf{Design and Implementation of an Information System for the Evaluation of Employee Skills and Performance within CNAS}}\\[0.25cm]
+\vspace{0.25cm}
+\end{minipage}}
+\end{center}
+
+\vfill
+
+\noindent
+\begin{minipage}[t]{0.52\textwidth}
+\raggedright
+\textbf{Supervised by:}\\
+Mr OMRANI Abdelhak
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.43\textwidth}
+\raggedright
+\textbf{Prepared by:}\\
+BENNADJI Wassim Redha\\
+BENNABDELOUAHAB Ali Ramzi
+\end{minipage}
+
+\vfill
+
+\begin{center}
+{\large \textbf{Academic Year:} 2025--2026}
+\end{center}
+
+\newpage
+\pagenumbering{roman}
+
+\chapter*{Acknowledgements}
+\thispagestyle{plain}
+
+At this moment of profound gratitude, we express our infinite thanks to the Almighty, Allah, who has blessed us with the health, courage and determination necessary to complete this work. This journey marks the culmination of a long path, shaped by the invaluable guidance, encouragement and support of many people. Our first guides, our parents, deserve special mention, for they never doubted our abilities, contributing greatly to the realization of this project. Our gratitude also extends to our supervisor, Mr OMRANI Abdelhak, whose acceptance to accompany us on this adventure was the starting point of a fruitful collaboration. His availability, attentive listening and enlightened advice were constant support throughout the completion of this thesis. We finally extend our sincere thanks to the CNAS staff, particularly the teams of the HRD and DMSI, as well as all teachers in the computer science department, whose contribution was essential to our progress.
+
+\chapter*{Abstract}
+\thispagestyle{plain}
+
+In a context marked by the digital transformation of public administrations and the modernization of internal processes, human resource management is now a strategic axis essential for improving organizational performance. The National Social Insurance Fund (CNAS), as a large-scale public institution, faces challenges related to the objective evaluation of competencies, the monitoring of individual performance, and the centralization of employee-related data. Within the Human Resources Department (HRD), evaluation procedures still rely on partially manual and fragmented methods, thus limiting the reliability of analyses, information traceability, and the efficiency of management decision-making.
+
+This thesis focuses on the design and implementation of an information system dedicated to the evaluation of employee skills and performance within CNAS. This initiative is part of a digitalization approach aimed at automating the evaluation process, structuring analysis criteria, centralizing HR data, and producing relevant indicators facilitating skills foresight management and strategic decision support.
+
+The methodology adopted is based on a thorough study of the existing situation, a detailed analysis of functional and organizational needs, followed by a modeling phase using UML diagrams, and then a development and implementation phase of a web application compliant with institutional requirements. The proposed system contributes to improving the transparency, efficiency and consistency of the evaluation process, while strengthening human resources governance and the organization's overall performance.
+
+\subsubsection*{Keywords:}
+Information System, Human Resources, Performance Evaluation, Skills Management, HRD, Digitalization, CNAS.
+
+\chapter*{Abstract in Arabic}
+\thispagestyle{plain}
+
+\begin{arabtex}
+في ظل التحول الرقمي الذي تشهده الإدارات العمومية وسعيها نحو تحديث أنظمتها الداخلية، أصبحت إدارة الموارد البشرية عنصرًا استراتيجيًا محوريًا لتحسين الأداء المؤسسي وتعزيز فعالية التسيير الإداري. يواجه الصندوق الوطني للتأمينات الاجتماعية (CNAS) تحديات تتعلق بتقييم كفاءات الموظفين وقياس أدائهم بشكل موضوعي، إضافة إلى ضرورة مركزية البيانات وضمان دقة المعلومات داخل مديرية الموارد البشرية. يعتمد هذا العمل على تصميم وإنجاز نظام معلومات مخصص لتقييم كفاءات وأداء الموظفين داخل CNAS، مع التركيز على أتمتة عملية التقييم، تنظيم المعايير، تحسين الشفافية ودعم اتخاذ القرار الإداري.
+\end{arabtex}
+
+\chapter*{Abstract in English}
+\thispagestyle{plain}
+
+In the context of digital transformation and the modernization of public administrations, human resource management has become a strategic pillar for improving organizational performance and strengthening institutional governance. The National Social Insurance Fund (CNAS), as a major public institution, faces significant challenges related to the objective evaluation of employee competencies, performance monitoring, and the centralization and reliability of human resources data. This thesis focuses on the design and implementation of an information system dedicated to the evaluation of employee skills and performance within CNAS. The project aims to structure the appraisal process, centralize HR data, improve traceability, and generate meaningful indicators for decision support.
+
+\textbf{Keywords:} Information System, Human Resource Management, Performance Evaluation, Competency Management, HRD, Digital Transformation, CNAS.
+
+\memoireTableOfContents
+\clearpage
+
+\memoireListOfFigures
+\clearpage
+
+\memoireListOfTables
+\clearpage
+
+\chapter*{List of Abbreviations}
+\thispagestyle{plain}
+
+\begin{itemize}
+    \item CNAS: National Social Insurance Fund.
+    \item HRD: Human Resources Department.
+    \item DMSI: Modernization and Information Systems Department.
+    \item IS: Information System.
+    \item HRMS: Human Resource Management System.
+    \item KPI: Key Performance Indicator.
+    \item DB: Database.
+    \item UML: Unified Modeling Language.
+    \item UI: User Interface.
+    \item RBAC: Role-Based Access Control.
+    \item DPO: Data Protection Officer.
+    \item API: Application Programming Interface.
+\end{itemize}
+
+\chapter*{General Introduction}
+\thispagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+Digital transformation today influences all sectors of economic activity, including public institutions. This evolution is not limited to the simple computerization of administrative tasks; it aims above all at continuous improvement in the quality of services, reduction in processing times, data reliability, and strengthening of decision support mechanisms. In this context, human resource management occupies a strategic position, as it directly impacts work organization, institutional performance, skills development, and overall governance.
+
+The National Social Insurance Fund (CNAS), as a large-scale national public institution, manages significant human capital, distributed across several central departments, regional agencies, and local structures. The quality of benefits provided to members depends largely on internal organizational efficiency and human resources performance. The Human Resources Department (HRD) and the Modernization and Information Systems Department (DMSI) must therefore have reliable, centralized and usable information about employees: competencies, career paths, training completed, evaluations, assigned objectives, results achieved, and development needs.
+
+However, in many organizations, competency and performance evaluation processes still rely on heterogeneous practices: paper documents, scattered files, sometimes non-standardized criteria, and absence of a structured traceability system. These limitations reduce analysis quality, complicate individual monitoring, and slow down the implementation of workforce planning and development management.
+
+It is in this context that our project takes place: \textbf{to design and implement an information system dedicated to the evaluation of employee skills and performance within CNAS}. The objective is to propose a digital solution allowing to structure the evaluation process, centralize HR data, and produce key performance indicators useful for strategic management, while ensuring traceability, confidentiality, and security of access.
+
+This thesis is organized as follows:
+\begin{itemize}
+    \item \textbf{Chapter 1:} Presentation of the general context.
+    \item \textbf{Chapter 2:} Analysis and design.
+    \item \textbf{Chapter 3:} Implementation.
+\end{itemize}
+
+\chapter{Presentation of the General Context}
+\thispagestyle{plain}
+
+\section{Introduction}
+
+In this chapter, we present the overall framework of our project. We begin by introducing the host organization, CNAS, then describe the Human Resources Department (HRD) and the Modernization and Information Systems Department (DMSI). Next, we analyze the current situation regarding competency and performance evaluation, in order to identify limitations and needs. Finally, we formulate the research problem, objectives, and the proposed solution.
+
+\section{Presentation of CNAS}
+
+\subsection{Legal Status and General Framework}
+
+The National Social Insurance Fund for Salaried Workers (CNAS) is a public administrative body, endowed with legal personality and financial autonomy, pursuant to Law No.\textsuperscript{o} 88-01 of January 12, 1988, relating to public bodies with administrative character. It is also presumed to be commercial in its relations with third parties, allowing it to enter into agreements and manage significant financial flows within the framework of social protection. CNAS is governed by a \textbf{Board of Directors} and placed under the supervision of the \textbf{Minister of Labor, Employment and Social Security}. Its headquarters is located in Algiers (Ben Aknoun). It has national competence and has central and local services distributed throughout the territory \cite{cnas_presentation}.
+
+\subsection{Main Missions and Attributions}
+
+CNAS is one of the main pillars of the social security system in Algeria. Its attributions include the management of social insurance, occupational hazards, family benefits, collection, medical supervision, and conventions with healthcare providers. This diversity of activities shows that the institution depends heavily on the quality of its internal processes and the efficiency of its human capital.
+
+\subsection{CNAS Organization}
+
+CNAS organization is based on a hierarchical and territorial structure that allows it to ensure national coverage. It mainly comprises:
+\begin{itemize}
+    \item a \textbf{General Directorate};
+    \item \textbf{central services};
+    \item \textbf{59 regional agencies};
+    \item \textbf{768 payment structures};
+    \item \textbf{health and social structures}.
+\end{itemize}
+
+This diversity has a direct consequence for our project: the evaluation system cannot be based on a uniform grid applied identically to all professions. Position families must be distinguished, criteria adapted, and comparisons limited to homogeneous areas to avoid unfair or unusable rankings. This idea aligns with research showing that a relevant evaluation system must be both standardized in its structure and adaptable according to organizational context, hierarchical levels, and job families \cite{arribas2024,kadak2023,aguinis2023}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{organigramme_cnas.png}
+\caption{Structural organizational chart of CNAS}
+\label{fig:org_cnas}
+\end{figure}
+\FloatBarrier
+
+\subsection{Beneficiaries}
+
+CNAS beneficiaries include salaried workers, apprentices, students, specific categories, and their dependents. This reminder highlights that the quality of benefits provided to the public is indirectly related to the quality of internal management and thus to the relevance of employee evaluation mechanisms.
+
+\subsection{Benefits}
+
+CNAS's main benefits cover healthcare, daily allowances, maternity insurance, disability pensions, death benefits, and occupational hazard coverage. This public service mission requires reliable, traceable, and consistent internal operation.
+
+\section{Missions and Roles of HRD and DMSI}
+
+\subsection{Human Resources Department (HRD)}
+
+The \textbf{Human Resources Department (HRD)} is responsible for managing CNAS's human capital: personnel administration, recruitment, assignment, career monitoring, training, skills management, and, within the scope of this project, \textbf{performance and competency evaluation}.
+
+Its main missions are:
+\begin{itemize}
+    \item \textbf{Administrative management}: personnel file management, contracts, absences, leave, transfers, discipline;
+    \item \textbf{Career management}: promotions, mobility, advancements, career path monitoring;
+    \item \textbf{Training}: needs identification, training plan development, tracking and evaluation of actions;
+    \item \textbf{Evaluation}: criteria definition, organization of evaluation campaigns, consolidation and exploitation of results;
+    \item \textbf{HR Management}: production of dashboards, HR indicators, reports for General Management.
+\end{itemize}
+
+In this framework, HRD is not limited to administrative logic. It also participates in development objectives, clarification of professional expectations, and decision support, which aligns with research distinguishing several purposes of evaluation: administrative, developmental, role definition, and strategic \cite{lameque2023}.
+
+\subsection{Modernization and Information Systems Department (DMSI)}
+
+The \textbf{DMSI} plays a central role in implementing digitalization projects within CNAS. It is responsible for:
+\begin{itemize}
+    \item the design, evolution, and maintenance of the information system;
+    \item development, deployment, and support of business applications;
+    \item management of hardware and software infrastructure;
+    \item security of systems and data;
+    \item supporting user departments in defining and implementing adapted solutions.
+\end{itemize}
+
+Within the scope of this thesis, the study and implementation of the solution takes place mainly within DMSI, in close functional coordination with HRD.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  >=stealth,
+  top/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, minimum width=5.8cm, minimum height=0.95cm, font=\small\bfseries},
+  unit/.style={draw=cnasline, fill=cnasgrayLight, rounded corners=3pt, align=center, minimum width=4.2cm, minimum height=1.05cm, font=\small},
+  focus/.style={draw=cnasgreen, fill=cnasgreenLight, rounded corners=3pt, align=center, minimum width=4.6cm, minimum height=1.1cm, font=\small\bfseries},
+  link/.style={->, thick, draw=cnasline},
+  collab/.style={<->, thick, draw=cnasgold}
+]
+\node[top] (dg) at (0,0) {General Management CNAS};
+\node[top] (dc) at (0,-1.45) {Central Departments};
+\node[unit] (drh) at (-4.1,-3.05) {\textbf{HRD}\\HR Management\\Evaluation campaigns};
+\node[unit] (dmsi) at (4.1,-3.05) {\textbf{DMSI}\\Information Systems\\Security};
+\node[focus] (sys) at (0,-5.05) {HR Evaluation System};
+
+\draw[link] (dg) -- (dc);
+\draw[link] (dc.south) |- (drh.north);
+\draw[link] (dc.south) |- (dmsi.north);
+\draw[collab] (drh) -- node[above, font=\scriptsize, fill=white, inner sep=2pt]{coordination} (dmsi);
+\draw[link] (drh.south) -- ++(0,-0.45) -| (sys.north west);
+\draw[link] (dmsi.south) -- ++(0,-0.45) -| (sys.north east);
+\end{tikzpicture}
+\caption{Positioning of HRD and DMSI in CNAS organization}
+\label{fig:org_drh}
+\end{figure}
+\FloatBarrier
+
+\section{Theoretical Framework and Concepts Related to the Field of Study}
+
+\subsection{Information System (IS) and HRMS}
+
+An \textbf{information system} groups together all resources (software, data, procedures, hardware, and actors) allowing to collect, store, process, and distribute information. A \textbf{Human Resource Management System (HRMS)} is an information system specialized in HR management. It centralizes personnel information and automates processes such as administrative management, training, mobility, career monitoring, and evaluation.
+
+In a modern logic of human resource management, HRMS does not only serve to archive data. It becomes a support for analysis, monitoring, coordination between actors, and decision support. In our case, it constitutes the technical foundation allowing to structure evaluation, secure its data, and improve its exploitation.
+
+\subsection{Competency}
+
+A \textbf{competency} designates a structured set of knowledge, skills, and behaviors that can be mobilized in a work situation. Within our project, we distinguish technical competencies, behavioral competencies, and, depending on positions, managerial competencies.
+
+However, competency should not be viewed as an abstract or purely generic notion. Recent research on \textit{competency models} shows that a credible system must be based on explicit, structured referentials adapted to the organization's context. In other words, competencies must be selected, organized, and linked to position families to make evaluation coherent, usable, and comparable within homogeneous areas \cite{arribas2024}. This approach justifies, in our project, the establishment of differentiated referentials according to professions and evaluation profiles.
+
+\subsection{Performance}
+
+\textbf{Performance} reflects the level of objective achievement and the quality of work completed. Campbell and Wiernik show that it is multidimensional: it includes task performance, execution quality, discipline, cooperation, and, for certain positions, leadership dimensions or contextual contribution \cite{campbell2015}. This vision moves us away from simplistic rating and justifies the use of structured grids, weighted criteria, and multi-indicator dashboards.
+
+Within CNAS's context, this conception is particularly important. Professions are varied, constraints differ from one department to another, and performance cannot be reduced to simple quantitative output. It must be appreciated through results, but also through professional behaviors, procedural compliance, cooperation, and execution quality.
+
+\subsection{Competency and Performance Evaluation}
+
+Evaluation is a structured process aimed at:
+\begin{itemize}
+    \item measuring individual performance over a given period;
+    \item assessing competency levels and their evolution;
+    \item identifying training and support needs;
+    \item proposing development plans.
+\end{itemize}
+
+DeNisi and Murphy recall that evaluation should not be reduced to an annual rating, but thought of as a performance management system articulating objectives, feedback, measurement, development, and management \cite{lameque2023,aguinis2023}. In this perspective, the logic of \textit{performance management} goes beyond the act of evaluating to integrate a broader cycle comprising objective setting, regular monitoring, feedback production, results analysis, and employee development support.
+
+This approach is particularly suited to an organization like CNAS, where evaluation cannot only serve to rank or punish, but must also support activity regulation, needs identification, and overall quality of HR management.
+
+\subsection{Feedback, Perceived Justice, and Biases}
+
+Research on feedback shows that its effects are not automatically positive. Some forms of feedback can improve performance, while others can degrade it if poorly designed. Moreover, recent work on continuous feedback shows that feedback mediated by a person, particularly by the hierarchical manager, produces more favorable effects on performance, motivation, and engagement than purely technological or impersonal feedback \cite{giamos2024}. Literature also emphasizes that quantitative feedback and qualitative feedback do not have exactly the same effects: scores and indicators allow measurement and comparison, while comments and observations allow explanation, guidance, and support for improvement \cite{giamos2024}.
+
+In an evaluation system, it is therefore relevant to combine:
+\begin{itemize}
+    \item \textbf{quantitative feedback}, based on ratings, scores, and indicators;
+    \item \textbf{qualitative feedback}, based on comments, observations, and assessments.
+\end{itemize}
+
+Furthermore, evaluation is exposed to several biases: leniency, severity, central tendency, halo effect, recency, or implicit comparison. In a multi-actor system, the perception of justice and process clarity thus play a central role in device acceptability. Research on \textit{performance appraisal justice} indeed shows that a system perceived as just strengthens employee commitment, engagement, and indirectly their performance \cite{lyu2023}. This idea justifies the integration, in our project, of traceability mechanisms, hierarchical validation, dispute resolution, and audit.
+
+\subsection{KPIs and Dashboards}
+
+\textbf{KPIs} (key performance indicators) allow managing HR activity: campaign completion rate, processing delays, volume processed, rework rate, competency scores, note dispersion, note inflation by manager, or gaps between observed and target competency. Provided documents show that an indicator is only relevant if it is defined, traceable, compared within a coherent area, and actionable.
+
+In our project, KPIs are not viewed as mere display figures. They constitute management instruments allowing HRD, managers, and administration to identify gaps, track campaign progress, analyze results by position families, and support decision-making.
+
+\section{Compliance, Data Protection, and Profiling}
+
+HR evaluation processes personal data and may constitute profiling when used to analyze or predict work performance aspects. Law 18-07 and its 2025 amendment impose a compliance-by-design logic: designation of a DPO, maintenance of a treatment register, automated operations log, technical and organizational security measures, and strict access control \cite{loi1807,loi2511}. This has a direct translation into system architecture:
+\begin{itemize}
+    \item role-based and scope-based access control;
+    \item logging of consultations, modifications, and exports;
+    \item data and transfer security;
+    \item maintenance of usable traceability;
+    \item minimum score explainability.
+\end{itemize}
+
+Beyond regulatory obligation, this compliance logic also strengthens system credibility, improves user trust, and supports procedural justice perception.
+
+\section{Project Scope}
+
+\subsection{Implementation Framework}
+
+The project is developed in collaboration with:
+\begin{itemize}
+    \item the \textbf{HRD}, which expresses business needs and validates referentials;
+    \item the \textbf{DMSI}, which ensures technical study, design, and solution implementation.
+\end{itemize}
+
+\subsection{Functional Scope}
+
+The proposed information system mainly covers:
+\begin{itemize}
+    \item evaluation campaign management;
+    \item definition and management of referentials;
+    \item input, consultation, and validation of evaluations;
+    \item centralization and historization of evaluation results;
+    \item generation of indicators and reports;
+    \item user, role, and access rights management.
+\end{itemize}
+
+\subsection{Analytical Scope}
+
+Provided documents insist on the need to distinguish position families. Priority indicators are not the same for a file/counter-service position, an IT/DMSI position, an HR function, a managerial position, or a health/social structure. The system must therefore remain parameterizable, versioned, and capable of producing intra-family comparisons rather than cross-profession comparisons.
+
+This adaptation principle aligns with research showing that an effective evaluation system must be sufficiently standardized to remain coherent, but sufficiently adaptable to account for organizational specificities, hierarchical levels, and different work contexts \cite{aguinis2023,kadak2023}.
+
+\section{Study of the Current Situation}
+
+\subsection{General Findings}
+
+Before implementing a dedicated system, evaluations may rely on scattered supports (paper documents, Excel sheets, email exchanges) and non-standardized criteria. This situation creates several difficulties:
+\begin{itemize}
+    \item \textbf{lack of uniformity} of criteria and evaluation grids;
+    \item \textbf{absence of unique referential} of competencies;
+    \item \textbf{limited traceability} of evaluations;
+    \item \textbf{manual consolidation} of results, source of errors and wasted time;
+    \item \textbf{difficulty in producing reliable statistics}.
+\end{itemize}
+
+These findings show that traditional evaluation practices, when based on scattered documents and manual processing, allow neither continuous performance monitoring, nor strategic data exploitation, nor satisfactory integration of feedback. They often produce results that are poorly comparable, difficult to audit, and weakly usable from HR decision perspective.
+
+\subsection{Current Process (Example of Workflow)}
+
+Generally, an evaluation process follows these steps:
+\begin{itemize}
+    \item preparation of evaluation grids and criteria;
+    \item communication to hierarchical managers and concerned services;
+    \item conducting interviews and manual input of evaluations;
+    \item transmission of results to HRD;
+    \item consolidation and archiving;
+    \item exploitation of results.
+\end{itemize}
+
+\subsubsection{Information Flow}
+
+The following diagram illustrates a typical information flow before digitalization.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  >=stealth,
+  flowbox/.style={draw=cnasline, fill=cnasgrayLight, rounded corners=3pt, align=center, minimum width=6.8cm, minimum height=0.82cm, font=\small},
+  first/.style={flowbox, draw=cnasblue, fill=cnasblueLight, font=\small\bfseries},
+  middle/.style={flowbox, draw=cnasgreen, fill=cnasgreenLight},
+  last/.style={flowbox, draw=cnasgold, fill=cnasgoldLight, font=\small\bfseries},
+  flow/.style={->, thick, draw=cnasline},
+  node distance=0.72cm
+]
+\node[first] (a) {Criteria preparation (HRD)};
+\node[middle] (b) [below=of a] {Communication to managers};
+\node[middle] (c) [below=of b] {Interviews / Data collection};
+\node[middle] (d) [below=of c] {Data entry (Excel / paper)};
+\node[middle] (e) [below=of d] {Transmission};
+\node[middle] (f) [below=of e] {HRD consolidation};
+\node[last] (g) [below=of f] {Reports / Decisions};
+
+\foreach \from/\to in {a/b,b/c,c/d,d/e,e/f,f/g}
+  \draw[flow] (\from) -- (\to);
+\end{tikzpicture}
+\caption{Information flow related to competency and performance evaluation process}
+\label{fig:flux_rh}
+\end{figure}
+\FloatBarrier
+
+\section{Research Problem}
+
+Given the study of the current situation, the general research problem can be formulated as follows:
+
+\begin{quote}
+\textit{How to design and implement an information system allowing to standardize, automate, and secure the process of evaluating employee competencies and performance within CNAS, in order to improve analysis quality, decision traceability, and strategic management of human resources?}
+\end{quote}
+
+The major difficulties to resolve are:
+\begin{itemize}
+    \item the absence of a shared competency and criteria referential;
+    \item the dispersion and centralization of evaluation data;
+    \item the burden of manual consolidation;
+    \item the difficulty in producing synthetic indicators;
+    \item the need to integrate compliance and security constraints from the design phase.
+\end{itemize}
+
+This research problem is part of a broader dynamic of transforming evaluation practices towards integrated performance management systems, capable of responding to simultaneously operational, organizational, and strategic purposes.
+
+\section{Proposed Solution}
+
+To address this research problem, we propose the implementation of an \textbf{internal web application} dedicated to competency and performance evaluation within CNAS. The proposed solution notably includes:
+\begin{itemize}
+    \item a centralized evaluation database;
+    \item a structured referential of competencies and evaluation criteria;
+    \item configurable grids according to position families;
+    \item an input and validation workflow;
+    \item dashboards and reports for HRD, managers, and administration;
+    \item user and role management ensuring confidentiality;
+    \item an audit log, treatment register, and complete operation traceability.
+\end{itemize}
+
+The proposed solution does not merely consist of digitizing an existing evaluation form. It aims to establish a structured logic of performance management, in which evaluation is connected to referentials, position profiles, indicators, a feedback process, and decision-making exploitation. In this sense, it responds to several purposes of evaluation: administrative purpose, development purpose, professional expectation clarification purpose, and strategic purpose \cite{lameque2023}.
+
+\subsection{Functional Diagram}
+
+The following figure illustrates, in simplified form, the functional diagram of the proposed system:
+
+\begin{figure}[H]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=stealth,
+  actor/.style={draw=cnasline, fill=cnasgrayLight, rounded corners=3pt, align=center, text width=2.55cm, minimum height=0.74cm, inner sep=3pt, font=\scriptsize\bfseries},
+  function/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, text width=2.45cm, minimum height=0.86cm, inner sep=3pt, font=\scriptsize\bfseries},
+  process/.style={draw=cnasblue!85!black, fill=cnasblueLight!80, rounded corners=3pt, align=center, text width=2.45cm, minimum height=0.86cm, inner sep=3pt, font=\scriptsize\bfseries},
+  output/.style={draw=cnasline, fill=cnasgrayLight, rounded corners=3pt, align=center, text width=2.65cm, minimum height=0.86cm, inner sep=3pt, font=\scriptsize\bfseries},
+  title/.style={font=\scriptsize\bfseries, text=cnasgray},
+  link/.style={->, line width=0.75pt, draw=cnasline, shorten >=2pt, shorten <=2pt},
+  softlink/.style={->, line width=0.65pt, draw=cnasline!75, shorten >=2pt, shorten <=2pt}
+]
+\node[title] at (-5.35,4.05) {Actors};
+\node[title] at (0,4.05) {Business Functions};
+\node[title] at (5.35,4.05) {Management and Control};
+
+\node[actor] (admin) at (-5.35,3.25) {Administrator};
+\node[actor] (drh) at (-5.35,1.9) {HRD};
+\node[actor] (manager) at (-5.35,0.55) {Hierarchical\\Manager};
+\node[actor] (employee) at (-5.35,-0.8) {Employee};
+
+\node[function] (users) at (-1.65,3.25) {User and role\\management};
+\node[function] (org) at (1.65,3.25) {Organization\\management};
+\node[function] (campaigns) at (-1.65,1.9) {Campaign\\management};
+\node[function] (refs) at (1.65,1.9) {Referentials, profiles\\and criteria};
+\node[process] (self) at (-1.65,0.55) {Self-evaluation};
+\node[process] (eval) at (1.65,0.55) {Hierarchical\\evaluation};
+\node[process] (validation) at (0,-0.9) {Validation\\and tracking};
+\node[process] (scores) at (0,-2.25) {Scoring\\and indicators};
+
+\node[output] (reports) at (5.35,1.9) {Reports and\\dashboards};
+\node[output] (history) at (5.35,0.15) {Historization\\and traceability};
+\node[output] (audit) at (5.35,-1.6) {Audit and\\compliance};
+
+\draw[link] (admin.east) -- (users.west);
+\draw[link] (drh.east) -- (campaigns.west);
+\draw[link] (manager.east) -- ++(0.32,0) -- ++(0,-0.8) -| (eval.south);
+\draw[link] (employee.east) -- (self.west);
+
+\draw[softlink] (users.east) -- (org.west);
+\draw[softlink] (org.south) -- (refs.north);
+\draw[softlink] (campaigns.east) -- (refs.west);
+\draw[softlink] (campaigns.south) -- (self.north);
+\draw[softlink] (refs.south) -- (eval.north);
+\draw[softlink] (self.east) -- (eval.west);
+\draw[softlink] (self.south) |- (validation.west);
+\draw[softlink] (eval.south) |- (validation.east);
+\draw[softlink] (validation.south) -- (scores.north);
+
+\draw[link] (scores.east) -- ++(2.0,0) coordinate (pilotage) |- (reports.west);
+\draw[softlink] (pilotage) |- (history.west);
+\draw[softlink] (history.south) -- (audit.north);
+\end{tikzpicture}%
+}
+\caption{Overall functional diagram of the proposed evaluation system}
+\label{fig:schema_fonc}
+\end{figure}
+\FloatBarrier
+
+\section{Objectives}
+
+The main objectives of the project are:
+\begin{itemize}
+    \item \textbf{Digitalize and automate} the evaluation process;
+    \item \textbf{Standardize} evaluation criteria;
+    \item \textbf{Centralize, secure and historize} HR data;
+    \item \textbf{Improve traceability} and transparency;
+    \item \textbf{Provide indicators} and reports facilitating decision support;
+    \item \textbf{Reduce processing time} and limit errors;
+    \item \textbf{Ensure compliance} of the system with data governance requirements.
+\end{itemize}
+
+Beyond these technical objectives, the project also aims to strengthen the consistency of the evaluation process, improve acceptability of the device by concerned actors, and create an exploitable basis for more structured management of competencies and performance within CNAS.
+
+\section{Conclusion}
+
+In this chapter, we presented CNAS and the strategic role of HRD and DMSI in human capital management and process digitalization. We studied the current situation regarding competency and performance evaluation, highlighted current limitations, and formulated the central research problem. Finally, we presented the project objectives and the general solution envisioned. The following chapter, \textit{Analysis and Design}, builds on this foundation and translates it into functional, static, and dynamic modeling.
+
+\chapter{Analysis and Design}
+\thispagestyle{plain}
+
+\section{Introduction}
+
+In this chapter, we present the analysis and design of the proposed system. We begin with general specifications, which express the organizational, technical, and functional needs of the solution. Next, we detail the analysis and modeling choices using UML diagrams, to represent the system's static structure and dynamic behavior.
+
+This chapter occupies a central place in the thesis, as it bridges the business need expressed in the previous chapter and the technical implementation presented in the following chapter. It also demonstrates that the proposed solution results not from an assembly of screens or tables, but from a coherent design approach oriented toward business, security, traceability, measurement quality, and exploitation of results.
+
+\section{General Description of the Solution}
+
+As a reminder, our solution consists of creating a web platform dedicated to evaluating employee competencies and performance within CNAS.
+
+This platform is not limited to recording scores. It has been designed as a continuous performance management system, structured around several complementary dimensions: referential configuration, campaign management, evaluation input, self-evaluation, score calculation, validation tracking, indicator production, audit, compliance, and reporting. This orientation aligns with recent approaches where evaluation should be integrated into a broader \textit{performance management} process, articulating objectives, measurement, feedback, tracking, and decision-making exploitation.
+
+This platform mainly includes the following interfaces:
+\begin{itemize}
+\item Authentication interface;
+\item User and role management interface;
+\item Organization management interface (agencies, structures, services, employees);
+\item Evaluation campaign management interface;
+\item Profiles and evaluation criteria management interface;
+\item Evaluation input interface;
+\item Self-evaluation interface;
+\item Results consultation interface;
+\item Dashboards and reports interface;
+\item Audit and compliance interface.
+\end{itemize}
+
+These interfaces aim to:
+\begin{itemize}
+\item automate the evaluation process;
+\item centralize data related to employees, campaigns, and evaluations;
+\item define evaluation criteria and competency referentials;
+\item assign evaluations to hierarchical managers;
+\item allow input, validation, tracking, and historization of evaluations;
+\item integrate self-evaluation into the overall process;
+\item produce scores, indicators, reports, and dashboards;
+\item improve traceability, transparency, and exploitation of results;
+\item guarantee security, access control, and auditability of sensitive operations.
+\end{itemize}
+
+This solution is designed as a modular platform, where referentials, organization, campaigns, evaluations, scores, dashboards, and compliance functions are clearly separated. This separation facilitates maintenance, access control, audit, system scalability, and alignment with different evaluation purposes: administrative, developmental, strategic, and professional expectation clarification.
+
+\section{Requirements Specification}
+
+The purpose of this phase is to capture system context, identify technical and functional requirements, identify stakeholders involved in our system and their functions, and define the logical structure of the solution.
+
+\subsection{Organizational Needs}
+
+\begin{itemize}
+\item Respect CNAS hierarchical organization.
+\item Improve task distribution among HRD, hierarchical managers, and employees.
+\item Ensure centralized and traceable management of evaluation campaigns.
+\item Facilitate tracking, consolidation, and exploitation of results.
+\item Provide differentiated functioning according to position families.
+\item Allow meaningful comparisons within homogeneous areas.
+\item Promote clarity of the evaluation process to improve acceptability.
+\item Integrate multiple evaluation purposes: HR management, decision support, development, and tracking.
+\end{itemize}
+
+These organizational needs are particularly important in CNAS's context, where profession diversity, hierarchical levels, and structure variety impose a system that is both consistent in structure and adaptable in application. Indeed, the same evaluation grid cannot be applied indiscriminately to a counter agent, an IT professional, an HR function, or a managerial position without producing weak or unfair comparisons.
+
+\subsection{Technical Requirements}
+
+These are determinative requirements for the system. Our system must guarantee:
+\begin{itemize}
+\item ease of use;
+\item secure authentication;
+\item access control according to roles and hierarchical areas;
+\item a centralized database ensuring information preservation and exploitation;
+\item an audit log tracing sensitive operations;
+\item a modular architecture facilitating system evolution;
+\item integration of a treatment register;
+\item form versioning logic;
+\item controlled and auditable exports;
+\item exploitable traceability of consultations, validations, corrections, and disputes.
+\end{itemize}
+
+The solution must also be capable of handling calculation mechanisms, historization, reporting, and data filtering according to roles. In this sense, it must be designed as an evaluation system, but also as a management and governance system for HR data.
+
+\subsection{Functional Requirements Capture}
+
+\subsubsection{Identification of Actors}
+
+An actor represents any entity external to the application, whether a human user or another system, that directly interacts with it.
+
+For our system, we identified the following actors:
+\begin{itemize}
+\item \textbf{Administrator}: manages users, roles, certain structure parameters, and supervises general platform administration;
+\item \textbf{HRD}: conducts campaigns, manages referentials, tracks results, exploits indicators, processes certain validations, and participates in compliance;
+\item \textbf{Hierarchical Manager}: evaluates employees in their area, consults self-evaluations, validates or rejects evaluations at hierarchical level, and tracks team activity;
+\item \textbf{Employee}: consults results, completes self-evaluation, tracks history, and can initiate certain requests, particularly in case of correction or dispute.
+\end{itemize}
+
+This actor distribution reflects multi-actor logic. It allows better responsibility distribution, improves information quality, and strengthens device justice perception. It aligns with inclusive logic, where multiple perspectives intervene in the evaluation cycle.
+
+\subsubsection{Functional Requirements}
+
+System functionalities are defined as the needs, actions, and reactions that the system must undertake in response to a primary actor's request.
+
+The system must allow the following actors to:
+\begin{itemize}
+\item authenticate to the system;
+\item manage users;
+\item manage roles and access rights;
+\item manage agencies, structures, services, and employees;
+\item create an evaluation campaign;
+\item open, close, and track a campaign;
+\item define evaluation criteria;
+\item define evaluation profiles;
+\item define competency referential;
+\item assign evaluations to hierarchical managers;
+\item input evaluation scores and comments;
+\item save an evaluation as draft;
+\item submit an evaluation;
+\item validate or reject an evaluation according to responsibility level;
+\item complete a self-evaluation;
+\item consult evaluation history;
+\item consult individual and consolidated results;
+\item generate reports;
+\item export results;
+\item consult dashboards;
+\item record important actions in an audit log;
+\item manage notifications;
+\item manage disputes, corrections, or requests related to compliance when authorized;
+\item ensure traceability of validations, rejections, exports, and sensitive operations.
+\end{itemize}
+
+At business level, these functionalities must support not only evaluation recording, but also overall process tracking, results exploitation, feedback quality, and trust in the device.
+
+\subsection{System Architecture}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=stealth,
+  root/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, font=\bfseries, minimum width=5.4cm, minimum height=0.85cm},
+  access/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
+  admin/.style={draw=cnasgreen, fill=cnasgreenLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
+  evalb/.style={draw=cnasgold, fill=cnasgoldLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
+  pilot/.style={draw=cnasgray, fill=cnasgrayLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
+  leaf/.style={draw=cnasline, fill=white, rounded corners=3pt, align=left, font=\scriptsize, text width=3.05cm, inner sep=5pt},
+  link/.style={->, thick, draw=cnasline}
+]
+\node[root] (root) at (0,0) {CNAS Evaluation System};
+
+\node[access] (access) at (-7.2,-1.45) {Access and Roles};
+\node[admin] (admin) at (-3.6,-1.45) {Administration};
+\node[evalb] (eval) at (0,-1.45) {Evaluation};
+\node[pilot] (pilot) at (3.6,-1.45) {Management};
+\node[access] (data) at (7.2,-1.45) {Business Data};
+
+\node[leaf, below=0.32cm of access] (accessLeaf) {
+Login\\
+User Profile\\
+Role-based Dashboards\\
+SuperAdmin, Admin, HR\\
+Manager, Employee/Agent
+};
+
+\node[leaf, below=0.32cm of admin] (adminLeaf) {
+Users and Rights\\
+CNAS Organization\\
+Agencies, Structures, Services\\
+Agents, Positions, Families\\
+Evaluation Profiles
+};
+
+\node[leaf, below=0.32cm of eval] (evalLeaf) {
+Campaigns\\
+Assignments\\
+Evaluations\\
+Self-evaluations\\
+Criteria and Form Versions\\
+Manager and HR Validation
+};
+
+\node[leaf, below=0.32cm of pilot] (pilotLeaf) {
+Daily Tracking\\
+Rankings and Comparisons\\
+Reports\\
+Notifications\\
+Audit Log\\
+Compliance and Requests
+};
+
+\node[leaf, below=0.32cm of data] (dataLeaf) {
+Django REST API\\
+JWT Authentication\\
+PostgreSQL Database\\
+Apps: accounts, organization, evaluations\\
+Traceability and Historization
+};
+
+\draw[link] (root.south) -- ++(0,-0.45) -| (access.north);
+\draw[link] (root.south) -- ++(0,-0.45) -| (admin.north);
+\draw[link] (root) -- (eval);
+\draw[link] (root.south) -- ++(0,-0.45) -| (pilot.north);
+\draw[link] (root.south) -- ++(0,-0.45) -| (data.north);
+\draw[link] (access) -- (accessLeaf);
+\draw[link] (admin) -- (adminLeaf);
+\draw[link] (eval) -- (evalLeaf);
+\draw[link] (pilot) -- (pilotLeaf);
+\draw[link] (data) -- (dataLeaf);
+\end{tikzpicture}%
+}
+\caption{System Architecture}
+\label{fig:arborescence_cnas}
+\end{figure}
+
+The system architecture reflects the modular logic actually retained in the application. It distinguishes access spaces by role, administration and organization modules, the core of the evaluation process, management functions, and data exposed by the Django REST API. This separation facilitates maintainability, readability, and responsibility distribution between React frontend, Django backend, and database.
+
+\subsection{Use Case Diagrams}
+
+A use case diagram represents a software system's functionalities from users' perspective. It shows interactions between actors and use cases, that is, the functionalities offered by the system \cite{fowler2020uml,sommerville2020software}.
+
+\textbf{Use:} define user needs, communicate with stakeholders, and design the system.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=stealth,
+  actor/.style={draw, rounded corners, align=center, minimum width=2.7cm, minimum height=0.75cm, font=\small\bfseries},
+  usecase/.style={draw, ellipse, align=center, minimum width=3.8cm, minimum height=0.8cm, font=\scriptsize}
+]
+\node[actor] (admin) at (-6,3) {Administrator};
+\node[actor] (hr) at (-6,1) {HRD};
+\node[actor] (manager) at (-6,-1) {Manager};
+\node[actor] (employee) at (-6,-3) {Employee};
+
+\node[usecase] (auth) at (0,3.4) {Authenticate};
+\node[usecase] (users) at (0,2.2) {Manage Users\\and Roles};
+\node[usecase] (org) at (0,1.0) {Manage Organization\\and Profiles};
+\node[usecase] (campaign) at (0,-0.2) {Conduct Campaigns};
+\node[usecase] (eval) at (0,-1.4) {Input / Validate\\Evaluations};
+\node[usecase] (self) at (0,-2.6) {Complete\\Self-evaluation};
+\node[usecase] (reports) at (5.1,0.8) {Consult Dashboards\\and Reports};
+\node[usecase] (audit) at (5.1,-1.0) {Audit, Compliance\\and Requests};
+
+\draw[->] (admin) -- (auth);
+\draw[->] (hr) -- (auth);
+\draw[->] (manager) -- (auth);
+\draw[->] (employee) -- (auth);
+
+\draw[->] (admin) -- (users);
+\draw[->] (admin) -- (org);
+\draw[->] (hr) -- (org);
+\draw[->] (hr) -- (campaign);
+\draw[->] (manager) -- (eval);
+\draw[->] (employee) -- (self);
+\draw[->] (hr) -- (reports);
+\draw[->] (manager) -- (reports);
+\draw[->] (admin) -- (audit);
+\draw[->] (hr) -- (audit);
+\draw[->] (employee) -- (audit);
+\end{tikzpicture}%
+}
+\caption{Use case diagram of the proposed evaluation system}
+\label{fig:usecase_cnas}
+\end{figure}
+
+The use case diagram shows that the system is not limited to simple "manager → score → result" relationship. It highlights a more complete chain: referential setup, campaign opening, evaluation input, self-evaluation, hierarchical validation, HRD exploitation, audit, and reporting. This logic is consistent with an integrated performance management approach.
+
+\subsubsection{Textual Documentation of Use Cases}
+
+The following table presents textual description of a central use case in the system: evaluation management. This case is central because it articulates several project dimensions: hierarchical attachment, evaluation referential, multi-criteria input, workflow, security, and traceability.
+
+\begin{table}[H]
+\centering
+\caption{Textual description of the "Manage an Evaluation" use case}
+\begin{tabular}{|p{5cm}|p{10cm}|}
+\hline
+Use Case & Manage an Evaluation \\ \hline
+Actor & Hierarchical Manager \\ \hline
+Objective & Evaluate an employee's performance and competencies according to criteria defined in an evaluation campaign and in the profile associated with their position. \\ \hline
+Precondition &
+\parbox{10cm}{
+\begin{itemize}
+\item User must be authenticated in the system;
+\item An evaluation campaign must be active;
+\item The employee must be assigned to the hierarchical manager;
+\item An evaluation profile and criteria must be defined for the employee.
+\end{itemize}
+} \\ \hline
+Main Scenario &
+\parbox{10cm}{
+\begin{enumerate}
+\item The hierarchical manager accesses the list of employees to evaluate.
+\item The system displays the corresponding evaluation form with applicable criteria and weightings.
+\item The manager enters scores and comments according to evaluation criteria.
+\item The system checks validity and consistency of entered information.
+\item The manager saves the evaluation as draft or submits it.
+\item The system saves data to the database.
+\item The system calculates scores by criterion, by axis, and overall score according to weighting rules.
+\item Sensitive actions are recorded in the audit log.
+\end{enumerate}
+} \\ \hline
+Postcondition & The evaluation is recorded in the system, with its status, scores, comments, and traceability. \\ \hline
+Alternative Scenario &
+\parbox{10cm}{
+Some entered information is incorrect, inconsistent, or incomplete; the system displays an error message and requests correction. If rejected at a later level, the evaluation can be returned for revision.
+} \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Design}
+
+\subsection{Functional Architecture}
+
+Provided documents and project analysis lead to retaining a modular architecture articulated around the following blocks:
+\begin{itemize}
+\item user and role management;
+\item hierarchical organization;
+\item competency referentials and criteria;
+\item evaluation profiles;
+\item evaluation campaigns;
+\item evaluations and self-evaluations;
+\item scoring and indicators;
+\item dashboards and reports;
+\item exports;
+\item compliance;
+\item audit log;
+\item notifications;
+\item versioning and historization.
+\end{itemize}
+
+This structuring is important for several reasons:
+\begin{itemize}
+\item it facilitates separation of functional responsibilities;
+\item it strengthens security and access control;
+\item it improves traceability;
+\item it prepares future system extension toward finer workflows, more advanced dashboards, and better data governance;
+\item it allows articulating administrative, development, management, and role clarification purposes.
+\end{itemize}
+
+Conceptually, this architecture expresses an important idea: evaluation is not an isolated module, but the meeting point between several subsystems, notably organization, referentials, roles, indicators, and compliance.
+
+\subsection{Class Diagram}
+
+A class diagram represents a system's static structure by showing classes, attributes, methods, and relationships between them. It allows visualizing key system concepts and their interactions \cite{fowler2020uml,sommerville2020software}.
+
+In our class diagram, main classes concern:
+\begin{itemize}
+\item users;
+\item roles;
+\item employees;
+\item organizational structures;
+\item evaluation campaigns;
+\item evaluation profiles;
+\item criteria;
+\item competencies;
+\item evaluations;
+\item responses or scores by criterion;
+\item audit logs;
+\item reports;
+\item notifications;
+\item compliance-related requests.
+\end{itemize}
+
+This diagram does not only represent a database. It translates essential business relationships: attachment of an employee to a service and manager, association of an evaluation profile to a position or job family, belonging of an evaluation to a campaign, link between scores, comments, history, and control.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{class_cnas.png}
+\caption{Class diagram of the employee skills and performance evaluation system}
+\label{fig:class_diag}
+\end{figure}
+
+\subsection{Sequence Diagrams}
+
+A UML sequence diagram is a visual tool representing interaction between objects in a system over time. It shows the chronological order of messages exchanged between objects to accomplish a particular task \cite{fowler2020uml,sommerville2020software}.
+
+The sequence diagrams retained in our work illustrate three central cases:
+\begin{itemize}
+\item campaign creation;
+\item evaluation input;
+\item evaluation validation.
+\end{itemize}
+
+Their interest is showing that the system is not only static. It functions according to sequence logic, controls, validations, and state changes, which is essential in a multi-actor evaluation process.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.90\textwidth}{!}{%
+\begin{tikzpicture}[>=stealth, participant/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.65cm, font=\small\bfseries}, msg/.style={font=\scriptsize}]
+\node[participant] (hr) at (0,0) {HRD};
+\node[participant] (front) at (3.6,0) {React Interface};
+\node[participant] (api) at (7.2,0) {Django API};
+\node[participant] (db) at (10.8,0) {Database};
+\foreach \x in {0,3.6,7.2,10.8} \draw[dashed] (\x,-0.45) -- (\x,-4.6);
+\draw[->] (0,-1) -- node[msg,above]{enter parameters} (3.6,-1);
+\draw[->] (3.6,-1.7) -- node[msg,above]{POST campaign} (7.2,-1.7);
+\draw[->] (7.2,-2.4) -- node[msg,above]{save campaign} (10.8,-2.4);
+\draw[->] (10.8,-3.1) -- node[msg,above]{identifier} (7.2,-3.1);
+\draw[->] (7.2,-3.8) -- node[msg,above]{campaign created} (3.6,-3.8);
+\draw[->] (3.6,-4.5) -- node[msg,above]{confirmation} (0,-4.5);
+\end{tikzpicture}%
+}
+\caption{Sequence diagram for "Create an Evaluation Campaign" use case}
+\label{fig:seq_campagne}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.90\textwidth}{!}{%
+\begin{tikzpicture}[>=stealth, participant/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.65cm, font=\small\bfseries}, msg/.style={font=\scriptsize}]
+\node[participant] (manager) at (0,0) {Manager};
+\node[participant] (front) at (3.6,0) {React Interface};
+\node[participant] (api) at (7.2,0) {Django API};
+\node[participant] (db) at (10.8,0) {Database};
+\foreach \x in {0,3.6,7.2,10.8} \draw[dashed] (\x,-0.45) -- (\x,-5.3);
+\draw[->] (0,-1) -- node[msg,above]{open form} (3.6,-1);
+\draw[->] (3.6,-1.7) -- node[msg,above]{load criteria} (7.2,-1.7);
+\draw[->] (7.2,-2.4) -- node[msg,above]{read profile and campaign} (10.8,-2.4);
+\draw[->] (10.8,-3.1) -- node[msg,above]{data} (7.2,-3.1);
+\draw[->] (7.2,-3.8) -- node[msg,above]{form} (3.6,-3.8);
+\draw[->] (0,-4.5) -- node[msg,above]{scores and comments} (3.6,-4.5);
+\draw[->] (3.6,-5.2) -- node[msg,above]{save / submit} (7.2,-5.2);
+\end{tikzpicture}%
+}
+\caption{Sequence diagram for "Input an Evaluation" use case}
+\label{fig:seq_saisie}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.90\textwidth}{!}{%
+\begin{tikzpicture}[>=stealth, participant/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.65cm, font=\small\bfseries}, msg/.style={font=\scriptsize}]
+\node[participant] (hr) at (0,0) {HRD};
+\node[participant] (front) at (3.6,0) {React Interface};
+\node[participant] (api) at (7.2,0) {Django API};
+\node[participant] (db) at (10.8,0) {Database};
+\foreach \x in {0,3.6,7.2,10.8} \draw[dashed] (\x,-0.45) -- (\x,-5.2);
+\draw[->] (0,-1) -- node[msg,above]{examine evaluation} (3.6,-1);
+\draw[->] (3.6,-1.7) -- node[msg,above]{GET details} (7.2,-1.7);
+\draw[->] (7.2,-2.4) -- node[msg,above]{scores, status, audit} (10.8,-2.4);
+\draw[->] (0,-3.2) -- node[msg,above]{validate / reject} (3.6,-3.2);
+\draw[->] (3.6,-3.9) -- node[msg,above]{PATCH status} (7.2,-3.9);
+\draw[->] (7.2,-4.6) -- node[msg,above]{update and trace} (10.8,-4.6);
+\draw[->] (7.2,-5.2) -- node[msg,above]{notification} (3.6,-5.2);
+\end{tikzpicture}%
+}
+\caption{Sequence diagram for "Validate an Evaluation" use case}
+\label{fig:seq_validation}
+\end{figure}
+
+\subsection{System Relational Model}
+
+To implement our database, we must convert the class diagram into a relational model.
+
+The retained relational model must reflect not only main objects, but also the project's business logic: organizational hierarchy, referentials, profiles, campaigns, evaluations, self-evaluations, scoring, audit, and compliance.
+
+\subsubsection{Main System Tables}
+
+\begin{itemize}
+\item \textbf{User} (\underline{id\_user}, name, email, password, id\_role).
+\item \textbf{Role} (\underline{id\_role}, role\_name).
+\item \textbf{Agency} (\underline{id\_agency}, name, code).
+\item \textbf{Structure} (\underline{id\_structure}, label, id\_agency).
+\item \textbf{Service} (\underline{id\_service}, label, id\_structure).
+\item \textbf{Employee} (\underline{id\_employee}, employee\_id, name, firstname, position, service, manager, job\_family, evaluation\_profile).
+\item \textbf{JobFamily} (\underline{id\_family}, label, performance\_weight, competency\_weight).
+\item \textbf{EvaluationProfile} (\underline{id\_profile}, label, quantitative\_weight, qualitative\_weight, assiduity\_weight, self\_weight, managerial\_weight).
+\item \textbf{Competency} (\underline{id\_competency}, label, description).
+\item \textbf{Criterion} (\underline{id\_criterion}, label, category, weight, min\_note, max\_note, id\_profile).
+\item \textbf{EvaluationCampaign} (\underline{id\_campaign}, title, start\_date, end\_date, status).
+\item \textbf{Evaluation} (\underline{id\_evaluation}, evaluation\_date, status, performance\_score, competency\_score, overall\_score, comment, id\_employee, id\_campaign).
+\item \textbf{CriterionScore} (\underline{id\_score}, input\_note, normalized\_score, comment, id\_evaluation, id\_criterion).
+\item \textbf{SelfEvaluation} (\underline{id\_self}, status, average\_score, id\_employee, id\_campaign).
+\item \textbf{Report} (\underline{id\_report}, type, generation\_date, id\_campaign).
+\item \textbf{Notification} (\underline{id\_notification}, content, creation\_date, read, recipient).
+\item \textbf{AuditLog} (\underline{id\_audit}, action, timestamp, author, object, reason).
+\item \textbf{ComplianceRequest} (\underline{id\_request}, type, status, description, author, processing).
+\end{itemize}
+
+In the thesis, it is not necessary to list all technical tables from the actual project. However, it is essential to present the main tables that translate the system's functional logic.
+
+\subsection{Scoring System and Indicators}
+
+Provided resources show that a credible evaluation system must not stop at a raw score. It must at least distinguish performance score, competency score, and overall score, while explaining the main factors contributing to the result.
+
+In our system, scoring logic relies on multiple levels:
+\begin{itemize}
+\item a \textbf{score by criterion}, obtained from the entered score;
+\item a \textbf{score by axis}, obtained by weighted aggregation of multiple criteria;
+\item a \textbf{performance score}, mainly based on quantitative, procedural, or assiduity dimensions;
+\item a \textbf{competency score}, based on qualitative, behavioral, self-evaluative, or managerial dimensions;
+\item an \textbf{overall score}, obtained by combining the two previous levels according to job family and evaluation profile.
+\end{itemize}
+
+This scoring architecture presents several advantages:
+\begin{itemize}
+\item it avoids reducing the process to a single score;
+\item it makes evaluation more explainable;
+\item it allows adapting weightings to position families;
+\item it distinguishes observed results from mobilized capacities and behaviors;
+\item it facilitates building analytical dashboards.
+\end{itemize}
+
+Indicators can include, depending on position families, volume processed, deadline compliance, cycle time, rework rate, file completeness, perceived feedback quality, procedural compliance, technical competency score, behavioral competency score, and leadership score.
+
+However, these indicators must not be used without caution. They must be operationally defined, linked to a traceable data source, compared within a coherent area, and integrated into role-adapted dashboards. In particular, comparisons should be privileged within homogeneous populations rather than between very different professions.
+
+\subsection{Questionnaires and Measurement Quality}
+
+Support documents emphasize that a serious evaluation system must distinguish performance and competency, provide parameterizable forms, and rely on minimal questionnaire validation.
+
+In practice, this means:
+\begin{itemize}
+\item review of items by subject matter experts;
+\item pretest on a small sample;
+\item acceptable internal consistency;
+\item documentation of the questionnaire used in each campaign;
+\item clear distinction between quantitative, qualitative, behavioral, and managerial criteria;
+\item explanation of weightings and calculation rules.
+\end{itemize}
+
+This logic improves device credibility and strengthens the thesis's scientific quality. It also allows avoiding two frequent errors: confusing competency and performance, and producing a final score without documenting its components.
+
+Moreover, measurement quality is directly related to system acceptability. A well-constructed questionnaire, understandable, consistent with the evaluated position, and clearly linked to expected criteria reduces ambiguities, facilitates feedback, and strengthens the device's justice perception.
+
+\section{Conclusion}
+
+In this chapter, we presented the analysis and design of our competency and performance evaluation system within CNAS. We clarified organizational, technical, and functional needs, identified actors, formalized main use cases, then structured design around a modular architecture coherent with project requirements.
+
+We also showed that the system is not based solely on technical logic, but on an articulated set of business choices: adaptation to position families, multi-actor workflow, explainable scoring, questionnaire quality, audit, compliance, and management by indicators. The mobilized scientific literature, as well as provided resources, allowed strengthening this approach by distinguishing performance, competency, feedback, perceived justice, and compliance. The next chapter presents concrete implementation of this design through application architecture, technologies used, and major system interfaces.
+
+\chapter{Implementation}
+\thispagestyle{plain}
+
+\section{Introduction}
+
+In this chapter, after explaining in detail our solution's design, we address its implementation process. We focus on technical aspects associated with system creation, highlighting technology choices, modular organization of the application, security, and major interfaces.
+
+\section{Working Environment}
+
+In this section, we detail hardware and software tools as well as technologies used for development.
+
+\subsection{Technologies Used}
+
+\paragraph{React:}
+React is a modern component-oriented JavaScript library used to build dynamic and responsive user interfaces. In our project, React was chosen to structure the interface in reusable components, improve frontend maintainability, and facilitate screen management dedicated to different system roles \cite{react2025}.
+
+\paragraph{TypeScript:}
+TypeScript is a typed superset of JavaScript that adds static typing, advanced autocompletion, and better safety during development. Its use in our application helps reduce errors, clarify data contracts exchanged with the API, and improve overall frontend code quality \cite{typescript2025}.
+
+\paragraph{Python:}
+Python is a versatile programming language, widely used for web development, automation, and data processing. Within the context of this application, Python forms the basis of backend development through its readability, productivity, and rich ecosystem \cite{python2025}.
+
+\subsection{Frameworks and Database}
+
+\paragraph{Django:}
+Django is a high-level web framework based on Python. It provides a robust architecture for developing secure, maintainable, and rapidly deployable applications. In our project, Django was used to implement business logic, organize data models, manage authentication, and expose necessary services to the React interface \cite{django2025}.
+
+\paragraph{PostgreSQL:}
+PostgreSQL is an open source relational database management system, recognized for its robustness, SQL compliance, and reliability. It was chosen to ensure centralized storage of HR data, campaigns, evaluations, results, and traceability logs. Its relational model is particularly suited to the integrity, reporting, and historization needs of our system \cite{postgresql2025}.
+
+\paragraph{Chosen Technical Architecture:}
+The realized solution relies on a modern client-server architecture: the user interface is developed with React and TypeScript, the backend is implemented with Python and Django, and data is stored in PostgreSQL. This technology combination meets the modularity, maintainability, security, and scalability needs highlighted in the analysis reports provided for the thesis.
+
+\section{Application Architecture}
+
+The application is organized into several layers:
+\begin{itemize}
+\item presentation layer: web interfaces by role;
+\item business logic layer: authentication, campaigns, evaluations, scoring, reporting;
+\item data layer: users, employees, campaigns, criteria, responses, results, audits;
+\item compliance layer: audit log, exports, register, traceability.
+\end{itemize}
+
+This modular architecture allows separating navigation logic, business logic, and data persistence.
+
+\section{Web Application Security}
+
+\textbf{Authentication:} authentication ensures the truthfulness of a user's identity. In our system, its main objective is restricting access rights and confirming the user's right to access their work environment.
+
+Beyond authentication, security relies on:
+\begin{itemize}
+\item role-based access control;
+\item filtering by hierarchical area;
+\item traceability of access and exports;
+\item maintenance of exploitable history;
+\item confidentiality precautions related to HR data.
+\end{itemize}
+
+\section{Functional Organization by Role}
+
+The system must propose distinct views according to roles. This differentiation responds to a concrete business need and prevents a user from seeing data outside their scope.
+
+\subsection{Administrator Space}
+
+The administrator manages users, roles, assignments, and part of structure parameters.
+
+\subsection{HRD Space}
+
+HRD conducts campaigns, consolidates results, tracks global indicators, processes competency gaps, and prepares reports.
+
+\subsection{Hierarchical Manager Space}
+
+The manager evaluates employees in their area, tracks validations, and consults team dashboards.
+
+\subsection{Employee Space}
+
+The employee consults results, history, and, if the workflow allows, completes self-evaluation.
+
+\section{Presentation of Interfaces}
+
+\subsection{Authentication}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth,keepaspectratio]{authen1..png}
+\caption{Authentication Interface}
+\label{fig:auth}
+\end{figure}
+
+\subsection{Home Page}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.86\textwidth}{!}{%
+\begin{tikzpicture}[
+  panel/.style={draw, rounded corners, minimum width=11cm, minimum height=6.2cm},
+  side/.style={draw, rounded corners, minimum width=2.4cm, minimum height=5.6cm, align=left, font=\scriptsize},
+  card/.style={draw, rounded corners, minimum width=2.5cm, minimum height=1.15cm, align=center, font=\scriptsize}
+]
+\node[panel] (page) at (0,0) {};
+\node[side] at (-4.1,0) {CNAS\\[0.45cm]Dashboard\\Profile\\Evaluations\\Self-evaluation\\Campaigns\\Reports};
+\node[card] at (-0.9,1.7) {Ongoing\\Evaluations};
+\node[card] at (2.1,1.7) {Active\\Campaigns};
+\node[card] at (-0.9,0.1) {Average\\Overall Score};
+\node[card] at (2.1,0.1) {Alerts\\and Delays};
+\node[draw, rounded corners, minimum width=5.5cm, minimum height=1.3cm, align=center, font=\scriptsize] at (0.6,-1.8) {Summary area and recent events};
+\end{tikzpicture}%
+}
+\caption{Home Page}
+\label{fig:menu}
+\end{figure}
+
+\subsection{Example Consultation Interface}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.86\textwidth}{!}{%
+\begin{tikzpicture}[
+  page/.style={draw, rounded corners, minimum width=11cm, minimum height=6.2cm},
+  box/.style={draw, rounded corners, minimum width=2.5cm, minimum height=0.55cm, align=center, font=\scriptsize},
+  row/.style={draw, minimum width=8.6cm, minimum height=0.55cm, align=left, font=\scriptsize}
+]
+\node[page] at (0,0) {};
+\node[box] at (-3.4,2.3) {Search};
+\node[box] at (-0.5,2.3) {Service};
+\node[box] at (2.4,2.3) {Status};
+\node[box] at (4.5,2.3) {Filter};
+\node[row] at (0,1.2) {Employee ID \hspace{1cm} Employee \hspace{1.4cm} Position \hspace{1.1cm} Score \hspace{0.9cm} Status};
+\node[row] at (0,0.45) {AG-001 \hspace{1.1cm} Employee 1 \hspace{1.0cm} Manager \hspace{0.55cm} 84 \hspace{1.1cm} Validated};
+\node[row] at (0,-0.25) {AG-002 \hspace{1.1cm} Employee 2 \hspace{1.0cm} Counter Agent \hspace{0.35cm} 76 \hspace{1.1cm} In Progress};
+\node[row] at (0,-0.95) {AG-003 \hspace{1.1cm} Employee 3 \hspace{1.0cm} IT Technician \hspace{0.5cm} 91 \hspace{1.1cm} Validated};
+\node[draw, rounded corners, minimum width=3.2cm, minimum height=0.75cm, align=center, font=\scriptsize] at (3.25,-2.2) {View Details};
+\end{tikzpicture}%
+}
+\caption{Example Consultation / Search Interface}
+\label{fig:fiches}
+\end{figure}
+
+\section{Critical Discussion of Implementation}
+
+The achieved implementation demonstrates system feasibility. It already allows visualizing general role logic, interface organization, information centralization, and importance of access hierarchization. However, several enhancements remain possible: more advanced scoring engine, formal form versioning, dispute resolution, rich exports, more detailed dashboards, and better compliance industrialization.
+
+\section{Conclusion}
+
+In this chapter, we presented main technical choices, application organization, and representative interfaces. The achieved implementation constitutes a coherent foundation for a more complete and compliant HR evaluation system meeting functional and regulatory requirements.
+
+\chapter*{General Conclusion}
+\thispagestyle{plain}
+
+This thesis addressed the design and implementation of an information system dedicated to evaluating employee competencies and performance within CNAS. Through this work, we first analyzed the organizational context and identified limitations of existing practices: criteria heterogeneity, scattered supports, weak traceability, consolidation difficulty, and weak decision value of results.
+
+We then showed that designing such a system cannot be reduced to simple numerical transposition of a paper form. It requires work framing position families, referentials, indicators, validation workflows, measurement quality, and data governance. The scientific literature mobilized, as well as provided resources, allowed strengthening this approach by distinguishing performance, competency, feedback, perceived justice, and compliance.
+
+Finally, UML modeling, the relational model, modular architecture, and implementation choices allowed proposing a coherent, scalable system foundation adapted to CNAS needs. In perspective, this work could be extended by even more advanced dashboards, manager calibration mechanisms, better questionnaire formalization, dispute modules, and an even more complete compliance layer.
+
+\bibliographystyle{plain}
+\bibliography{Bibliographie}
+
+\appendix
+
+\chapter*{Appendices}
+\thispagestyle{plain}
+
+\section*{Appendix A: Comparative Table of Indicators}
+
+\begin{longtable}{|p{4cm}|p{2cm}|p{8cm}|}
+\hline
+Indicator & Type & Operational Definition \\ \hline
+Deadline Compliance & Q & Proportion of operations closed before set deadline. \\ \hline
+Median Cycle Time & Q & Median duration between opening and closing of a file or processing. \\ \hline
+Rework / Rework Rate & Q & Proportion of files returned or corrected. \\ \hline
+File Completeness & Q & Proportion of complete files upon submission or validation. \\ \hline
+Technical Competency Score & Qual$\rightarrow$score & Weighted average of technical items related to position. \\ \hline
+Behavioral Competency Score & Qual$\rightarrow$score & Weighted average of cooperation, communication, and accuracy items. \\ \hline
+Leadership Score & Qual$\rightarrow$score & Aggregate of leadership and communication items for managers. \\ \hline
+Perceived Feedback Quality & Qual$\rightarrow$score & Perception of evaluation exchange by the evaluated person. \\ \hline
+Note Inflation & Q & Abnormally high proportion of maximum scores assigned by an evaluator. \\ \hline
+Note Dispersion & Q & Variance of scores assigned by an evaluator or service. \\ \hline
+\end{longtable}
+
+\section*{Appendix B: Position Families and Comparison Logic}
+
+\begin{longtable}{|p{4cm}|p{5cm}|p{5cm}|}
+\hline
+Position Family & Priority Indicators & Recommended Comparison \\ \hline
+Files / Counter / Payment Structures & volume, delays, cycle time, rework, completeness & intra-family and intra-service \\ \hline
+IT / DMSI & ticket processing delay, incidents, availability, security compliance & intra-family \\ \hline
+HR & campaign completion, HR processing delays, data quality, disputes & intra-family \\ \hline
+Management & evaluation completion, team objectives, stability, note inflation/dispersion & intra-level \\ \hline
+Health / Social Structures & quality incidents, protocol compliance, user satisfaction if available & intra-family \\ \hline
+\end{longtable}
+
+\section*{Appendix C: Figure References}
+
+\textbf{PNG Images present in figures folder and used in thesis:}
+\begin{itemize}
+\item ua1.png
+\item knas.png
+\item organigramme\_cnas.png
+\item class\_cnas.png
+\item authen1..png
+\end{itemize}
+
+\textbf{Diagrams generated directly in LaTeX/TikZ:}
+\begin{itemize}
+\item overall system functional diagram;
+\item system architecture;
+\item use case diagram;
+\item sequence diagrams;
+\item simplified mockups of home page and consultation/search.
+\end{itemize}
+
+\end{document}
+```
+
+I've completed the full translation of your thesis from French to English. The translation maintains:
+
+- ✅ All LaTeX structure and commands intact
+- ✅ Bibliography already in English format
+- ✅ Technical terminology appropriate for the field
+- ✅ Chapter and section organization
+- ✅ All diagrams and figure references
+- ✅ Academic writing style
+- ✅ Mathematical expressions and citations
+
+You can now replace your original `pfe.txt` file with this translated version. All French text has been converted to English while preserving the professional academic tone and technical accuracy of your thesis on the CNAS performance evaluation system.

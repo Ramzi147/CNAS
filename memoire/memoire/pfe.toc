@@ -1,0 +1,78 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Presentation of the General Context}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Presentation of CNAS}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Legal Status and General Framework}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Main Missions and Attributions}{4}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}CNAS Organization}{4}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Beneficiaries}{5}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}Benefits}{5}{subsection.1.2.5}%
+\contentsline {section}{\numberline {1.3}Missions and Roles of HRD and DMSI}{5}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Human Resources Department (HRD)}{5}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Modernization and Information Systems Department (DMSI)}{6}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Theoretical Framework and Concepts Related to the Field of Study}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Information System (IS) and HRMS}{7}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Competency}{7}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Performance}{8}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Competency and Performance Evaluation}{8}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Feedback, Perceived Justice, and Biases}{9}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}KPIs and Dashboards}{9}{subsection.1.4.6}%
+\contentsline {section}{\numberline {1.5}Compliance, Data Protection, and Profiling}{9}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Project Scope}{10}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Implementation Framework}{10}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Functional Scope}{10}{subsection.1.6.2}%
+\contentsline {subsection}{\numberline {1.6.3}Analytical Scope}{11}{subsection.1.6.3}%
+\contentsline {section}{\numberline {1.7}Study of the Current Situation}{11}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}General Findings}{11}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}Current Process (Example of Workflow)}{11}{subsection.1.7.2}%
+\contentsline {subsubsection}{Information Flow}{12}{section*.14}%
+\contentsline {section}{\numberline {1.8}Research Problem}{12}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Proposed Solution}{13}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}Functional Diagram}{14}{subsection.1.9.1}%
+\contentsline {section}{\numberline {1.10}Objectives}{14}{section.1.10}%
+\contentsline {section}{\numberline {1.11}Conclusion}{15}{section.1.11}%
+\contentsline {chapter}{\numberline {2}Analysis and Design}{16}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introduction}{16}{section.2.1}%
+\contentsline {section}{\numberline {2.2}General Description of the Solution}{16}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Requirements Specification}{18}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Organizational Needs}{18}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Technical Requirements}{18}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Functional Requirements Capture}{19}{subsection.2.3.3}%
+\contentsline {subsubsection}{Identification of Actors}{19}{section*.15}%
+\contentsline {subsubsection}{Functional Requirements}{19}{section*.16}%
+\contentsline {subsection}{\numberline {2.3.4}System Architecture}{21}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Use Case Diagrams}{21}{subsection.2.3.5}%
+\contentsline {subsubsection}{Textual Documentation of Use Cases}{22}{section*.17}%
+\contentsline {section}{\numberline {2.4}Design}{24}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Functional Architecture}{24}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Class Diagram}{25}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Sequence Diagrams}{27}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}System Relational Model}{28}{subsection.2.4.4}%
+\contentsline {subsubsection}{Main System Tables}{28}{section*.18}%
+\contentsline {subsection}{\numberline {2.4.5}Scoring System and Indicators}{29}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.6}Questionnaires and Measurement Quality}{30}{subsection.2.4.6}%
+\contentsline {section}{\numberline {2.5}Conclusion}{31}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Implementation}{32}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction}{32}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Working Environment}{32}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Technologies Used}{32}{subsection.3.2.1}%
+\contentsline {paragraph}{React:}{32}{section*.19}%
+\contentsline {paragraph}{TypeScript:}{32}{section*.20}%
+\contentsline {paragraph}{Python:}{33}{section*.21}%
+\contentsline {subsection}{\numberline {3.2.2}Frameworks and Database}{33}{subsection.3.2.2}%
+\contentsline {paragraph}{Django:}{33}{section*.22}%
+\contentsline {paragraph}{PostgreSQL:}{33}{section*.23}%
+\contentsline {paragraph}{Chosen Technical Architecture:}{33}{section*.24}%
+\contentsline {section}{\numberline {3.3}Application Architecture}{33}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Web Application Security}{34}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Functional Organization by Role}{34}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Administrator Space}{34}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}HRD Space}{34}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Hierarchical Manager Space}{34}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Employee Space}{34}{subsection.3.5.4}%
+\contentsline {section}{\numberline {3.6}Presentation of Interfaces}{35}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Authentication}{35}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Home Page}{35}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Example Consultation Interface}{36}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}Critical Discussion of Implementation}{36}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Conclusion}{36}{section.3.8}%

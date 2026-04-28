@@ -1,0 +1,10 @@
+{
+  "name": "pfe-cnas-fullstack",
+  "private": true,
+  "scripts": {
+    "seed": "cd backend_django && py manage.py seed_realistic",
+    "seed:reset": "cd backend_django && py manage.py seed_realistic --reset",
+    "backend:check": "cd backend_django && py manage.py check",
+    "backend:migrate": "cd backend_django && py manage.py migrate"
+  }
+}
