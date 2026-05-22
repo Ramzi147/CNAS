@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : admin.py
+Role : configuration d'administration Django pour manipuler les donnees du module.
+Module : module evaluations.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.contrib import admin
 
 from apps.evaluations.models import (
@@ -31,3 +37,5 @@ admin.site.register(ProcessingRegister)
 admin.site.register(ComplianceRequest)
 admin.site.register(Report)
 admin.site.register(Notification)
+
+

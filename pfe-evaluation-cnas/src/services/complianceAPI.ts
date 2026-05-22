@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : complianceAPI.ts
+ * Role : service frontend qui encapsule les appels HTTP vers le backend.
+ * Module : services API frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import api from "./api";
 
 export type ComplianceRequestType = "export" | "rectification" | "contestation" | "correction";
@@ -106,3 +113,5 @@ export const complianceAPI = {
   archiveFormVersion: (id: string) =>
     api.post<{ success: boolean; data: EvaluationFormVersion }>(`/evaluation-form-versions/${id}/archive`),
 };
+
+

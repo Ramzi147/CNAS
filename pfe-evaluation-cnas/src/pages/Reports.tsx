@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : Reports.tsx
+ * Role : page de generation et d'historisation des rapports RH.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useState } from "react";
 import { evaluationCampaignAPI, type EvaluationCampaign } from "../services/rankingAPI";
 import { reportAPI, type Report } from "../services/reportAPI";
@@ -178,3 +185,5 @@ const styles: Record<string, React.CSSProperties> = {
   error: { padding: 12, borderRadius: 10, background: "rgba(220,38,38,.08)", color: "#b91c1c" },
   empty: { color: "#64748b" },
 };
+
+

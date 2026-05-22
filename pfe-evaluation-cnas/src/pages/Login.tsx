@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : Login.tsx
+ * Role : page de connexion qui declenche l'authentification utilisateur.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import cnasLogo from "../assets/cnas-logo.png";
@@ -73,3 +80,5 @@ export default function Login() {
     </div>
   );
 }
+
+

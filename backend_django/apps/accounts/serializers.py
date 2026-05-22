@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : serializers.py
+Role : adaptation entre les objets Django et le JSON echange avec le frontend.
+Module : module comptes et acces.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -72,3 +78,5 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         }
         data["token"] = data["access"]
         return data
+
+

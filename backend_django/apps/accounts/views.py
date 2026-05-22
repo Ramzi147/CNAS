@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : views.py
+Role : logique applicative des endpoints REST exposes au frontend.
+Module : module comptes et acces.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -73,3 +79,5 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
         self.perform_destroy(instance)
         return Response({"success": True, "data": serializer.data})
+
+

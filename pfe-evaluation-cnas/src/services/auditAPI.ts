@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : auditAPI.ts
+ * Role : service frontend qui encapsule les appels HTTP vers le backend.
+ * Module : services API frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import api from "./api";
 
 export type AuditEvent = {
@@ -16,3 +23,5 @@ export const auditAPI = {
   list: (params?: { entity?: string; action?: string }) =>
     api.get<{ success: boolean; data: AuditEvent[] }>("/audit-events", { params }),
 };
+
+

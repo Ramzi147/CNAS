@@ -1,4 +1,11 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿/**
+ * Vue d'ensemble du fichier : Profile.tsx
+ * Role : page de consultation et de mise a jour du profil utilisateur.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { agentAPI } from "../services/entityAPI";
@@ -199,3 +206,5 @@ const styles: Record<string, React.CSSProperties> = {
   timelineSub: { fontSize: 13, color: "#64748b" },
   timelineTime: { fontSize: 12, color: "#64748b", fontWeight: 700 },
 };
+
+

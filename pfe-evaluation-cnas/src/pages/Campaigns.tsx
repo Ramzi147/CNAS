@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : Campaigns.tsx
+ * Role : page de pilotage des campagnes d'evaluation et de leurs affectations.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -15,6 +22,8 @@ const evaluationStatusLabel = {
   rejected: "Rejetee",
 };
 
+// Cette page est le point de pilotage RH des campagnes :
+// creation, ouverture, cloture et affectation des employes.
 export default function Campaigns() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -35,6 +44,8 @@ export default function Campaigns() {
   const [busyAction, setBusyAction] = useState<string | null>(null);
   const [editingCampaign, setEditingCampaign] = useState<EvaluationCampaign | null>(null);
 
+  // Chargement principal de la page :
+  // on recupere les campagnes, les affectations existantes et l'annuaire des agents.
   const load = async () => {
     try {
       const [campaignRes, assignmentRes, agentRes] = await Promise.all([
@@ -66,6 +77,8 @@ export default function Campaigns() {
   );
   const selectedAgentCount = selectedAgents.length;
 
+  // Changer le statut d'une campagne met a jour le workflow global :
+  // une campagne ouverte devient exploitable pour la saisie manager.
   const changeStatus = async (action: "open" | "close") => {
     if (!selectedCampaign || !canManageCampaigns) return;
     setError(null);
@@ -94,6 +107,8 @@ export default function Campaigns() {
     });
   };
 
+  // Cette fonction cree ou met a jour une campagne sans toucher
+  // aux affectations deja existantes tant que l'utilisateur ne les modifie pas.
   const saveCampaign = async () => {
     if (!canManageCampaigns) {
       setError("Action reservee a l'administration et a la DRH.");
@@ -120,6 +135,8 @@ export default function Campaigns() {
     }
   };
 
+  // L'affectation relie explicitement une campagne aux employes selectionnes.
+  // C'est cette etape qui rend visibles les fiches aux managers concernes.
   const assign = async () => {
     if (!selectedCampaign || selectedAgents.length === 0 || !canManageCampaigns) return;
     setError(null);
@@ -137,6 +154,8 @@ export default function Campaigns() {
     }
   };
 
+  // L'annulation ne supprime pas l'agent de l'organisation :
+  // elle retire seulement son rattachement a la campagne courante.
   const cancelAssignment = async (assignment: CampaignAssignment) => {
     if (!canManageCampaigns) {
       setError("Action reservee a l'administration et a la DRH.");
@@ -156,6 +175,8 @@ export default function Campaigns() {
     }
   };
 
+  // La suppression est une action lourde, donc on la protege avec confirmation
+  // pour eviter d'effacer une campagne complete par erreur pendant la demo.
   const removeCampaign = async (campaign: EvaluationCampaign) => {
     if (!canManageCampaigns) {
       setError("Action reservee a l'administration et a la DRH.");
@@ -425,3 +446,5 @@ function readApiError(err: any, fallback: string) {
   if (typeof firstValue === "string") return firstValue;
   return fallback;
 }
+
+

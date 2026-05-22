@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : AdminDashboard.tsx
+ * Role : page de synthese qui affiche les indicateurs et raccourcis du role courant.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -11,6 +18,8 @@ import type { Evaluation } from "../types/evaluation";
 import type { SelfEvaluation } from "../types/selfEvaluation";
 import { auditAPI, type AuditEvent } from "../services/auditAPI";
 
+// Ce dashboard rassemble les indicateurs transverses utiles a l'administration :
+// volumes RH, activite d'evaluation et derniers evenements d'audit.
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
@@ -28,6 +37,8 @@ export default function AdminDashboard() {
   const [events, setEvents] = useState<AuditEvent[]>([]);
 
   useEffect(() => {
+    // Le dashboard charge plusieurs sources en parallele pour afficher
+    // une vue de synthese sans obliger l'utilisateur a naviguer partout.
     Promise.all([
       evaluationAPI.list(),
       selfEvaluationAPI.list(),
@@ -59,6 +70,8 @@ export default function AdminDashboard() {
       .catch(() => undefined);
   }, []);
 
+  // Ces memos evitent de recalculer les stats et listes recentes
+  // a chaque rendu tant que les evaluations ne changent pas.
   const stats = useMemo(() => evaluationAPI.stats(evaluations), [evaluations]);
   const recent = useMemo(() => evaluations.slice(0, 5), [evaluations]);
 
@@ -244,3 +257,5 @@ export default function AdminDashboard() {
     </DashboardLayout>
   );
 }
+
+

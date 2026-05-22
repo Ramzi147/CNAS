@@ -1,4 +1,11 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿/**
+ * Vue d'ensemble du fichier : Organization.tsx
+ * Role : page de gestion de la structure organisationnelle et des agents.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { agencyAPI, structureAPI, serviceAPI, agentAPI } from "../services/entityAPI";
 import type { Agency, Structure, Service, Agent } from "../types/entities";
@@ -596,3 +603,5 @@ const styles: Record<string, React.CSSProperties> = {
   agentBadgeInactive: { background: "rgba(239,68,68,.12)", color: "#b91c1c" },
   emptyState: { padding: 22, borderRadius: 16, background: "rgba(248,250,252,.9)", color: "#64748b", fontWeight: 700 },
 };
+
+

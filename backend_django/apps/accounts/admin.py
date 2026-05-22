@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : admin.py
+Role : configuration d'administration Django pour manipuler les donnees du module.
+Module : module comptes et acces.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -15,3 +21,5 @@ class CustomUserAdmin(UserAdmin):
         ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
         ("Dates", {"fields": ("last_login", "date_joined")}),
     )
+
+

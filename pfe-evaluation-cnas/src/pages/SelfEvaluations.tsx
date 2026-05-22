@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : SelfEvaluations.tsx
+ * Role : page de gestion des auto-evaluations cote employe, manager et RH.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import FadeIn from "../components/ui/FadeIn";
@@ -94,6 +101,8 @@ const fallbackQuestionnaire: SelfEvaluationSection[] = [
   },
 ];
 
+// Cette page sert a trois usages differents :
+// saisie employe, revue manager et integration RH.
 export default function SelfEvaluations() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -126,6 +135,9 @@ export default function SelfEvaluations() {
 
   const [form, setForm] = useState<FormState>(() => emptyForm());
 
+  // Recharge toutes les donnees necessaires a la page.
+  // On se limite au perimetre visible pour le role courant afin de garder
+  // une interface lisible et conforme aux permissions metier.
   async function refresh(preferredId?: string) {
     setLoading(true);
     const query = isEmployee ? undefined : filters;
@@ -209,6 +221,7 @@ export default function SelfEvaluations() {
     return { done, required: required.length };
   }, [form.answers]);
 
+  // Met a jour une reponse du questionnaire sans recalculer tout le formulaire a la main.
   function updateAnswer(questionKey: string, patch: Partial<SelfEvaluationAnswer>) {
     setForm((current) => ({
       ...current,
@@ -218,6 +231,8 @@ export default function SelfEvaluations() {
     }));
   }
 
+  // Cette fonction enregistre soit un brouillon, soit une soumission finale.
+  // Elle verifie d'abord les reponses obligatoires avant de laisser partir la fiche.
   async function persist(mode: "draft" | "submit") {
     if (!canEditSelected) return;
     if (mode === "submit") {
@@ -690,3 +705,5 @@ function upsert(items: SelfEvaluation[], saved: SelfEvaluation) {
   const exists = items.some((item) => item.id === saved.id);
   return exists ? items.map((item) => (item.id === saved.id ? saved : item)) : [saved, ...items];
 }
+
+

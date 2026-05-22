@@ -1,4 +1,11 @@
-﻿import React, { useEffect, useMemo, useState } from "react";
+﻿/**
+ * Vue d'ensemble du fichier : HeaderClean.tsx
+ * Role : en-tete applicatif avec raccourcis et informations de session.
+ * Module : mise en page frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import cnasLogo from "../../assets/cnas-logo.png";
@@ -230,3 +237,5 @@ export default function HeaderClean({ onMenuToggle }: { onMenuToggle?: () => voi
     </header>
   );
 }
+
+

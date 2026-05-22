@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : EvaluationDetail.tsx
+ * Role : page detail d'une evaluation avec edition, calcul et validation.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -23,6 +30,8 @@ const categoryMeta = {
   managerial: { label: "Competences manageriales", hint: "Pilotage, coordination, decision" },
 } satisfies Record<CriterionCategory, { label: string; hint: string }>;
 
+// Cet apercu frontend sert a montrer en direct au manager l'effet de ses notes
+// avant que le backend ne recalculte officiellement tous les scores.
 function computePreview(criteriaScores: EvaluationCriterionScore[]) {
   const valid = criteriaScores.filter((item) => item.criterion && item.criterion.weight > 0);
   if (!valid.length) return 0;
@@ -35,6 +44,8 @@ function computePreview(criteriaScores: EvaluationCriterionScore[]) {
   return weights ? Math.round(weighted / weights) : 0;
 }
 
+// Cette fonction traduit un score numerique en niveau lisible pour l'interface.
+// Elle aide la soutenance en reliant rapidement le chiffre a une interpretation RH.
 function scoreLevel(score: number) {
   if (score < 50) return "Insuffisant";
   if (score < 65) return "A renforcer";
@@ -43,6 +54,8 @@ function scoreLevel(score: number) {
   return "Excellent";
 }
 
+// Cette page porte tout le cycle de vie d'une evaluation :
+// chargement, edition des criteres, brouillon, soumission et validation.
 export default function EvaluationDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -66,6 +79,8 @@ export default function EvaluationDetail() {
     ((role === "manager" && evaluation.status === "submitted") ||
       (["superadmin", "admin", "hr"].includes(role) && ["submitted", "manager_validated"].includes(evaluation.status)));
 
+  // Chargement detaille de l'evaluation :
+  // on recupere la fiche, l'agent et, si besoin, les criteres de son profil.
   const load = async () => {
     if (!id) return;
     setLoading(true);
@@ -123,6 +138,8 @@ export default function EvaluationDetail() {
       .filter((group) => group.items.length > 0);
   }, [criteriaScores]);
 
+  // Mise a jour locale d'un critere.
+  // On garde les modifications dans l'etat React jusqu'a l'appel API de sauvegarde.
   const updateCriterion = (criterionId: string, field: "score" | "comment", value: number | string) => {
     setCriteriaScores((current) => current.map((item) => (item.criterionId === criterionId ? { ...item, [field]: value } : item)));
   };
@@ -134,6 +151,7 @@ export default function EvaluationDetail() {
     criteriaScores,
   });
 
+  // Enregistre une version de travail sans faire avancer le workflow.
   const saveDraft = async () => {
     if (!evaluation) return;
     setSaving(true);
@@ -149,6 +167,8 @@ export default function EvaluationDetail() {
     }
   };
 
+  // La soumission transmet la version courante au backend
+  // pour la rendre visible au niveau de validation suivant.
   const submit = async () => {
     if (!evaluation) return;
     setSaving(true);
@@ -164,6 +184,8 @@ export default function EvaluationDetail() {
     }
   };
 
+  // Cette action couvre deux cas :
+  // validation manager ou validation RH selon le role courant.
   const validate = async (approved: boolean) => {
     if (!evaluation) return;
     setSaving(true);
@@ -366,3 +388,5 @@ const styles: Record<string, React.CSSProperties> = {
   dangerBtn: { padding: "12px 16px", borderRadius: 12, border: "none", background: "#dc2626", color: "white", fontWeight: 800, cursor: "pointer" },
   error: { padding: 14, borderRadius: 12, background: "rgba(220,38,38,.08)", border: "1px solid rgba(220,38,38,.16)", color: "#b91c1c", fontWeight: 800 },
 };
+
+

@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : FadeIn.tsx
+ * Role : composant d'animation simple pour l'apparition progressive des blocs UI.
+ * Module : composants UI frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 // src/components/ui/FadeIn.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import './FadeIn.css';
@@ -57,3 +64,4 @@ export default function FadeIn({
     </div>
   );
 }
+

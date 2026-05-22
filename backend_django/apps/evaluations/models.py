@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : models.py
+Role : definitions des entites de donnees et de leurs relations en base.
+Module : module evaluations.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.conf import settings
 from django.db import models
 
@@ -5,6 +11,8 @@ from apps.organization.models import Agent, EvaluationProfile
 
 
 class EvaluationCampaign(models.Model):
+    """Periode officielle dans laquelle une vague d'evaluations est pilotee."""
+
     class PeriodType(models.TextChoices):
         MONTHLY = "monthly", "Monthly"
         QUARTERLY = "quarterly", "Quarterly"
@@ -33,6 +41,8 @@ class EvaluationCampaign(models.Model):
 
 
 class CampaignAssignment(models.Model):
+    """Lien explicite entre une campagne, un employe, son manager et sa fiche d'evaluation."""
+
     class Status(models.TextChoices):
         PLANNED = "planned", "Planned"
         ASSIGNED = "assigned", "Assigned"
@@ -77,6 +87,8 @@ class CampaignAssignment(models.Model):
 
 
 class Evaluation(models.Model):
+    """Fiche d'evaluation principale manipulee par le manager puis validee par la RH."""
+
     class Status(models.TextChoices):
         DRAFT = "draft", "Draft"
         IN_PROGRESS = "in_progress", "In progress"
@@ -136,8 +148,21 @@ class Evaluation(models.Model):
         return self.status == self.Status.HR_VALIDATED
 
     def compute_scores(self):
+        """Calcule tous les sous-scores et le score final a partir des criteres notes.
+
+        Entrees principales :
+        - les EvaluationScore rattaches a la fiche ;
+        - le profil d'evaluation de l'agent ;
+        - la famille de metier pour la ponderation finale.
+
+        Resultat :
+        - met a jour les scores par axe, le score performance,
+          le score competences et le score final.
+        """
         criteria_scores = list(self.criteria_scores.select_related("criterion").all()) if self.pk else []
         if criteria_scores:
+            # Premier niveau : on normalise chaque critere sur 100
+            # puis on reconstruit les scores par categorie.
             category_totals = {key: {"weighted": 0, "weights": 0} for key in self.CATEGORY_FIELD_MAP}
             global_weighted = 0
             global_weights = 0
@@ -170,6 +195,8 @@ class Evaluation(models.Model):
         family = self.agent.job_family or getattr(self.agent.job_position, "job_family", None)
 
         if profile:
+            # Deuxieme niveau : on applique les ponderations du profil
+            # pour separer performance et competences.
             performance_weight_total = profile.quantitative_weight + profile.attendance_weight
             competency_weight_total = profile.qualitative_weight + profile.self_weight + profile.managerial_weight
 
@@ -196,6 +223,8 @@ class Evaluation(models.Model):
         self.performance_score = round(weighted_performance)
         self.competency_score = round(weighted_competency)
 
+        # Troisieme niveau : la famille de metier tranche l'equilibre
+        # final entre performance operationnelle et competences.
         family_performance_weight = getattr(family, "performance_weight", 50)
         family_competency_weight = getattr(family, "competency_weight", 50)
         family_weight_total = family_performance_weight + family_competency_weight
@@ -212,6 +241,8 @@ class Evaluation(models.Model):
             self.final_score = round((self.performance_score + self.competency_score) / 2)
 
     def save(self, *args, **kwargs):
+        # Toute sauvegarde repasse par le calcul pour garder la fiche
+        # coherente, meme si un appel met a jour des criteres un par un.
         self.compute_scores()
         self.score = self.final_score or self.score
         super().save(*args, **kwargs)
@@ -619,3 +650,5 @@ class Notification(models.Model):
 
     def __str__(self):
         return self.title
+
+

@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : FormVersions.tsx
+ * Role : page de gestion des versions de formulaires d'evaluation.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useAuth } from "../context/AuthContext";
@@ -222,7 +229,8 @@ export default function FormVersions() {
           description: editor.description,
           schema,
         });
-        setNotice(`Version ${response.data.data.version} mise a jour.`);
+        setProfileId(editor.profileId);
+        setNotice(`Version brouillon ${response.data.data.version} mise a jour avec les nouveaux criteres.`);
       } else {
         const nextVersion = await fetchNextVersionForProfile(editor.profileId);
         const response = await complianceAPI.createFormVersion({
@@ -236,7 +244,7 @@ export default function FormVersions() {
         setProfileId(editor.profileId);
         setNotice(
           activeSource
-            ? `Version active conservee : la version brouillon ${response.data.data.version} a ete creee.`
+            ? `Version active conservee : une version brouillon ${response.data.data.version} a ete creee avec vos modifications.`
             : `Version brouillon ${response.data.data.version} creee.`
         );
       }
@@ -463,6 +471,8 @@ function EditorModal({
 
         {isActiveSource ? (
           <div style={styles.infoBox}>Cette version est active : elle ne sera pas modifiee directement. L'enregistrement creera une nouvelle version brouillon.</div>
+        ) : editor.mode === "edit" ? (
+          <div style={styles.infoBox}>Cette version est en brouillon : l'enregistrement modifiera reellement cette version.</div>
         ) : null}
 
         {error ? <div style={styles.modalError}>{error}</div> : null}
@@ -547,7 +557,13 @@ function EditorModal({
         <div style={styles.modalActions}>
           <button style={styles.secondaryBtn} onClick={onClose} disabled={saving}>Annuler</button>
           <button style={saving ? styles.disabledBtn : styles.primaryBtn} onClick={() => void onSave()} disabled={saving}>
-            {saving ? "Enregistrement..." : "Enregistrer"}
+            {saving
+              ? "Enregistrement..."
+              : isActiveSource
+              ? "Creer brouillon modifie"
+              : editor.mode === "edit"
+              ? "Enregistrer les modifications"
+              : "Creer la version"}
           </button>
         </div>
       </div>
@@ -751,3 +767,5 @@ const styles: Record<string, React.CSSProperties> = {
   editRow: { display: "grid", gridTemplateColumns: "minmax(180px,1fr) 96px minmax(150px,.6fr) auto", gap: 10, alignItems: "center" },
   modalActions: { display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 4, position: "sticky", bottom: -22, background: "#ffffff", padding: "12px 0 0", borderTop: "1px solid rgba(226,232,240,.8)" },
 };
+
+

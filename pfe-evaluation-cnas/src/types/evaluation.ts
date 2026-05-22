@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : evaluation.ts
+ * Role : types frontend relies aux campagnes, evaluations et scores.
+ * Module : typage frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 export type EvaluationStatus =
   | "draft"
   | "in_progress"
@@ -91,3 +98,5 @@ export type Evaluation = {
   evaluatorName: string; // manager/RH
   comments?: string;
 };
+
+

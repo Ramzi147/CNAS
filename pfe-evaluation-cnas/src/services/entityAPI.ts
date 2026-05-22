@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : entityAPI.ts
+ * Role : service frontend qui encapsule les appels HTTP vers le backend.
+ * Module : services API frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import api from "./api";
 import type {
   Structure,
@@ -147,3 +154,5 @@ export const userAPI = {
     api.put<{ success: boolean; data: AppUser }>(`/auth/users/${id}`, data),
   delete: (id: string) => api.delete<{ success: boolean; data: AppUser }>(`/auth/users/${id}`),
 };
+
+

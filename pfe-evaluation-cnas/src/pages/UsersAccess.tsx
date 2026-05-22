@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : UsersAccess.tsx
+ * Role : page d'administration des utilisateurs, roles et acces.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useState } from "react";
 import { userAPI } from "../services/entityAPI";
 import type { AppUser, AppUserRole } from "../types/entities";
@@ -284,3 +291,5 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 700,
   },
 };
+
+

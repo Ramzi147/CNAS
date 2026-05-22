@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : urls.py
+Role : declaration des routes backend pour exposer les endpoints du module.
+Module : module comptes et acces.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -16,3 +22,5 @@ urlpatterns = [
     path("me", CurrentUserView.as_view(), name="me"),
     path("", include(router.urls)),
 ]
+
+

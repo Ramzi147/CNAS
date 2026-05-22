@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : models.py
+Role : definitions des entites de donnees et de leurs relations en base.
+Module : module organisation.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.db import models
 
 
@@ -258,3 +264,5 @@ class DailyFollowUp(TimeStampedModel):
 
     def __str__(self):
         return f"{self.agent.full_name} - {self.date}"
+
+

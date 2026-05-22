@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : Evaluations.tsx
+ * Role : page liste des evaluations avec filtres, recherche et actions par role.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -540,6 +547,11 @@ export default function Evaluations() {
                           Rejeter
                         </button>
                       ) : null}
+                      {canDispute(role, item) ? (
+                        <button style={{ ...styles.smallBtn, borderColor: "rgba(217,119,6,.35)" }} onClick={() => navigate(`/compliance?evaluationId=${item.id}&type=contestation`)}>
+                          Contester
+                        </button>
+                      ) : null}
                       {canDelete(role) ? (
                         <button style={{ ...styles.smallBtn, borderColor: "rgba(220,38,38,.25)" }} onClick={() => void removeItem(item)}>
                           Supprimer
@@ -914,6 +926,10 @@ function canReject(role: string, item: Evaluation) {
   return ["superadmin", "admin", "hr"].includes(role) && (item.status === "submitted" || item.status === "manager_validated");
 }
 
+function canDispute(role: string, item: Evaluation) {
+  return ["employee", "agent"].includes(role) && ["manager_validated", "hr_validated", "rejected"].includes(item.status);
+}
+
 function canDelete(role: string) {
   return ["superadmin", "admin"].includes(role);
 }
@@ -1100,3 +1116,5 @@ const styles: Record<string, React.CSSProperties> = {
   criterionHeader: { display: "flex", justifyContent: "space-between", gap: 14, alignItems: "center", marginBottom: 12 },
   modalActions: { position: "sticky", bottom: 0, zIndex: 2, display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 22, padding: "12px 20px", borderTop: "1px solid rgba(226,232,240,.95)", background: "#fff" },
 };
+
+

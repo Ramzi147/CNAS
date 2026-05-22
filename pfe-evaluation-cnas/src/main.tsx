@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : main.tsx
+ * Role : point de demarrage du frontend React et point de montage de l'application.
+ * Module : socle frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -17,3 +24,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+

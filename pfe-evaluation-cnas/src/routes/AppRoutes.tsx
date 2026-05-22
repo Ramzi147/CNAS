@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : AppRoutes.tsx
+ * Role : configuration des routes applicatives et des pages accessibles.
+ * Module : navigation frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 // src/routes/AppRoutes.tsx
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -324,3 +331,5 @@ export default function AppRoutes() {
     </Routes>
   );
 }
+
+

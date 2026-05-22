@@ -147,6 +147,60 @@ Tu peux utiliser par exemple :
 - `manager.it@cnas.dz` / `Password123!`
 - `employee.amine@cnas.dz` / `Password123!`
 
+## Mise a jour pour le binome
+
+Si ton binome a deja clone le projet et veut recuperer les dernieres modifications, il peut faire :
+
+### 1. Recuperer le code
+
+Depuis la racine du projet :
+
+```powershell
+git pull
+```
+
+### 2. Mettre a jour le backend
+
+Depuis `backend_django/` :
+
+```powershell
+cd backend_django
+py -m pip install -r requirements.txt
+py manage.py migrate
+```
+
+Si des donnees de demonstration sont necessaires ou si la base a ete recreee :
+
+```powershell
+py manage.py seed_realistic
+```
+
+Puis lancer le serveur :
+
+```powershell
+py manage.py runserver
+```
+
+### 3. Mettre a jour le frontend
+
+Depuis `pfe-evaluation-cnas/` :
+
+```powershell
+cd pfe-evaluation-cnas
+npm install
+npm run dev
+```
+
+### Important
+
+Si une nouvelle migration a ete ajoutee, comme par exemple :
+
+```text
+backend_django/apps/evaluations/migrations/0011_selfevaluation_rejected_status.py
+```
+
+alors `py manage.py migrate` est obligatoire apres le `git pull`, sinon le projet peut ne pas fonctionner correctement.
+
 ## Structure utile du backend
 
 ```text

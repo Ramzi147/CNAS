@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : AuditLog.tsx
+ * Role : page de consultation des traces d'audit et actions sensibles.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { auditAPI, type AuditEvent } from "../services/auditAPI";
 
@@ -125,3 +132,5 @@ const styles: Record<string, React.CSSProperties> = {
     textTransform: "uppercase",
   },
 };
+
+

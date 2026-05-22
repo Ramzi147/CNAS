@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : urls.py
+Role : declaration des routes backend pour exposer les endpoints du module.
+Module : module evaluations.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -38,3 +44,5 @@ router.register("notifications", NotificationViewSet, basename="notifications")
 urlpatterns = [
     path("", include(router.urls)),
 ]
+
+

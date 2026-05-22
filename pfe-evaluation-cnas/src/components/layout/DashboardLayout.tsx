@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : DashboardLayout.tsx
+ * Role : page de synthese qui affiche les indicateurs et raccourcis du role courant.
+ * Module : mise en page frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import React from 'react';
 
 interface DashboardLayoutProps {
@@ -63,3 +70,5 @@ export default function DashboardLayout({ children, panel }: DashboardLayoutProp
     </div>
   );
 }
+
+

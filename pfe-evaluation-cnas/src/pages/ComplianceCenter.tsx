@@ -1,4 +1,12 @@
+﻿/**
+ * Vue d'ensemble du fichier : ComplianceCenter.tsx
+ * Role : page de gestion des demandes de conformite, contestations et suivi.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import {
   complianceAPI,
@@ -30,6 +38,7 @@ const colors = ["#0f3d91", "#14b8a6", "#f59e0b", "#be123c"];
 
 export default function ComplianceCenter() {
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const isEmployeeView = user?.role === "employee" || user?.role === "agent";
   const isManagerView = user?.role === "manager";
   const canTreatRequests = ["superadmin", "admin", "hr"].includes(user?.role ?? "");
@@ -71,6 +80,18 @@ export default function ComplianceCenter() {
   useEffect(() => {
     void loadData();
   }, []);
+
+  useEffect(() => {
+    const linkedEvaluation = searchParams.get("evaluationId");
+    const linkedType = searchParams.get("type") as ComplianceRequestType | null;
+    if (linkedEvaluation) {
+      setEvaluationId(linkedEvaluation);
+      setSubject((current) => current || "Contestation de l'evaluation");
+    }
+    if (linkedType && linkedType in requestTypeLabel) {
+      setRequestType(linkedType);
+    }
+  }, [searchParams]);
 
   const requestData = useMemo(
     () =>
@@ -403,3 +424,5 @@ const styles: Record<string, React.CSSProperties> = {
   modalMeta: { display: "grid", gap: 4, padding: 12, borderRadius: 12, background: "#f8fafc", color: "#334155" },
   modalActions: { display: "flex", justifyContent: "flex-end", gap: 10 },
 };
+
+

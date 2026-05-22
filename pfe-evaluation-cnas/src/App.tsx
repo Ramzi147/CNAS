@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : App.tsx
+ * Role : point d'entree visuel qui assemble le routage principal du frontend.
+ * Module : socle frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 // src/App.tsx
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -6,7 +13,6 @@ import "react-toastify/dist/ReactToastify.css";
 import theme from "./styles/theme";
 import AppRoutes from "./routes/AppRoutes";
 import "./styles/global.css";
-import "./styles/app.css";
 
 export default function App() {
   return (
@@ -27,3 +33,5 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+

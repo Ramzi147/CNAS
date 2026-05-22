@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : authService.ts
+ * Role : fichier source participant au fonctionnement du module concerne.
+ * Module : services API frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import type { User, UserRole } from "../context/AuthContext";
 import api from "./api";
 
@@ -53,3 +60,5 @@ export const authService = {
     return localStorage.getItem(KEY_TOKEN);
   },
 };
+
+

@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : tests.py
+Role : scenarios de tests destines a verrouiller les comportements critiques du module.
+Module : module evaluations.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from datetime import date
 
 from rest_framework import status
@@ -509,3 +515,5 @@ class CoreWorkflowAPITests(APITestCase):
         self.assertEqual(patch_response.data["data"]["title"], "Formulaire brouillon modifie")
         draft_version.refresh_from_db()
         self.assertEqual(draft_version.description, "Version brouillon mise a jour")
+
+

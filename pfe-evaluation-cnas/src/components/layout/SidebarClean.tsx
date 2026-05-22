@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : SidebarClean.tsx
+ * Role : menu lateral principal qui expose la navigation selon le role.
+ * Module : mise en page frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import {
   Apartment,
   Assessment,
@@ -153,5 +160,7 @@ export default function SidebarClean({
     </aside>
   );
 }
+
+
 
 

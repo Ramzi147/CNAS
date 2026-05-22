@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : views.py
+Role : logique applicative des endpoints REST exposes au frontend.
+Module : module organisation.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.db import transaction
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
@@ -305,3 +311,5 @@ class DailyFollowUpViewSet(SuccessModelViewSet):
             },
             status=status.HTTP_201_CREATED,
         )
+
+

@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : EmployeeDashboard.tsx
+ * Role : page de synthese qui affiche les indicateurs et raccourcis du role courant.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -247,3 +254,5 @@ export default function EmployeeDashboard() {
     </DashboardLayout>
   );
 }
+
+

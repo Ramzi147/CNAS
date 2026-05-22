@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : reportAPI.ts
+ * Role : service frontend qui encapsule les appels HTTP vers le backend.
+ * Module : services API frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import api from "./api";
 
 export type Report = {
@@ -33,3 +40,5 @@ export const reportAPI = {
   download: (id: string) => api.get<Blob>(`/reports/${id}/download`, { responseType: "blob" }),
   remove: (id: string) => api.delete<{ success: boolean; data: Report }>(`/reports/${id}`),
 };
+
+

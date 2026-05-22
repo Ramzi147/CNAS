@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : selfEvaluation.ts
+ * Role : types frontend relies au questionnaire et au workflow d'auto-evaluation.
+ * Module : typage frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 export type SelfEvaluationStatus = "draft" | "submitted" | "reviewed" | "rejected" | "integrated";
 
 export type SelfEvaluationAnswerType = "rating" | "select" | "yes_no" | "text";
@@ -69,3 +76,5 @@ export type SelfEvaluation = {
   createdAt: string;
   updatedAt: string;
 };
+
+

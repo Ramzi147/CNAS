@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : urls.py
+Role : declaration des routes backend pour exposer les endpoints du module.
+Module : module organisation.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
@@ -30,3 +36,5 @@ router.register("daily-followups", DailyFollowUpViewSet, basename="daily-followu
 urlpatterns = [
     path("", include(router.urls)),
 ]
+
+

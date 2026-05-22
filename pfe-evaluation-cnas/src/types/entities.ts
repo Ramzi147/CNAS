@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : entities.ts
+ * Role : types metier frontend pour l'organisation, les utilisateurs et les suivis RH.
+ * Module : typage frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 export type Agency = {
   id: string;
   name: string;
@@ -148,3 +155,5 @@ export type AppUser = {
   is_active: boolean;
   is_staff: boolean;
 };
+
+

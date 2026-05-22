@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : serializers.py
+Role : adaptation entre les objets Django et le JSON echange avec le frontend.
+Module : module evaluations.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 from rest_framework import serializers
 
 from apps.evaluations.models import (
@@ -19,6 +25,8 @@ from apps.evaluations.models import (
 
 
 class EvaluationCriterionCompactSerializer(serializers.ModelSerializer):
+    """Expose un critere avec des noms de champs deja adaptes au frontend."""
+
     class Meta:
         model = EvaluationCriterion
         fields = (
@@ -34,6 +42,8 @@ class EvaluationCriterionCompactSerializer(serializers.ModelSerializer):
         )
 
     def to_representation(self, instance):
+        # Le frontend travaille en camelCase, donc on convertit ici
+        # pour eviter de dupliquer ce mapping dans toutes les pages React.
         data = super().to_representation(instance)
         data["scoreType"] = data.pop("score_type")
         data["minScore"] = data.pop("min_score")
@@ -118,6 +128,8 @@ class CampaignAssignmentSerializer(serializers.ModelSerializer):
         read_only_fields = ("assigned_by",)
 
     def to_representation(self, instance):
+        # Cette representation enrichie evite au frontend de refaire
+        # plusieurs appels pour afficher une ligne de campagne exploitable.
         data = super().to_representation(instance)
         evaluation = instance.evaluation
         data["campaignId"] = str(instance.campaign_id)
@@ -143,6 +155,8 @@ class CampaignAssignmentSerializer(serializers.ModelSerializer):
         return data
 
     def _display_score(self, evaluation):
+        # Le tableau campagnes affiche un score lisible aligne sur la fiche detail.
+        # On recalcule une moyenne ponderee simple a partir des criteres notes.
         if not evaluation:
             return None
         criteria_scores = list(evaluation.criteria_scores.select_related("criterion").all())
@@ -219,6 +233,8 @@ class EvaluationSerializer(serializers.ModelSerializer):
         )
 
     def get_selfEvaluation(self, instance):
+        # Cette vue embarquee permet d'afficher l'auto-evaluation
+        # directement dans le detail manager sans appel API supplementaire.
         self_eval = getattr(instance, "self_evaluation", None)
         if not self_eval:
             return None
@@ -971,3 +987,5 @@ class NotificationSerializer(serializers.ModelSerializer):
         data["isRead"] = bool(instance.read_at)
         data.pop("recipient", None)
         return data
+
+

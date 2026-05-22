@@ -6,12 +6,23 @@
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Overall functional diagram of the proposed evaluation system}}{14}{figure.1.4}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces System Architecture}}{21}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Use case diagram of the proposed evaluation system}}{21}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Class diagram of the employee skills and performance evaluation system}}{26}{figure.2.3}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Sequence diagram for "Create an Evaluation Campaign" use case}}{27}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Sequence diagram for "Input an Evaluation" use case}}{27}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Sequence diagram for "Validate an Evaluation" use case}}{28}{figure.2.6}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Use case diagram of the proposed evaluation system}}{22}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Use case diagram for self-evaluation}}{23}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Use case diagram for compliance and dispute management}}{24}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Sequence diagram for submitting a self-evaluation}}{28}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Sequence diagram for manager validation or rejection}}{29}{figure.2.6}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Sequence diagram for compliance dispute processing}}{30}{figure.2.7}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Class diagram of the employee skills and performance evaluation system}}{31}{figure.2.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Authentication Interface}}{35}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Home Page}}{35}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Example Consultation / Search Interface}}{36}{figure.3.3}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Authentication: login page displayed before user access}}{39}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces HR campaign workflow: creation form completed before saving}}{40}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces HR campaign workflow: campaign visible in the updated campaign list}}{41}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces HR form configuration workflow: evaluation form versions, criteria, and weights}}{42}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Employee self-evaluation workflow: form completed }}{43}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Employee self-evaluation workflow: submitted status after sending}}{44}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Manager validation workflow: submitted self-evaluation available for review}}{45}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Manager validation workflow: evaluation validated after managerial action}}{46}{figure.3.8}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Compliance workflow: employee dispute request completed before submission}}{47}{figure.3.9}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Compliance workflow: dispute request approved and marked as processed by HR}}{48}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Role-based access: HR dashboard with operational indicators}}{49}{figure.3.11}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Reporting workflow: dashboard and report history with visible results}}{50}{figure.3.12}%

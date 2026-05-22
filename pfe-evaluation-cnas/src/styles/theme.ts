@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : theme.ts
+ * Role : definitions de theme partagees par le frontend.
+ * Module : theme et styles frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -205,3 +212,5 @@ const theme = createTheme({
 });
 
 export default theme;
+
+

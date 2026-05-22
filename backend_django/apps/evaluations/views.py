@@ -1,3 +1,9 @@
+﻿"""Vue d'ensemble du fichier : views.py
+Role : logique applicative des endpoints REST exposes au frontend.
+Module : module evaluations.
+Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+"""
+
 import csv
 import io
 
@@ -35,6 +41,12 @@ from apps.evaluations.models import (
 
 
 def scoped_agent_queryset_for_user(user):
+    """Retourne les agents visibles pour le role courant.
+
+    - admin/RH : tout le perimetre ;
+    - manager : uniquement son equipe ;
+    - employe : uniquement sa propre fiche.
+    """
     queryset = Agent.objects.all()
     role = getattr(user, "role", None)
     if is_admin_or_hr(user):
@@ -50,6 +62,7 @@ def scoped_agent_queryset_for_user(user):
 
 
 def recalculate_ranking_snapshots(campaign=None):
+    """Reconstruit les classements a partir des evaluations RH validees."""
     evaluations = (
         Evaluation.objects.select_related(
             "campaign",
@@ -69,6 +82,8 @@ def recalculate_ranking_snapshots(campaign=None):
     else:
         RankingSnapshot.objects.all().delete()
 
+    # On materialise la liste une seule fois pour pouvoir la regrouper
+    # ensuite par famille et par service.
     evaluations = list(evaluations)
     family_groups = {}
     service_groups = {}
@@ -295,6 +310,7 @@ SELF_EVALUATION_QUESTIONNAIRE = [
 
 
 def client_ip(request):
+    """Recupere une IP exploitable pour l'audit, meme derriere un proxy simple."""
     forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if forwarded_for:
         return forwarded_for.split(",")[0].strip()
@@ -302,6 +318,7 @@ def client_ip(request):
 
 
 def write_audit_event(request, action, entity, entity_id="", reason="", metadata=None):
+    """Centralise l'ecriture des traces d'audit pour garder un format uniforme."""
     user = request.user if getattr(request, "user", None) and request.user.is_authenticated else None
     AuditEvent.objects.create(
         action=action,
@@ -316,6 +333,7 @@ def write_audit_event(request, action, entity, entity_id="", reason="", metadata
 
 
 def sync_assignment_from_evaluation(evaluation):
+    """Aligne l'etat d'une affectation de campagne sur le statut de son evaluation liee."""
     assignment = getattr(evaluation, "assignment", None)
     if not assignment:
         return
@@ -338,11 +356,15 @@ def sync_assignment_from_evaluation(evaluation):
 
 
 class EvaluationViewSet(viewsets.ModelViewSet):
+    """Expose les operations CRUD et workflow sur les fiches d'evaluation manager/RH."""
+
     queryset = Evaluation.objects.select_related("agent", "agent__job_family", "evaluator").all()
     serializer_class = EvaluationSerializer
     permission_classes = [permissions.IsAuthenticated, IsPrivilegedUser]
 
     def get_queryset(self):
+        # Le queryset est filtre selon le perimetre du role connecte
+        # pour eviter qu'un manager ou un employe voie des fiches hors scope.
         queryset = (
             Evaluation.objects.select_related(
                 "agent",
@@ -375,6 +397,8 @@ class EvaluationViewSet(viewsets.ModelViewSet):
         return queryset.none()
 
     def _assert_transition_allowed(self, current_status, next_status):
+        # Cette matrice contient la logique metier du workflow :
+        # chaque role ne peut faire avancer la fiche que sur certains statuts.
         role = getattr(self.request.user, "role", None)
         allowed = {
             "superadmin": {
@@ -424,6 +448,8 @@ class EvaluationViewSet(viewsets.ModelViewSet):
             )
 
     def perform_create(self, serializer):
+        # A la creation, on verifie surtout le perimetre manager
+        # et on renseigne l'evaluateur courant pour la tracabilite.
         user = self.request.user
         role = getattr(user, "role", None)
         agent_id = serializer.validated_data["agent"].id
@@ -445,6 +471,8 @@ class EvaluationViewSet(viewsets.ModelViewSet):
         sync_assignment_from_evaluation(serializer.instance)
 
     def perform_update(self, serializer):
+        # Toute mise a jour passe d'abord par le controle de transition,
+        # puis par les permissions de perimetre.
         current_status = serializer.instance.status
         next_status = serializer.validated_data.get("status", current_status)
         self._assert_transition_allowed(current_status, next_status)
@@ -517,6 +545,7 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="draft")
     def save_draft(self, request, pk=None):
+        # Le brouillon enregistre les notes sans faire avancer le workflow.
         instance = self.get_object()
         payload = dict(request.data)
         payload["status"] = Evaluation.Status.IN_PROGRESS if instance.status == Evaluation.Status.IN_PROGRESS else Evaluation.Status.DRAFT
@@ -535,6 +564,7 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="submit")
     def submit(self, request, pk=None):
+        # La soumission rend la fiche visible pour la validation manager ou RH.
         instance = self.get_object()
         payload = dict(request.data)
         payload["status"] = Evaluation.Status.SUBMITTED
@@ -553,6 +583,8 @@ class EvaluationViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="validate")
     def validate_workflow(self, request, pk=None):
+        # Cette action couvre la validation et le rejet.
+        # Le role courant determine quel palier du workflow est traite.
         instance = self.get_object()
         payload = dict(request.data)
         approved = bool(payload.pop("approved", True))
@@ -630,6 +662,8 @@ class BaseSuccessModelViewSet(viewsets.ModelViewSet):
 
 
 class EvaluationCampaignViewSet(BaseSuccessModelViewSet):
+    """Pilote le cycle de vie des campagnes et les actions d'ouverture/cloture."""
+
     queryset = EvaluationCampaign.objects.all()
     serializer_class = EvaluationCampaignSerializer
     permission_classes = [permissions.IsAuthenticated, AdminOrHRCanWrite]
@@ -674,6 +708,8 @@ class EvaluationCampaignViewSet(BaseSuccessModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="assign")
     def assign_population(self, request, pk=None):
+        # L'affectation cree le lien campagne -> employe -> manager
+        # et prepare la fiche d'evaluation qui sera ouverte ensuite.
         campaign = self.get_object()
         agent_ids = request.data.get("agentIds") or request.data.get("employeeIds") or []
         if not isinstance(agent_ids, list):
@@ -962,9 +998,13 @@ class EvaluationScoreViewSet(BaseSuccessModelViewSet):
 
 
 class SelfEvaluationViewSet(BaseSuccessModelViewSet):
+    """Gere la saisie employe, la revue manager et l'integration RH des auto-evaluations."""
+
     serializer_class = SelfEvaluationSerializer
 
     def get_queryset(self):
+        # Ici aussi, on limite la liste au perimetre du role :
+        # soi-meme, son equipe, ou tout le portefeuille RH/admin.
         queryset = (
             SelfEvaluation.objects.select_related(
                 "evaluation",
@@ -1010,6 +1050,8 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
         return Agent.objects.filter(user=self.request.user).first()
 
     def _assert_employee_can_edit(self, instance=None):
+        # Un employe ne peut modifier que sa propre auto-evaluation
+        # et seulement tant qu'elle est en brouillon ou rejetee.
         role = getattr(self.request.user, "role", None)
         agent_profile = self._current_agent()
         if role not in {"agent", "employee"} or not agent_profile:
@@ -1021,6 +1063,8 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
         return agent_profile
 
     def _apply_self_score_to_linked_evaluation(self, instance):
+        # Cette synchronisation evite que l'auto-evaluation vive a part :
+        # son score est reinjecte dans la fiche d'evaluation principale.
         linked_evaluation = instance.evaluation
         if not linked_evaluation:
             linked_evaluation = (
@@ -1045,6 +1089,8 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
         serializer.save(status=SelfEvaluation.Status.DRAFT)
 
     def _questionnaire_from_active_profile(self, agent_profile):
+        # Quand un profil d'evaluation est disponible, on fabrique un questionnaire
+        # dynamique pour coller au metier de l'agent.
         if not agent_profile or not agent_profile.evaluation_profile_id:
             return []
 
@@ -1113,6 +1159,7 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="submit")
     def submit(self, request, pk=None):
+        # La soumission verrouille la version employee et la relie au workflow manager.
         instance = self.get_object()
         self._assert_employee_can_edit(instance)
         payload = dict(request.data)
@@ -1133,6 +1180,7 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="review")
     def review(self, request, pk=None):
+        # Le manager peut valider ou rejeter l'auto-evaluation selon la qualite de la saisie.
         instance = self.get_object()
         role = getattr(request.user, "role", None)
         approved = bool(request.data.get("approved", True))
@@ -1161,6 +1209,8 @@ class SelfEvaluationViewSet(BaseSuccessModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="integrate")
     def integrate(self, request, pk=None):
+        # L'integration RH marque que l'auto-evaluation est officiellement
+        # prise en compte dans le dossier d'evaluation principal.
         instance = self.get_object()
         role = getattr(request.user, "role", None)
         if role not in {"superadmin", "admin", "hr"}:
@@ -1334,6 +1384,8 @@ class ProcessingRegisterViewSet(BaseSuccessModelViewSet):
 
 
 class ComplianceRequestViewSet(BaseSuccessModelViewSet):
+    """Expose le circuit de conformite : creation, avis manager et decision RH."""
+
     serializer_class = ComplianceRequestSerializer
 
     def get_queryset(self):
@@ -1368,6 +1420,8 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
+        # A la creation, on rattache si possible la demande a l'employe,
+        # au manager concerne et aux notifications utiles.
         user = self.request.user
         employee = serializer.validated_data.get("employee") or Agent.objects.filter(user=user).first()
         if employee and not agent_belongs_to_user_scope(employee, user):
@@ -1422,6 +1476,7 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="manager-review")
     def manager_review(self, request, pk=None):
+        # Cette etape formalise l'avis hierarchique avant la resolution RH.
         instance = self.get_object()
         role = getattr(request.user, "role", None)
         manager_agent = Agent.objects.filter(user=request.user).first()
@@ -1453,6 +1508,7 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
         return Response({"success": True, "data": self.get_serializer(instance).data})
 
     def perform_update(self, serializer):
+        # Les mises a jour de fond sont reservees a la DRH et a l'administration.
         role = getattr(self.request.user, "role", None)
         if role not in {"superadmin", "admin", "hr"}:
             raise PermissionDenied("Seule la DRH ou l'administration peut traiter une demande.")
@@ -1476,6 +1532,7 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
 
     @action(detail=True, methods=["post"], url_path="resolve")
     def resolve(self, request, pk=None):
+        # La resolution cloture le circuit en enregistrant la decision finale RH/admin.
         instance = self.get_object()
         role = getattr(request.user, "role", None)
         if role not in {"superadmin", "admin", "hr"}:
@@ -1505,6 +1562,8 @@ class ComplianceRequestViewSet(BaseSuccessModelViewSet):
 
 
 class ReportViewSet(BaseSuccessModelViewSet):
+    """Genere et historise les rapports de campagne, equipe, audit et conformite."""
+
     serializer_class = ReportSerializer
 
     def get_queryset(self):
@@ -1520,6 +1579,8 @@ class ReportViewSet(BaseSuccessModelViewSet):
         return queryset
 
     def _build_summary(self, campaign=None):
+        # Resume chiffre utilise pour afficher rapidement l'etat du portefeuille
+        # sans relire toutes les fiches une par une dans le frontend.
         evaluations = Evaluation.objects.all()
         if not is_admin_or_hr(self.request.user):
             evaluations = evaluations.filter(agent__in=scoped_agent_queryset_for_user(self.request.user))
@@ -1692,3 +1753,5 @@ class NotificationViewSet(viewsets.ReadOnlyModelViewSet):
         instance.read_at = timezone.now()
         instance.save(update_fields=["read_at"])
         return Response({"success": True, "data": self.get_serializer(instance).data})
+
+

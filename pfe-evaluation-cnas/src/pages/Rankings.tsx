@@ -1,4 +1,11 @@
-﻿import { useEffect, useMemo, useState } from "react";
+﻿/**
+ * Vue d'ensemble du fichier : Rankings.tsx
+ * Role : page de comparaison des scores et classements des employes.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
+import { useEffect, useMemo, useState } from "react";
 import { jobFamilyAPI } from "../services/entityAPI";
 import { evaluationCampaignAPI, rankingSnapshotAPI, type EvaluationCampaign, type RankingSnapshot } from "../services/rankingAPI";
 import type { JobFamily } from "../types/entities";
@@ -208,3 +215,5 @@ const styles: Record<string, React.CSSProperties> = {
   error: { padding: 14, borderRadius: 12, background: "rgba(239,68,68,.10)", color: "#b91c1c", border: "1px solid rgba(239,68,68,.18)", fontWeight: 700 },
   loading: { padding: 24, borderRadius: 16, background: "rgba(255,255,255,.9)", color: "#64748b", fontWeight: 700 },
 };
+
+

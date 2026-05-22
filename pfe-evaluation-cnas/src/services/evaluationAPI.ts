@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : evaluationAPI.ts
+ * Role : service frontend qui encapsule les appels HTTP vers le backend.
+ * Module : services API frontend.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import api from "./api";
 import type {
   Evaluation,
@@ -331,3 +338,5 @@ export const evaluationAPI = {
     };
   },
 };
+
+

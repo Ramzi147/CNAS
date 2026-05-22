@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : ManagerDashboard.tsx
+ * Role : page de synthese qui affiche les indicateurs et raccourcis du role courant.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -250,3 +257,5 @@ function averageOf(items: Evaluation[], field: keyof Pick<Evaluation, "performan
   const values = items.map((item) => Number(item[field] || 0)).filter((value) => Number.isFinite(value) && value > 0);
   return values.length ? Math.round(values.reduce((sum, value) => sum + value, 0) / values.length) : 0;
 }
+
+

@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : DailyFollowup.tsx
+ * Role : page de suivi quotidien, presence et discipline des agents.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { attendanceRecordAPI, dailyFollowupAPI, agentAPI } from "../services/entityAPI";
 import type { Agent, AttendanceRecord, DailyFollowUp } from "../types/entities";
@@ -142,7 +149,7 @@ export default function DailyFollowup() {
             {recentAttendance.map((item) => (
               <div key={item.id} style={styles.item}>
                 <strong>{item.agentName}</strong>
-                <div style={styles.meta}>{item.date} · {item.status} {item.minutesLate ? `· ${item.minutesLate} min` : ""}</div>
+                <div style={styles.meta}>{item.date} Â· {item.status} {item.minutesLate ? `Â· ${item.minutesLate} min` : ""}</div>
                 <div style={styles.meta}>{item.remark || "Sans remarque"}</div>
               </div>
             ))}
@@ -203,3 +210,5 @@ const styles: Record<string, React.CSSProperties> = {
   td: { padding: "12px 10px", borderBottom: "1px solid rgba(15,23,42,.06)", color: "#0f172a" },
   error: { padding: 14, borderRadius: 12, background: "rgba(239,68,68,.10)", color: "#b91c1c", border: "1px solid rgba(239,68,68,.18)", fontWeight: 700 },
 };
+
+

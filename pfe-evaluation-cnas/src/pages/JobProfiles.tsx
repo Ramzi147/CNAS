@@ -1,3 +1,10 @@
+﻿/**
+ * Vue d'ensemble du fichier : JobProfiles.tsx
+ * Role : page de parametrage des familles de metiers, postes et profils.
+ * Module : interface utilisateur.
+ * Ce commentaire sert de repere rapide pour comprendre ou intervenir pendant la soutenance.
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { agentAPI, evaluationProfileAPI, jobPositionAPI } from "../services/entityAPI";
@@ -49,7 +56,7 @@ export default function JobProfiles() {
           <div style={styles.kicker}>Configuration RH</div>
           <div style={styles.title}>Postes et profils d'evaluation</div>
           <div style={styles.sub}>Gestion des criteres centralisee dans les versions de formulaires.</div>
-          <div style={styles.sub}>Visualise les types de poste, les pondérations et les critères hybrides déjà intégrés au backend.</div>
+          <div style={styles.sub}>Visualise les types de poste, les pondÃ©rations et les critÃ¨res hybrides dÃ©jÃ  intÃ©grÃ©s au backend.</div>
         </div>
         <button style={styles.primaryBtn} onClick={() => navigate("/form-versions")}>Gerer les formulaires</button>
       </div>
@@ -77,9 +84,9 @@ export default function JobProfiles() {
                       <strong>{position.title}</strong>
                       <span style={styles.badge}>{position.category}</span>
                     </div>
-                    <div style={styles.meta}>{position.code} · niveau {position.hierarchyLevel}</div>
+                    <div style={styles.meta}>{position.code} Â· niveau {position.hierarchyLevel}</div>
                     <div style={styles.meta}>
-                      {position.isQuantitative ? "Quantitatif" : "Qualitatif"} · {position.isManagerial ? "Managerial" : "Non managerial"}
+                      {position.isQuantitative ? "Quantitatif" : "Qualitatif"} Â· {position.isManagerial ? "Managerial" : "Non managerial"}
                     </div>
                   </div>
                 ))}
@@ -128,8 +135,8 @@ export default function JobProfiles() {
                       <strong>{criterion.name}</strong>
                       <span style={styles.badge}>{criterion.category}</span>
                     </div>
-                    <div style={styles.meta}>Poids {criterion.weight}% · score {criterion.minScore} à {criterion.maxScore}</div>
-                    <div style={styles.meta}>{criterion.description || "Critère métier exploité dans l'évaluation hybride."}</div>
+                    <div style={styles.meta}>Poids {criterion.weight}% Â· score {criterion.minScore} Ã  {criterion.maxScore}</div>
+                    <div style={styles.meta}>{criterion.description || "CritÃ¨re mÃ©tier exploitÃ© dans l'Ã©valuation hybride."}</div>
                   </div>
                 ))}
               </div>
@@ -139,7 +146,7 @@ export default function JobProfiles() {
               <div style={styles.cardTitle}>Agents lies a ce profil</div>
               <div style={styles.stack}>
                 {profileAgents.length === 0 ? (
-                  <div style={styles.empty}>Aucun agent n'est encore affecté à ce profil.</div>
+                  <div style={styles.empty}>Aucun agent n'est encore affectÃ© Ã  ce profil.</div>
                 ) : (
                   profileAgents.map((agent) => (
                     <div key={agent.id} style={styles.item}>
@@ -147,7 +154,7 @@ export default function JobProfiles() {
                         <strong>{agent.fullName}</strong>
                         <span style={styles.badge}>{agent.jobPositionTitle || agent.position}</span>
                       </div>
-                      <div style={styles.meta}>{agent.matricule} · {agent.email}</div>
+                      <div style={styles.meta}>{agent.matricule} Â· {agent.email}</div>
                       <div style={styles.meta}>Manager : {agent.managerName || "Non affecte"}</div>
                     </div>
                   ))
@@ -196,3 +203,5 @@ const styles: Record<string, React.CSSProperties> = {
   error: { padding: 14, borderRadius: 12, background: "rgba(239,68,68,.10)", color: "#b91c1c", border: "1px solid rgba(239,68,68,.18)", fontWeight: 700 },
   empty: { padding: 14, borderRadius: 14, background: "#f8fafc", color: "#64748b", fontWeight: 700 },
 };
+
+

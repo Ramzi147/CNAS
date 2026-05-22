@@ -3,11 +3,16 @@
 \documentclass[12pt,a4paper]{report}
 
 \usepackage[utf8]{inputenc}
-\usepackage{arabtex}
-\usepackage{utf8}
-\setcode{utf8}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\newfontfamily\arabicfont[Script=Arabic,Scale=1.15]{Arial}
+\newenvironment{arabicabstract}{%
+  \par\begingroup\arabicfont\normalsize\setstretch{1.35}%
+  \parindent=0pt\begin{flushright}
+}{%
+  \end{flushright}\par\endgroup
+}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -43,7 +48,6 @@
   journal = {Public Administration},
   year    = {2024}
 }
-
 @article{arribas2024,
   author  = {Arribas-Aguila, D. and others},
   title   = {A systematic review of evidence-based general competency models: development of a general competencies taxonomy},
@@ -351,14 +355,15 @@ Ministry of Higher Education and Scientific Research\\
 \begin{minipage}[t]{0.52\textwidth}
 \raggedright
 \textbf{Supervised by:}\\
+Mme BEKKAI Besma\\
 Mr OMRANI Abdelhak
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.43\textwidth}
 \raggedright
 \textbf{Prepared by:}\\
-BENNADJI Wassim Redha\\
 BENNABDELOUAHAB Ali Ramzi
+BENNADJI Wassim Redha\\
 \end{minipage}
 
 \vfill
@@ -378,31 +383,30 @@ At this moment of profound gratitude, we express our infinite thanks to the Almi
 \chapter*{Abstract}
 \thispagestyle{plain}
 
-In a context marked by the digital transformation of public administrations and the modernization of internal processes, human resource management is now a strategic axis essential for improving organizational performance. The National Social Insurance Fund (CNAS), as a large-scale public institution, faces challenges related to the objective evaluation of competencies, the monitoring of individual performance, and the centralization of employee-related data. Within the Human Resources Department (HRD), evaluation procedures still rely on partially manual and fragmented methods, thus limiting the reliability of analyses, information traceability, and the efficiency of management decision-making.
+In the context of digital transformation within public administrations, human resource management has become a strategic component for improving organizational performance and enhancing administrative efficiency. The National Social Insurance Fund (CNAS) faces several challenges related to the objective evaluation of employee competencies, performance monitoring, and the centralization of HR data within the Human Resources Department (HRD).
 
-This thesis focuses on the design and implementation of an information system dedicated to the evaluation of employee skills and performance within CNAS. This initiative is part of a digitalization approach aimed at automating the evaluation process, structuring analysis criteria, centralizing HR data, and producing relevant indicators facilitating skills foresight management and strategic decision support.
+This thesis focuses on the design and implementation of an information system dedicated to the evaluation of employee skills and performance within CNAS. The proposed solution aims to digitalize and automate the evaluation process, structure evaluation criteria, centralize employee-related data, improve traceability, and support managerial decision-making.
 
-The methodology adopted is based on a thorough study of the existing situation, a detailed analysis of functional and organizational needs, followed by a modeling phase using UML diagrams, and then a development and implementation phase of a web application compliant with institutional requirements. The proposed system contributes to improving the transparency, efficiency and consistency of the evaluation process, while strengthening human resources governance and the organization's overall performance.
+The adopted methodology is based on the analysis of the existing system, identification of organizational and functional requirements, UML modeling, and the implementation of a web application using modern technologies. The developed system contributes to improving transparency, consistency, efficiency, and governance in the employee evaluation process within CNAS.
 
-\subsubsection*{Keywords:}
-Information System, Human Resources, Performance Evaluation, Skills Management, HRD, Digitalization, CNAS.
-
+\noindent\textbf{Keywords :} Information System, Human Resource Management, Performance Evaluation, Competency Management, Digital Transformation, CNAS.
 \chapter*{Abstract in Arabic}
 \thispagestyle{plain}
 
-\begin{arabtex}
-في ظل التحول الرقمي الذي تشهده الإدارات العمومية وسعيها نحو تحديث أنظمتها الداخلية، أصبحت إدارة الموارد البشرية عنصرًا استراتيجيًا محوريًا لتحسين الأداء المؤسسي وتعزيز فعالية التسيير الإداري. يواجه الصندوق الوطني للتأمينات الاجتماعية (CNAS) تحديات تتعلق بتقييم كفاءات الموظفين وقياس أدائهم بشكل موضوعي، إضافة إلى ضرورة مركزية البيانات وضمان دقة المعلومات داخل مديرية الموارد البشرية. يعتمد هذا العمل على تصميم وإنجاز نظام معلومات مخصص لتقييم كفاءات وأداء الموظفين داخل CNAS، مع التركيز على أتمتة عملية التقييم، تنظيم المعايير، تحسين الشفافية ودعم اتخاذ القرار الإداري.
-\end{arabtex}
+\begin{center}
+\includegraphics[width=\textwidth]{arabic_abstract_rendered.png}
+\end{center}
 
-\chapter*{Abstract in English}
+\chapter*{Abstract in French}
 \thispagestyle{plain}
 
-In the context of digital transformation and the modernization of public administrations, human resource management has become a strategic pillar for improving organizational performance and strengthening institutional governance. The National Social Insurance Fund (CNAS), as a major public institution, faces significant challenges related to the objective evaluation of employee competencies, performance monitoring, and the centralization and reliability of human resources data. This thesis focuses on the design and implementation of an information system dedicated to the evaluation of employee skills and performance within CNAS. The project aims to structure the appraisal process, centralize HR data, improve traceability, and generate meaningful indicators for decision support.
+Dans le contexte de la transformation numérique des administrations publiques, la gestion des ressources humaines est devenue un élément stratégique pour améliorer la performance organisationnelle et renforcer l’efficacité administrative. La Caisse Nationale des Assurances Sociales (CNAS) fait face à plusieurs défis liés à l’évaluation objective des compétences des employés, au suivi des performances ainsi qu’à la centralisation des données RH au sein de la Direction des Ressources Humaines (DRH).
 
-\textbf{Keywords:} Information System, Human Resource Management, Performance Evaluation, Competency Management, HRD, Digital Transformation, CNAS.
+Ce mémoire porte sur la conception et la réalisation d’un système d’information dédié à l’évaluation des compétences et des performances des employés au sein de la CNAS. La solution proposée vise à digitaliser et automatiser le processus d’évaluation, structurer les critères d’évaluation, centraliser les données des employés, améliorer la traçabilité et soutenir la prise de décision managériale.
 
-\memoireTableOfContents
-\clearpage
+La méthodologie adoptée repose sur l’analyse du système existant, l’identification des besoins organisationnels et fonctionnels, la modélisation UML ainsi que le développement d’une application web utilisant des technologies modernes. Le système développé contribue à améliorer la transparence, la cohérence, l’efficacité et la gouvernance du processus d’évaluation des employés au sein de la CNAS.
+
+\noindent\textbf{Mots-clés :} Système d’information, Gestion des ressources humaines, Évaluation des performances, Gestion des compétences, Transformation numérique, CNAS.
 
 \memoireListOfFigures
 \clearpage
@@ -428,10 +432,12 @@ In the context of digital transformation and the modernization of public adminis
     \item API: Application Programming Interface.
 \end{itemize}
 
-\chapter*{General Introduction}
-\thispagestyle{plain}
+\memoireTableOfContents
+\clearpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
+\chapter*{General Introduction}
+\thispagestyle{plain}
 
 Digital transformation today influences all sectors of economic activity, including public institutions. This evolution is not limited to the simple computerization of administrative tasks; it aims above all at continuous improvement in the quality of services, reduction in processing times, data reliability, and strengthening of decision support mechanisms. In this context, human resource management occupies a strategic position, as it directly impacts work organization, institutional performance, skills development, and overall governance.
 
@@ -955,180 +961,205 @@ At business level, these functionalities must support not only evaluation record
 
 \begin{figure}[H]
 \centering
-\resizebox{0.98\textwidth}{!}{%
 \begin{tikzpicture}[
   >=stealth,
-  root/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, font=\bfseries, minimum width=5.4cm, minimum height=0.85cm},
-  access/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
-  admin/.style={draw=cnasgreen, fill=cnasgreenLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
-  evalb/.style={draw=cnasgold, fill=cnasgoldLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
-  pilot/.style={draw=cnasgray, fill=cnasgrayLight, rounded corners=3pt, align=center, font=\small\bfseries, minimum width=3.2cm, minimum height=0.72cm},
-  leaf/.style={draw=cnasline, fill=white, rounded corners=3pt, align=left, font=\scriptsize, text width=3.05cm, inner sep=5pt},
+  root/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, font=\bfseries, minimum width=5.4cm, minimum height=0.8cm},
+  module/.style={draw=cnasblue, fill=cnasblueLight, rounded corners=3pt, align=center, font=\small\bfseries, text width=3.2cm, minimum height=0.95cm},
+  moduleGreen/.style={module, draw=cnasgreen, fill=cnasgreenLight},
+  moduleGold/.style={module, draw=cnasgold, fill=cnasgoldLight},
+  moduleGray/.style={module, draw=cnasgray, fill=cnasgrayLight},
+  details/.style={draw=cnasline, fill=white, rounded corners=2pt, align=left, font=\footnotesize, text width=6.1cm, minimum height=1.22cm, inner sep=4pt},
+  branch/.style={thick, draw=cnasline},
   link/.style={->, thick, draw=cnasline}
 ]
-\node[root] (root) at (0,0) {CNAS Evaluation System};
+\node[root] (root) at (-2.35,0) {CNAS Evaluation System};
+\coordinate (trunkTop) at (-4.65,-0.85);
+\coordinate (trunkBottom) at (-4.65,-10.1);
 
-\node[access] (access) at (-7.2,-1.45) {Access and Roles};
-\node[admin] (admin) at (-3.6,-1.45) {Administration};
-\node[evalb] (eval) at (0,-1.45) {Evaluation};
-\node[pilot] (pilot) at (3.6,-1.45) {Management};
-\node[access] (data) at (7.2,-1.45) {Business Data};
+\node[module] (access) at (-2.75,-1.7) {Access and Roles};
+\node[details] (accessDetails) at (2.6,-1.7) {Login, user profile, role-based dashboards, access by role, user sessions};
 
-\node[leaf, below=0.32cm of access] (accessLeaf) {
-Login\\
-User Profile\\
-Role-based Dashboards\\
-SuperAdmin, Admin, HR\\
-Manager, Employee/Agent
-};
+\node[moduleGreen] (admin) at (-2.75,-3.8) {Administration};
+\node[details] (adminDetails) at (2.6,-3.8) {Users and rights, organization, services and employees, positions and families, evaluation profiles};
 
-\node[leaf, below=0.32cm of admin] (adminLeaf) {
-Users and Rights\\
-CNAS Organization\\
-Agencies, Structures, Services\\
-Agents, Positions, Families\\
-Evaluation Profiles
-};
+\node[moduleGold] (eval) at (-2.75,-5.9) {Evaluation};
+\node[details] (evalDetails) at (2.6,-5.9) {Campaigns, assignments, evaluations, self-evaluation, manager validation, HR validation};
 
-\node[leaf, below=0.32cm of eval] (evalLeaf) {
-Campaigns\\
-Assignments\\
-Evaluations\\
-Self-evaluations\\
-Criteria and Form Versions\\
-Manager and HR Validation
-};
+\node[moduleGray] (pilot) at (-2.75,-8.0) {Pilotage and Monitoring};
+\node[details] (pilotDetails) at (2.6,-8.0) {Daily tracking, dashboards, indicators, reports, rankings and comparisons, notifications};
 
-\node[leaf, below=0.32cm of pilot] (pilotLeaf) {
-Daily Tracking\\
-Rankings and Comparisons\\
-Reports\\
-Notifications\\
-Audit Log\\
-Compliance and Requests
-};
+\node[module] (data) at (-2.75,-10.1) {Data, Audit and Traceability};
+\node[details] (dataDetails) at (2.6,-10.1) {Evaluation history, audit log, compliance follow-up, disputes and requests, traceability records};
 
-\node[leaf, below=0.32cm of data] (dataLeaf) {
-Django REST API\\
-JWT Authentication\\
-PostgreSQL Database\\
-Apps: accounts, organization, evaluations\\
-Traceability and Historization
-};
+\draw[branch] (root.south) -- (trunkTop);
+\draw[branch] (trunkTop) -- (trunkBottom);
 
-\draw[link] (root.south) -- ++(0,-0.45) -| (access.north);
-\draw[link] (root.south) -- ++(0,-0.45) -| (admin.north);
-\draw[link] (root) -- (eval);
-\draw[link] (root.south) -- ++(0,-0.45) -| (pilot.north);
-\draw[link] (root.south) -- ++(0,-0.45) -| (data.north);
-\draw[link] (access) -- (accessLeaf);
-\draw[link] (admin) -- (adminLeaf);
-\draw[link] (eval) -- (evalLeaf);
-\draw[link] (pilot) -- (pilotLeaf);
-\draw[link] (data) -- (dataLeaf);
-\end{tikzpicture}%
+\foreach \module/\detail in {
+access/accessDetails,
+admin/adminDetails,
+eval/evalDetails,
+pilot/pilotDetails,
+data/dataDetails}
+{
+  \draw[link] (trunkTop |- \module.west) -- (\module.west);
+  \draw[link] (\module.east) -- (\detail.west);
 }
+\end{tikzpicture}
 \caption{System Architecture}
 \label{fig:arborescence_cnas}
 \end{figure}
 
-The system architecture reflects the modular logic actually retained in the application. It distinguishes access spaces by role, administration and organization modules, the core of the evaluation process, management functions, and data exposed by the Django REST API. This separation facilitates maintainability, readability, and responsibility distribution between React frontend, Django backend, and database.
+The system tree presents the functional organization retained for the application. It starts from the CNAS evaluation system as a root node, then divides the system into five main modules: access and roles, administration, evaluation, pilotage and monitoring, and data, audit and traceability. Each branch is decomposed into business submodules, which clarifies the hierarchy of responsibilities without mixing functional organization with technical implementation choices.
+
+\section{Design}
 
 \subsection{Use Case Diagrams}
 
-A use case diagram represents a software system's functionalities from users' perspective. It shows interactions between actors and use cases, that is, the functionalities offered by the system \cite{fowler2020uml,sommerville2020software}.
-
-\textbf{Use:} define user needs, communicate with stakeholders, and design the system.
+Use case diagrams provide a global functional view of the system from the perspective of its actors. They show the interactions between external actors and the functionalities offered by the system \cite{fowler2020uml,sommerville2020software}. In this project, they clarify how the Administrator, HRD, Hierarchical Manager, and Employee interact with the platform, and they separate the general functional scope from two more focused areas: self-evaluation and compliance-related dispute handling.
 
 \begin{figure}[H]
 \centering
-\resizebox{0.95\textwidth}{!}{%
-\begin{tikzpicture}[
-  >=stealth,
-  actor/.style={draw, rounded corners, align=center, minimum width=2.7cm, minimum height=0.75cm, font=\small\bfseries},
-  usecase/.style={draw, ellipse, align=center, minimum width=3.8cm, minimum height=0.8cm, font=\scriptsize}
-]
-\node[actor] (admin) at (-6,3) {Administrator};
-\node[actor] (hr) at (-6,1) {HRD};
-\node[actor] (manager) at (-6,-1) {Manager};
-\node[actor] (employee) at (-6,-3) {Employee};
-
-\node[usecase] (auth) at (0,3.4) {Authenticate};
-\node[usecase] (users) at (0,2.2) {Manage Users\\and Roles};
-\node[usecase] (org) at (0,1.0) {Manage Organization\\and Profiles};
-\node[usecase] (campaign) at (0,-0.2) {Conduct Campaigns};
-\node[usecase] (eval) at (0,-1.4) {Input / Validate\\Evaluations};
-\node[usecase] (self) at (0,-2.6) {Complete\\Self-evaluation};
-\node[usecase] (reports) at (5.1,0.8) {Consult Dashboards\\and Reports};
-\node[usecase] (audit) at (5.1,-1.0) {Audit, Compliance\\and Requests};
-
-\draw[->] (admin) -- (auth);
-\draw[->] (hr) -- (auth);
-\draw[->] (manager) -- (auth);
-\draw[->] (employee) -- (auth);
-
-\draw[->] (admin) -- (users);
-\draw[->] (admin) -- (org);
-\draw[->] (hr) -- (org);
-\draw[->] (hr) -- (campaign);
-\draw[->] (manager) -- (eval);
-\draw[->] (employee) -- (self);
-\draw[->] (hr) -- (reports);
-\draw[->] (manager) -- (reports);
-\draw[->] (admin) -- (audit);
-\draw[->] (hr) -- (audit);
-\draw[->] (employee) -- (audit);
-\end{tikzpicture}%
-}
+\includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{usecase_diagram.png}
 \caption{Use case diagram of the proposed evaluation system}
-\label{fig:usecase_cnas}
+\label{fig:usecase_overall}
 \end{figure}
 
-The use case diagram shows that the system is not limited to simple "manager → score → result" relationship. It highlights a more complete chain: referential setup, campaign opening, evaluation input, self-evaluation, hierarchical validation, HRD exploitation, audit, and reporting. This logic is consistent with an integrated performance management approach.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{diagram1_self_evaluation.png}
+\caption{Use case diagram for self-evaluation}
+\label{fig:usecase_self_evaluation}
+\end{figure}
 
-\subsubsection{Textual Documentation of Use Cases}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth,height=0.72\textheight,keepaspectratio]{diagram2_compliance_disputes.png}
+\caption{Use case diagram for compliance and dispute management}
+\label{fig:usecase_compliance_disputes}
+\end{figure}
 
-The following table presents textual description of a central use case in the system: evaluation management. This case is central because it articulates several project dimensions: hierarchical attachment, evaluation referential, multi-criteria input, workflow, security, and traceability.
+\subsection{Textual Description of Scenarios}
+
+The following textual descriptions do not detail every use case shown above. They document the three dynamic scenarios represented later by the sequence diagrams: submission of a self-evaluation, managerial validation or rejection, and handling of a compliance dispute.
 
 \begin{table}[H]
 \centering
-\caption{Textual description of the "Manage an Evaluation" use case}
-\begin{tabular}{|p{5cm}|p{10cm}|}
+\caption{Textual description of the "Submit a Self-evaluation" scenario}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{4.2cm}|p{10.6cm}|}
 \hline
-Use Case & Manage an Evaluation \\ \hline
-Actor & Hierarchical Manager \\ \hline
-Objective & Evaluate an employee's performance and competencies according to criteria defined in an evaluation campaign and in the profile associated with their position. \\ \hline
-Precondition &
-\parbox{10cm}{
-\begin{itemize}
-\item User must be authenticated in the system;
-\item An evaluation campaign must be active;
-\item The employee must be assigned to the hierarchical manager;
-\item An evaluation profile and criteria must be defined for the employee.
-\end{itemize}
-} \\ \hline
-Main Scenario &
-\parbox{10cm}{
+Scenario name & Submit a Self-evaluation \\ \hline
+Main actor & Employee \\ \hline
+Objective & Allow the employee to complete and submit their own evaluation answers before managerial review. \\ \hline
+Preconditions & The employee is authenticated, an evaluation campaign is active, the employee is included in the campaign scope, and the self-evaluation form is available. \\ \hline
+Main scenario &
+\begin{minipage}[t]{10.4cm}
 \begin{enumerate}
-\item The hierarchical manager accesses the list of employees to evaluate.
-\item The system displays the corresponding evaluation form with applicable criteria and weightings.
-\item The manager enters scores and comments according to evaluation criteria.
-\item The system checks validity and consistency of entered information.
-\item The manager saves the evaluation as draft or submits it.
-\item The system saves data to the database.
-\item The system calculates scores by criterion, by axis, and overall score according to weighting rules.
-\item Sensitive actions are recorded in the audit log.
+\item The employee opens the self-evaluation area.
+\item The system loads the active campaign and the applicable criteria.
+\item The employee enters scores, comments, and optional observations.
+\item The system validates required fields and authorized values.
+\item The employee submits the self-evaluation.
+\item The system stores the submission, updates the status, and records the action in the audit log.
 \end{enumerate}
-} \\ \hline
-Postcondition & The evaluation is recorded in the system, with its status, scores, comments, and traceability. \\ \hline
-Alternative Scenario &
-\parbox{10cm}{
-Some entered information is incorrect, inconsistent, or incomplete; the system displays an error message and requests correction. If rejected at a later level, the evaluation can be returned for revision.
-} \\ \hline
+\end{minipage}
+\\ \hline
+Alternative scenarios & If required answers are missing, the system requests completion. If the campaign is closed or the employee is not eligible, submission is refused. If the employee saves without submitting, the form remains in draft status. \\ \hline
+Postconditions & The self-evaluation is saved, traceable, and available for the manager during the evaluation review. \\ \hline
 \end{tabular}
 \end{table}
 
-\section{Design}
+\begin{table}[H]
+\centering
+\caption{Textual description of the "Manager Validation or Rejection" scenario}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{4.2cm}|p{10.6cm}|}
+\hline
+Scenario name & Manager Validation or Rejection \\ \hline
+Main actor & Hierarchical Manager \\ \hline
+Objective & Allow the manager to review an employee evaluation, take the self-evaluation into account, and validate or reject the evaluation according to the workflow. \\ \hline
+Preconditions & The manager is authenticated, the employee belongs to the manager's authorized scope, an evaluation is available for review, and the campaign is still open for validation. \\ \hline
+Main scenario &
+\begin{minipage}[t]{10.4cm}
+\begin{enumerate}
+\item The manager opens the list of evaluations awaiting review.
+\item The system displays the evaluation, employee information, criteria, scores, comments, and self-evaluation data.
+\item The manager checks the information and adds managerial comments if needed.
+\item The manager validates or rejects the evaluation.
+\item The system updates the status, saves the decision, and records the validation action in the audit log.
+\item The system notifies the concerned actor or makes the updated status available in the dashboard.
+\end{enumerate}
+\end{minipage}
+\\ \hline
+Alternative scenarios & If the evaluation contains inconsistent or incomplete information, the manager rejects it and requests correction. If the manager is not authorized for the employee, access is refused. If the campaign deadline has passed, the system blocks the decision or requires HRD intervention. \\ \hline
+Postconditions & The evaluation is either validated and ready for the next step, or rejected with a traceable reason and returned for correction. \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Textual description of the "Compliance Dispute Processing" scenario}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{4.2cm}|p{10.6cm}|}
+\hline
+Scenario name & Compliance Dispute Processing \\ \hline
+Main actor & HRD or Compliance Officer \\ \hline
+Objective & Process a dispute or compliance request related to an evaluation result, while preserving traceability and decision justification. \\ \hline
+Preconditions & The requester is authenticated, the evaluation exists, the dispute period is open or authorized, and the HRD or compliance actor has the required access rights. \\ \hline
+Main scenario &
+\begin{minipage}[t]{10.4cm}
+\begin{enumerate}
+\item The employee submits a dispute or compliance request linked to an evaluation.
+\item The system records the request and attaches it to the concerned evaluation.
+\item The HRD or compliance actor consults the request, evaluation history, comments, and audit traces.
+\item The actor analyzes the request and selects a decision: accept, reject, or request additional information.
+\item The system updates the request status and records the decision justification.
+\item The system keeps the full trace in the audit log and exposes the final status to authorized users.
+\end{enumerate}
+\end{minipage}
+\\ \hline
+Alternative scenarios & If the request is incomplete, additional information is requested. If the dispute period is closed, the system rejects the request unless an authorized exception is granted. If the case requires correction, the evaluation can be reopened or marked for revision according to HRD rules. \\ \hline
+Postconditions & The dispute is processed with a documented decision, updated status, and complete traceability. \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Sequence Diagrams}
+
+A UML sequence diagram represents interactions between actors, interfaces, services, and the database over time by showing the chronological order of exchanged messages \cite{fowler2020uml,sommerville2020software}. The following sequence diagrams correspond exactly to the three textual scenarios described above.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{seq1_submit_self_evaluation.png}
+\caption{Sequence diagram for submitting a self-evaluation}
+\label{fig:seq_self_evaluation_submission}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{seq2_manager_validate.png}
+\caption{Sequence diagram for manager validation or rejection}
+\label{fig:seq_manager_validation_rejection}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{seq3_dispute_handling.png}
+\caption{Sequence diagram for compliance dispute processing}
+\label{fig:seq_compliance_dispute_processing}
+\end{figure}
+
+\subsection{Class Diagram}
+
+A class diagram represents the system's static structure by showing classes, attributes, and relationships. In this project, Figure~\ref{fig:class_diag} connects users, organizational entities, job families, job positions, evaluation profiles, campaigns, assignments, evaluations, criteria, self-evaluations, answers, and scores \cite{fowler2020uml,sommerville2020software}.
+
+This diagram does not only represent a database. It translates essential business relationships: attachment of an employee to a service and manager, association of an evaluation profile with a position or job family, belonging of an evaluation to a campaign, and connection between scores, comments, history, and control.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=0.72\textheight,keepaspectratio]{class_cnas.png}
+\caption{Class diagram of the employee skills and performance evaluation system}
+\label{fig:class_diag}
+\end{figure}
 
 \subsection{Functional Architecture}
 
@@ -1149,153 +1180,33 @@ Provided documents and project analysis lead to retaining a modular architecture
 \item versioning and historization.
 \end{itemize}
 
-This structuring is important for several reasons:
-\begin{itemize}
-\item it facilitates separation of functional responsibilities;
-\item it strengthens security and access control;
-\item it improves traceability;
-\item it prepares future system extension toward finer workflows, more advanced dashboards, and better data governance;
-\item it allows articulating administrative, development, management, and role clarification purposes.
-\end{itemize}
-
 Conceptually, this architecture expresses an important idea: evaluation is not an isolated module, but the meeting point between several subsystems, notably organization, referentials, roles, indicators, and compliance.
-
-\subsection{Class Diagram}
-
-A class diagram represents a system's static structure by showing classes, attributes, methods, and relationships between them. It allows visualizing key system concepts and their interactions \cite{fowler2020uml,sommerville2020software}.
-
-In our class diagram, main classes concern:
-\begin{itemize}
-\item users;
-\item roles;
-\item employees;
-\item organizational structures;
-\item evaluation campaigns;
-\item evaluation profiles;
-\item criteria;
-\item competencies;
-\item evaluations;
-\item responses or scores by criterion;
-\item audit logs;
-\item reports;
-\item notifications;
-\item compliance-related requests.
-\end{itemize}
-
-This diagram does not only represent a database. It translates essential business relationships: attachment of an employee to a service and manager, association of an evaluation profile to a position or job family, belonging of an evaluation to a campaign, link between scores, comments, history, and control.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{class_cnas.png}
-\caption{Class diagram of the employee skills and performance evaluation system}
-\label{fig:class_diag}
-\end{figure}
-
-\subsection{Sequence Diagrams}
-
-A UML sequence diagram is a visual tool representing interaction between objects in a system over time. It shows the chronological order of messages exchanged between objects to accomplish a particular task \cite{fowler2020uml,sommerville2020software}.
-
-The sequence diagrams retained in our work illustrate three central cases:
-\begin{itemize}
-\item campaign creation;
-\item evaluation input;
-\item evaluation validation.
-\end{itemize}
-
-Their interest is showing that the system is not only static. It functions according to sequence logic, controls, validations, and state changes, which is essential in a multi-actor evaluation process.
-
-\begin{figure}[H]
-\centering
-\resizebox{0.90\textwidth}{!}{%
-\begin{tikzpicture}[>=stealth, participant/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.65cm, font=\small\bfseries}, msg/.style={font=\scriptsize}]
-\node[participant] (hr) at (0,0) {HRD};
-\node[participant] (front) at (3.6,0) {React Interface};
-\node[participant] (api) at (7.2,0) {Django API};
-\node[participant] (db) at (10.8,0) {Database};
-\foreach \x in {0,3.6,7.2,10.8} \draw[dashed] (\x,-0.45) -- (\x,-4.6);
-\draw[->] (0,-1) -- node[msg,above]{enter parameters} (3.6,-1);
-\draw[->] (3.6,-1.7) -- node[msg,above]{POST campaign} (7.2,-1.7);
-\draw[->] (7.2,-2.4) -- node[msg,above]{save campaign} (10.8,-2.4);
-\draw[->] (10.8,-3.1) -- node[msg,above]{identifier} (7.2,-3.1);
-\draw[->] (7.2,-3.8) -- node[msg,above]{campaign created} (3.6,-3.8);
-\draw[->] (3.6,-4.5) -- node[msg,above]{confirmation} (0,-4.5);
-\end{tikzpicture}%
-}
-\caption{Sequence diagram for "Create an Evaluation Campaign" use case}
-\label{fig:seq_campagne}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\resizebox{0.90\textwidth}{!}{%
-\begin{tikzpicture}[>=stealth, participant/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.65cm, font=\small\bfseries}, msg/.style={font=\scriptsize}]
-\node[participant] (manager) at (0,0) {Manager};
-\node[participant] (front) at (3.6,0) {React Interface};
-\node[participant] (api) at (7.2,0) {Django API};
-\node[participant] (db) at (10.8,0) {Database};
-\foreach \x in {0,3.6,7.2,10.8} \draw[dashed] (\x,-0.45) -- (\x,-5.3);
-\draw[->] (0,-1) -- node[msg,above]{open form} (3.6,-1);
-\draw[->] (3.6,-1.7) -- node[msg,above]{load criteria} (7.2,-1.7);
-\draw[->] (7.2,-2.4) -- node[msg,above]{read profile and campaign} (10.8,-2.4);
-\draw[->] (10.8,-3.1) -- node[msg,above]{data} (7.2,-3.1);
-\draw[->] (7.2,-3.8) -- node[msg,above]{form} (3.6,-3.8);
-\draw[->] (0,-4.5) -- node[msg,above]{scores and comments} (3.6,-4.5);
-\draw[->] (3.6,-5.2) -- node[msg,above]{save / submit} (7.2,-5.2);
-\end{tikzpicture}%
-}
-\caption{Sequence diagram for "Input an Evaluation" use case}
-\label{fig:seq_saisie}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\resizebox{0.90\textwidth}{!}{%
-\begin{tikzpicture}[>=stealth, participant/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.65cm, font=\small\bfseries}, msg/.style={font=\scriptsize}]
-\node[participant] (hr) at (0,0) {HRD};
-\node[participant] (front) at (3.6,0) {React Interface};
-\node[participant] (api) at (7.2,0) {Django API};
-\node[participant] (db) at (10.8,0) {Database};
-\foreach \x in {0,3.6,7.2,10.8} \draw[dashed] (\x,-0.45) -- (\x,-5.2);
-\draw[->] (0,-1) -- node[msg,above]{examine evaluation} (3.6,-1);
-\draw[->] (3.6,-1.7) -- node[msg,above]{GET details} (7.2,-1.7);
-\draw[->] (7.2,-2.4) -- node[msg,above]{scores, status, audit} (10.8,-2.4);
-\draw[->] (0,-3.2) -- node[msg,above]{validate / reject} (3.6,-3.2);
-\draw[->] (3.6,-3.9) -- node[msg,above]{PATCH status} (7.2,-3.9);
-\draw[->] (7.2,-4.6) -- node[msg,above]{update and trace} (10.8,-4.6);
-\draw[->] (7.2,-5.2) -- node[msg,above]{notification} (3.6,-5.2);
-\end{tikzpicture}%
-}
-\caption{Sequence diagram for "Validate an Evaluation" use case}
-\label{fig:seq_validation}
-\end{figure}
 
 \subsection{System Relational Model}
 
 To implement our database, we must convert the class diagram into a relational model.
 
-The retained relational model must reflect not only main objects, but also the project's business logic: organizational hierarchy, referentials, profiles, campaigns, evaluations, self-evaluations, scoring, audit, and compliance.
+The retained relational model must reflect not only main objects, but also the project's business logic represented in the class diagram: organizational hierarchy, job referentials, profiles, campaigns, assignments, evaluations, self-evaluations, answers, criteria, form versions, and scoring.
 
 \subsubsection{Main System Tables}
 
 \begin{itemize}
-\item \textbf{User} (\underline{id\_user}, name, email, password, id\_role).
-\item \textbf{Role} (\underline{id\_role}, role\_name).
-\item \textbf{Agency} (\underline{id\_agency}, name, code).
-\item \textbf{Structure} (\underline{id\_structure}, label, id\_agency).
-\item \textbf{Service} (\underline{id\_service}, label, id\_structure).
-\item \textbf{Employee} (\underline{id\_employee}, employee\_id, name, firstname, position, service, manager, job\_family, evaluation\_profile).
-\item \textbf{JobFamily} (\underline{id\_family}, label, performance\_weight, competency\_weight).
-\item \textbf{EvaluationProfile} (\underline{id\_profile}, label, quantitative\_weight, qualitative\_weight, assiduity\_weight, self\_weight, managerial\_weight).
-\item \textbf{Competency} (\underline{id\_competency}, label, description).
-\item \textbf{Criterion} (\underline{id\_criterion}, label, category, weight, min\_note, max\_note, id\_profile).
-\item \textbf{EvaluationCampaign} (\underline{id\_campaign}, title, start\_date, end\_date, status).
-\item \textbf{Evaluation} (\underline{id\_evaluation}, evaluation\_date, status, performance\_score, competency\_score, overall\_score, comment, id\_employee, id\_campaign).
-\item \textbf{CriterionScore} (\underline{id\_score}, input\_note, normalized\_score, comment, id\_evaluation, id\_criterion).
-\item \textbf{SelfEvaluation} (\underline{id\_self}, status, average\_score, id\_employee, id\_campaign).
-\item \textbf{Report} (\underline{id\_report}, type, generation\_date, id\_campaign).
-\item \textbf{Notification} (\underline{id\_notification}, content, creation\_date, read, recipient).
-\item \textbf{AuditLog} (\underline{id\_audit}, action, timestamp, author, object, reason).
-\item \textbf{ComplianceRequest} (\underline{id\_request}, type, status, description, author, processing).
+\item \textbf{User} (\underline{id\_user}, email, full\_name, role).
+\item \textbf{Agency} (\underline{id\_agency}, name, code, address, city).
+\item \textbf{Structure} (\underline{id\_structure}, name, code, head\_of\_structure, id\_agency).
+\item \textbf{Service} (\underline{id\_service}, name, code, service\_head, id\_structure).
+\item \textbf{JobFamily} (\underline{id\_family}, name, code, performance\_weight, competency\_weight).
+\item \textbf{JobPosition} (\underline{id\_position}, title, code, category, hierarchy\_level, id\_family).
+\item \textbf{EvaluationProfile} (\underline{id\_profile}, name, quantitative\_weight, qualitative\_weight, attendance\_weight, self\_weight, managerial\_weight, id\_family).
+\item \textbf{Agent} (\underline{id\_agent}, full\_name, matricule, email, position, status, id\_user, id\_service, id\_manager, id\_position, id\_profile).
+\item \textbf{EvaluationCampaign} (\underline{id\_campaign}, name, period\_type, start\_date, end\_date, status).
+\item \textbf{CampaignAssignment} (\underline{id\_assignment}, status, due\_date, id\_campaign, id\_employee, id\_manager, id\_evaluation).
+\item \textbf{EvaluationFormVersion} (\underline{id\_version}, version, status, title, id\_profile).
+\item \textbf{EvaluationCriterion} (\underline{id\_criterion}, name, category, weight, min\_score, max\_score, id\_profile, id\_version).
+\item \textbf{SelfEvaluation} (\underline{id\_self}, period, status, submitted\_at, reviewed\_at, integrated\_at, id\_employee, id\_campaign, id\_evaluation).
+\item \textbf{SelfEvaluationAnswer} (\underline{id\_answer}, question\_key, answer, id\_self, id\_criterion).
+\item \textbf{Evaluation} (\underline{id\_evaluation}, period, score, final\_score, status, comments, id\_agent, id\_campaign).
+\item \textbf{EvaluationScore} (\underline{id\_score}, score, comment, id\_evaluation, id\_criterion).
 \end{itemize}
 
 In the thesis, it is not necessary to list all technical tables from the actual project. However, it is essential to present the main tables that translate the system's functional logic.
@@ -1430,63 +1341,127 @@ The employee consults results, history, and, if the workflow allows, completes s
 
 \section{Presentation of Interfaces}
 
-\subsection{Authentication}
+The following captures were selected to illustrate the main workflows modeled in Chapter~2. They focus on the operational chain of the system rather than on an exhaustive list of screens: authentication, campaign preparation, self-evaluation, manager validation, compliance handling, reporting, and role-based access.
+
+\subsection{Scenario A: Authentication}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.86\textwidth,keepaspectratio]{authen1..png}
-\caption{Authentication Interface}
-\label{fig:auth}
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_A01_login_page.png}
+\caption{Authentication: login page displayed before user access}
+\label{fig:ch3_login_open}
 \end{figure}
 
-\subsection{Home Page}
+This screen represents the protected entry point of the application. It is important because all workflows described in Chapter~2 start with an authenticated user and an access perimeter linked to the user's role.
+
+\subsection{Scenario B: Campaign Management and Form Configuration by HR}
 
 \begin{figure}[H]
 \centering
-\resizebox{0.86\textwidth}{!}{%
-\begin{tikzpicture}[
-  panel/.style={draw, rounded corners, minimum width=11cm, minimum height=6.2cm},
-  side/.style={draw, rounded corners, minimum width=2.4cm, minimum height=5.6cm, align=left, font=\scriptsize},
-  card/.style={draw, rounded corners, minimum width=2.5cm, minimum height=1.15cm, align=center, font=\scriptsize}
-]
-\node[panel] (page) at (0,0) {};
-\node[side] at (-4.1,0) {CNAS\\[0.45cm]Dashboard\\Profile\\Evaluations\\Self-evaluation\\Campaigns\\Reports};
-\node[card] at (-0.9,1.7) {Ongoing\\Evaluations};
-\node[card] at (2.1,1.7) {Active\\Campaigns};
-\node[card] at (-0.9,0.1) {Average\\Overall Score};
-\node[card] at (2.1,0.1) {Alerts\\and Delays};
-\node[draw, rounded corners, minimum width=5.5cm, minimum height=1.3cm, align=center, font=\scriptsize] at (0.6,-1.8) {Summary area and recent events};
-\end{tikzpicture}%
-}
-\caption{Home Page}
-\label{fig:menu}
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_B01_campaign_form_filled.png}
+\caption{HR campaign workflow: creation form completed before saving}
+\label{fig:ch3_campaign_form}
 \end{figure}
 
-\subsection{Example Consultation Interface}
+This capture shows the HR actor preparing an evaluation campaign by defining its main parameters. It concretely implements the campaign creation use case identified in the design chapter.
 
 \begin{figure}[H]
 \centering
-\resizebox{0.86\textwidth}{!}{%
-\begin{tikzpicture}[
-  page/.style={draw, rounded corners, minimum width=11cm, minimum height=6.2cm},
-  box/.style={draw, rounded corners, minimum width=2.5cm, minimum height=0.55cm, align=center, font=\scriptsize},
-  row/.style={draw, minimum width=8.6cm, minimum height=0.55cm, align=left, font=\scriptsize}
-]
-\node[page] at (0,0) {};
-\node[box] at (-3.4,2.3) {Search};
-\node[box] at (-0.5,2.3) {Service};
-\node[box] at (2.4,2.3) {Status};
-\node[box] at (4.5,2.3) {Filter};
-\node[row] at (0,1.2) {Employee ID \hspace{1cm} Employee \hspace{1.4cm} Position \hspace{1.1cm} Score \hspace{0.9cm} Status};
-\node[row] at (0,0.45) {AG-001 \hspace{1.1cm} Employee 1 \hspace{1.0cm} Manager \hspace{0.55cm} 84 \hspace{1.1cm} Validated};
-\node[row] at (0,-0.25) {AG-002 \hspace{1.1cm} Employee 2 \hspace{1.0cm} Counter Agent \hspace{0.35cm} 76 \hspace{1.1cm} In Progress};
-\node[row] at (0,-0.95) {AG-003 \hspace{1.1cm} Employee 3 \hspace{1.0cm} IT Technician \hspace{0.5cm} 91 \hspace{1.1cm} Validated};
-\node[draw, rounded corners, minimum width=3.2cm, minimum height=0.75cm, align=center, font=\scriptsize] at (3.25,-2.2) {View Details};
-\end{tikzpicture}%
-}
-\caption{Example Consultation / Search Interface}
-\label{fig:fiches}
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_B03_campaigns_list_after_creation.png}
+\caption{HR campaign workflow: campaign visible in the updated campaign list}
+\label{fig:ch3_campaign_list}
 \end{figure}
+
+This second campaign screen confirms that the created campaign is stored and visible in the HR list. It validates the transition from input to persistence in the campaign workflow.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_B04_hr_form_versions_interface.png}
+\caption{HR form configuration workflow: evaluation form versions, criteria, and weights}
+\label{fig:ch3_form_versions_interface}
+\end{figure}
+
+This interface shows how HR manages the structure of evaluation forms before they are used in campaigns. It displays form versions by profile, the list of criteria, their weights, the active status of versions, and the warning generated when the total weight does not equal 100\%. This proves that the evaluation grid is configurable and controlled, rather than being hard-coded.
+
+\subsection{Scenario C: Evaluation Workflow}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_C02_employee_self_evaluation_filled.png}
+\caption{Employee self-evaluation workflow: form completed }
+\label{fig:ch3_self_filled}
+\end{figure}
+
+This capture illustrates the employee filling in the self-evaluation form with scores and comments. It corresponds to the input step of the self-evaluation scenario described in Chapter~2.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_C03_employee_self_evaluation_submitted.png}
+\caption{Employee self-evaluation workflow: submitted status after sending}
+\label{fig:ch3_self_submitted}
+\end{figure}
+
+This screen proves that the self-evaluation has moved from a draft or editable state to a submitted state. It is essential because this status change triggers the next step of the validation workflow.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_C04_manager_consults_submitted_self_evaluation.png}
+\caption{Manager validation workflow: submitted self-evaluation available for review}
+\label{fig:ch3_manager_consults_self}
+\end{figure}
+
+This capture shows that the manager can consult submitted self-evaluations within their authorized scope. It links the employee submission scenario to the managerial validation scenario.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_C08_manager_evaluation_validated.png}
+\caption{Manager validation workflow: evaluation validated after managerial action}
+\label{fig:ch3_manager_eval_validated}
+\end{figure}
+
+This final validation screen shows the result of the manager's decision. It confirms that the application implements the status update and traceable validation action expected in the workflow.
+
+\subsection{Scenario D: Compliance and Dispute Handling}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_D10_employee_dispute_form_filled.png}
+\caption{Compliance workflow: employee dispute request completed before submission}
+\label{fig:ch3_dispute_form}
+\end{figure}
+
+This capture presents a dispute request prepared by an employee after an evaluation result. It implements the compliance scenario by allowing the user to formalize a traceable request.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_D12_hr_dispute_approved.png}
+\caption{Compliance workflow: dispute request approved and marked as processed by HR}
+\label{fig:ch3_dispute_approved}
+\end{figure}
+
+This screen shows the HR treatment of the dispute and the decision status. It is important because the design chapter requires documented processing, justification, and traceability of compliance actions.
+
+\subsection{Scenario E: Role-Based Access and Reporting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{screen_hr_dashboard.png}
+\caption{Role-based access: HR dashboard with operational indicators}
+\label{fig:ch3_hr_dashboard}
+\end{figure}
+
+This dashboard illustrates how the same application exposes a role-specific workspace for HR users. It also shows visible indicators related to evaluations, campaigns, submitted self-evaluations, and workflow monitoring.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.46\textheight,keepaspectratio]{ch3_D02_hr_reports_history.png}
+\caption{Reporting workflow: dashboard and report history with visible results}
+\label{fig:ch3_reports_history}
+\end{figure}
+
+This reporting screen demonstrates the exploitation of stored evaluation data through generated reports and historical exports. It connects implementation with the reporting and decision-support needs identified in Chapter~2.
+
+\FloatBarrier
 
 \section{Critical Discussion of Implementation}
 
@@ -1505,17 +1480,27 @@ We then showed that designing such a system cannot be reduced to simple numerica
 
 Finally, UML modeling, the relational model, modular architecture, and implementation choices allowed proposing a coherent, scalable system foundation adapted to CNAS needs. In perspective, this work could be extended by even more advanced dashboards, manager calibration mechanisms, better questionnaire formalization, dispute modules, and an even more complete compliance layer.
 
+\clearpage
 \bibliographystyle{plain}
 \bibliography{Bibliographie}
 
+\clearpage
 \appendix
 
 \chapter*{Appendices}
+\addcontentsline{toc}{chapter}{Appendices}
 \thispagestyle{plain}
 
-\section*{Appendix A: Comparative Table of Indicators}
+The appendices group secondary but useful details that support the analysis and implementation chapters without overloading the main development narrative. They provide complementary operational references for indicators and comparison logic.
 
-\begin{longtable}{|p{4cm}|p{2cm}|p{8cm}|}
+\section*{Appendix A: Comparative Table of Indicators}
+\addcontentsline{toc}{section}{Appendix A: Comparative Table of Indicators}
+
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{4cm}|p{2cm}|p{8cm}|}
 \hline
 Indicator & Type & Operational Definition \\ \hline
 Deadline Compliance & Q & Proportion of operations closed before set deadline. \\ \hline
@@ -1528,11 +1513,17 @@ Leadership Score & Qual$\rightarrow$score & Aggregate of leadership and communic
 Perceived Feedback Quality & Qual$\rightarrow$score & Perception of evaluation exchange by the evaluated person. \\ \hline
 Note Inflation & Q & Abnormally high proportion of maximum scores assigned by an evaluator. \\ \hline
 Note Dispersion & Q & Variance of scores assigned by an evaluator or service. \\ \hline
-\end{longtable}
+\end{tabular}
+\end{table}
 
 \section*{Appendix B: Position Families and Comparison Logic}
+\addcontentsline{toc}{section}{Appendix B: Position Families and Comparison Logic}
 
-\begin{longtable}{|p{4cm}|p{5cm}|p{5cm}|}
+\begin{table}[H]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{|p{4cm}|p{5cm}|p{5cm}|}
 \hline
 Position Family & Priority Indicators & Recommended Comparison \\ \hline
 Files / Counter / Payment Structures & volume, delays, cycle time, rework, completeness & intra-family and intra-service \\ \hline
@@ -1540,39 +1531,7 @@ IT / DMSI & ticket processing delay, incidents, availability, security complianc
 HR & campaign completion, HR processing delays, data quality, disputes & intra-family \\ \hline
 Management & evaluation completion, team objectives, stability, note inflation/dispersion & intra-level \\ \hline
 Health / Social Structures & quality incidents, protocol compliance, user satisfaction if available & intra-family \\ \hline
-\end{longtable}
-
-\section*{Appendix C: Figure References}
-
-\textbf{PNG Images present in figures folder and used in thesis:}
-\begin{itemize}
-\item ua1.png
-\item knas.png
-\item organigramme\_cnas.png
-\item class\_cnas.png
-\item authen1..png
-\end{itemize}
-
-\textbf{Diagrams generated directly in LaTeX/TikZ:}
-\begin{itemize}
-\item overall system functional diagram;
-\item system architecture;
-\item use case diagram;
-\item sequence diagrams;
-\item simplified mockups of home page and consultation/search.
-\end{itemize}
+\end{tabular}
+\end{table}
 
 \end{document}
-```
-
-I've completed the full translation of your thesis from French to English. The translation maintains:
-
-- ✅ All LaTeX structure and commands intact
-- ✅ Bibliography already in English format
-- ✅ Technical terminology appropriate for the field
-- ✅ Chapter and section organization
-- ✅ All diagrams and figure references
-- ✅ Academic writing style
-- ✅ Mathematical expressions and citations
-
-You can now replace your original `pfe.txt` file with this translated version. All French text has been converted to English while preserving the professional academic tone and technical accuracy of your thesis on the CNAS performance evaluation system.
